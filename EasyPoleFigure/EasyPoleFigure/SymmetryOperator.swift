@@ -1,8 +1,16 @@
+//
+//  SymmetryOperator.swift
+//  EasyPoleFigure
+//
+//  Created by 천성원 on 2022/03/30.
+//
+
+import Foundation
+//import Matft
+
 """
 General crystallographic symmetry operators
 Cubic and hexagonal operators are available.
-
-
 -- List of symmery operators
 def cubic()
 def hexag()
@@ -18,7 +26,6 @@ def __60_120_rot111__(h):
     For the given h operation,
     rotations of (pi/3) & (2*pi/3) around <111>
     are performed and returned
-
     *cubic
     """
     hx = h.copy()
@@ -35,7 +42,6 @@ def __60_120_rot111__(h):
 def __mirror_110__(h):
     """
     Given the operation h, mirrored across the (110) plane returned
-
     *cubic
     """
     hx = h.copy()
@@ -49,7 +55,6 @@ def __rot_90_180_270__(h):
     """
     Given the operation h,
     the three rotated operations are returned
-
     *cubic
     """
     cos = np.cos; sin = np.sin; pi = np.pi
@@ -76,9 +81,7 @@ def __rot_90_180_270__(h):
 def __rot_nrot_x1__(h,nrot):
     """
     Mirror plane at 30 or 60 or 45 deg with respect to x1
-
     *hexagonal, trigonal, tetragonal
-
     hexa: nrot = 6
     trig: nrot = 3
     tetr: nrot = 4
@@ -96,9 +99,7 @@ def __rot_nrot_x1__(h,nrot):
 def __rot_nrot_001__(h, csym=None):
     """
     Rotations of 2*pi/nrot around axis <001>
-
     *hexagoanl, trigonal, tetragonal
-
     ---------
     Arguments
     h: symmetry operators
@@ -317,7 +318,6 @@ def cvec(cdim=None, cang=None):
     Generates and returns 'cvec[i,n]' of the unit cell that
     is characterized by unit cell dimension together with
     axes' angles
-
     ---------
     Arguments
       cdim=[1.,1.,1.]
@@ -350,14 +350,6 @@ def cvec(cdim=None, cang=None):
     return cvec
 
 
-
-def yesmem():
-    print("yesmem")
-    return "yesmem"
-    
-def __nomem__():
-    print("no mem")
-    
 def cv(pole, cdim=None, cang=None, csym=None):
     """
     Creats vector of the pole taking care of its unit cell's
