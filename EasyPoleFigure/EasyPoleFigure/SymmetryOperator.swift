@@ -203,6 +203,8 @@ def cubic():
         H[i] = __trim0__(h=H[i])
     return H
 
+// --------------------------------MARK: 여기까지
+            
 def cubic_centro():
     h_old = cubic()
     h_new = []
