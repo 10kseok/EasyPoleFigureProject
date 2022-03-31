@@ -8,7 +8,7 @@
 import Foundation
 //import Matft
 
-/*"""
+/*
 General crystallographic symmetry operators
 Cubic and hexagonal operators are available.
 -- List of symmery operators
@@ -16,11 +16,11 @@ def cubic()
 def hexag()
 def tetra()
 def triclinic()
-"""
 */
 
 import numpy as np
 import time
+
 // symmetry operators
 func __60_120_rot111__(h) {
     /*
