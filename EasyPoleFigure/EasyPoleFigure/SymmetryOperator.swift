@@ -8,7 +8,7 @@
 import Foundation
 //import Matft
 
-"""
+/*"""
 General crystallographic symmetry operators
 Cubic and hexagonal operators are available.
 -- List of symmery operators
@@ -17,17 +17,18 @@ def hexag()
 def tetra()
 def triclinic()
 """
+*/
 
 import numpy as np
 import time
-## symmetry operators
-def __60_120_rot111__(h):
-    """
+// symmetry operators
+func __60_120_rot111__(h) {
+    /*
     For the given h operation,
     rotations of (pi/3) & (2*pi/3) around <111>
     are performed and returned
     *cubic
-    """
+    */
     hx = h.copy()
     h60 = np.zeros((3,3)); h120 = np.zeros((3,3))
     h60[0,2] = 1.
@@ -38,25 +39,27 @@ def __60_120_rot111__(h):
     h120[1,2] = 1.
     h120[2,0] = 1.
     return np.dot(h60,hx), np.dot(h120,hx)
+}
 
-def __mirror_110__(h):
-    """
+func __mirror_110__(h) {
+    /*
     Given the operation h, mirrored across the (110) plane returned
     *cubic
-    """
+    */
     hx = h.copy()
     hm = np.zeros((3,3))
     hm[0,1] = 1.
     hm[1,0] = 1.
     hm[2,2] = 1.
     return np.dot(hm, hx)
+}
 
-def __rot_90_180_270__(h):
-    """
+func __rot_90_180_270__(h) {
+    /*
     Given the operation h,
     the three rotated operations are returned
     *cubic
-    """
+    */
     cos = np.cos; sin = np.sin; pi = np.pi
     hx = np.zeros((3,3,3))
     h_ = h.copy(); htemp = []
@@ -77,15 +80,16 @@ def __rot_90_180_270__(h):
         htemp.append( np.dot(hx[m], h_) )
         pass
     return np.array(htemp)
+}
 
-def __rot_nrot_x1__(h,nrot):
-    """
+func __rot_nrot_x1__(h,nrot) {
+    /*
     Mirror plane at 30 or 60 or 45 deg with respect to x1
     *hexagonal, trigonal, tetragonal
     hexa: nrot = 6
     trig: nrot = 3
     tetr: nrot = 4
-    """
+    */
     cos = np.cos; sin = np.sin; pi=np.pi
     hx = np.zeros((3,3))
     ang = pi/float(nrot)
@@ -95,16 +99,17 @@ def __rot_nrot_x1__(h,nrot):
     hx[0,1] = 2.*cos(ang)*sin(ang)
     hx[1,0] = h[0,1]
     return np.dot(hx,h)
+}
 
-def __rot_nrot_001__(h, csym=None):
-    """
+func __rot_nrot_001__(h, csym=None) {
+    /*
     Rotations of 2*pi/nrot around axis <001>
     *hexagoanl, trigonal, tetragonal
     ---------
     Arguments
     h: symmetry operators
     csym: 'hexa'
-    """
+    */
     if   csym=='hexag': nrot=6
     elif csym=='trigo': nrot=3
     elif csym=='tetra': nrot=4
@@ -126,54 +131,57 @@ def __rot_nrot_001__(h, csym=None):
         htemp.append(np.dot(hx[nr], h_))
 
     return np.array(htemp)
+}
 
-def __trim0__(h):
-    """
+func __trim0__(h) {
+    /*
     if a value in the matrix h is fairly close to +-0.
     then returns zero. In that way, trimming is performed
     on the every component of given h matrix.
-    """
+    */
     hx = h.copy()
     for i in range(len(hx)):
         for j in range(len(hx[i])):
             if abs(hx[i,j]) < 0.1**6:
                 hx[i,j] = 0.
     return hx
+}
 
-
-""" -- mmm sample symmetry is found in COD_conv.py """
-def __mmm__():
+// -- mmm sample symmetry is found in COD_conv.py
+func __mmm__() {
     m0 = [[ 1, 0, 0], [0, 1, 0], [0, 0, 1]]
     m1 = [[ 1, 0, 0], [0,-1, 0], [0, 0,-1]]
     m2 = [[-1, 0, 0], [0, 1, 0], [0, 0,-1]]
     m3 = [[-1, 0, 0], [0,-1, 0], [0, 0, 1]]
     h = np.array([m0,m1,m2,m3])
     return h
+}
 
-### deprecated ###
-# def __ortho__(v):
-#     """
-#     Orthogonal sample symmetry to a vector (v) in 3D
-#     """
-#     v1 = np.aray([a[0], a[1], a[2]])
-#     v2 = np.array([-a[0], a[1], a[2]])
-#     v3 = np.array([a[0], -a[1], a[2]])
-#     v4 = np.array([-a[0], -a[1], a[2]])
+////deprecated
+//func __ortho__(v) {
+//    /*
+//    Orthogonal sample symmetry to a vector (v) in 3D
+//    */
+//    v1 = np.aray([a[0], a[1], a[2]])
+//    v2 = np.array([-a[0], a[1], a[2]])
+//    v3 = np.array([a[0], -a[1], a[2]])
+//    v4 = np.array([-a[0], -a[1], a[2]])
+//
+//    v5 = v1.copy()* -1
+//    v6 = v2.copy()* -1
+//    v7 = v3.copy()* -1
+//    v8 = v4.copy()* -1
+//
+//    return v1, v2, v3, v4
+//}
 
-#     v5 = v1.copy()* -1
-#     v6 = v2.copy()* -1
-#     v7 = v3.copy()* -1
-#     v8 = v4.copy()* -1
 
-#     return v1, v2, v3, v4
-
-
-## cubic symmetry
-def cubic():
+// cubic symmetry
+func cubic() {
     H = []     # H is the master list containing all the numpy arrays of operations
     H.append(np.identity(3))    # identity operation
 
-    # rotations of (pi/3) & (2*pi/3) around <111>
+    // rotations of (pi/3) & (2*pi/3) around <111>
     niter = len(H)
     for i in range(niter):
         h60, h120 = __60_120_rot111__(h=H[i].copy())
@@ -181,13 +189,13 @@ def cubic():
         H.append(h0)
         H.append(h1)
 
-    # mirror across the plane (110)
+    // mirror across the plane (110)
     niter = len(H)
     for i in range(niter):
         h = __mirror_110__(h=H[i].copy())
         H.append(h)
 
-    # rotations of 90, 180, 270 around x3
+    // rotations of 90, 180, 270 around x3
     niter = len(H)
     for i in range(niter):
         h1, h2, h3 = __rot_90_180_270__(h=H[i].copy())
@@ -198,12 +206,13 @@ def cubic():
 
     H = np.array(H) # Make the H as numpy array
 
-    # trim the values.
+    // trim the values.
     for i in range(len(H)):
         H[i] = __trim0__(h=H[i])
     return H
+}
 
-// --------------------------------MARK: 여기까지
+// MARK: 여기까지 -------------------------------------------성원
             
 def cubic_centro():
     h_old = cubic()
