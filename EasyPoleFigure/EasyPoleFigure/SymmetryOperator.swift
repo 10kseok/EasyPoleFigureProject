@@ -6,8 +6,7 @@
 //
 
 import Foundation
-//import Matft
-
+import Matft
 /*
 General crystallographic symmetry operators
 Cubic and hexagonal operators are available.
@@ -17,9 +16,6 @@ def hexag()
 def tetra()
 def triclinic()
 */
-
-import numpy as np
-import time
 
 // symmetry operators
 func __60_120_rot111__(h) {
@@ -214,22 +210,22 @@ func cubic() {
 
 // MARK: 여기까지 -------------------------------------------성원
             
-def cubic_centro():
+func cubic_centro():
     h_old = cubic()
     h_new = []
     h_n = [[-1,0,0],[0,-1,0],[0,0,-1]]
-    for i in range(len(h_old)):
+    for i in 0..<h_old.count):
         h_new.append(np.dot(h_old[i],h_n))
     return h_new
 
 
-def triclinic():
+func triclinic():
     H = []
     H.append(np.identity(3))
     return H
 
-## hexagonal
-def hexag():
+//## hexagonal
+func hexag():
     H = []
     H.append(np.identity(3))
 
@@ -251,8 +247,8 @@ def hexag():
         H[i] = __trim0__(h=H[i])
     return H
 
-## orthorhombic
-def ortho():
+//## orthorhombic
+func ortho():
     H =[]
     H.append(np.identity(3))
     niter=len(H)
@@ -279,8 +275,8 @@ def ortho():
 
 
 
-## trigonal
-def trigo():
+//## trigonal
+func trigo():
     H = []
     H.append(np.identity(3))
     #mirror plane 60 degree with respect to x1
@@ -299,7 +295,8 @@ def trigo():
         H[i] = __trim0__(h=H[i])
     return H
 
-def tetra():
+            
+func tetra():
     H = []
     H.append(np.identity(3))
 
@@ -321,10 +318,9 @@ def tetra():
         H[i] = __trim0__(h=H[i])
     return H
 
-##
 
-
-def cvec(cdim=None, cang=None):
+func cvec(cdim=None, cang=None):
+                /*
     """
     Generates and returns 'cvec[i,n]' of the unit cell that
     is characterized by unit cell dimension together with
@@ -334,12 +330,12 @@ def cvec(cdim=None, cang=None):
       cdim=[1.,1.,1.]
       cang=[90.,90.,90.] : Should be in angle [90.,90.,90.] not radian
     """
-
+                 */
     cdim = np.array(cdim)
     cang = np.array(cang)
-    # angle to radian
+//    # angle to radian
     cang = cang * np.pi/180.
-    # cvec
+//    # cvec
     cvec = np.zeros((3,3))
 
     cvec[0,0] = np.sin(cang[1])
@@ -361,11 +357,13 @@ def cvec(cdim=None, cang=None):
     return cvec
 
 
-def cv(pole, cdim=None, cang=None, csym=None):
+func cv(pole, cdim=None, cang=None, csym=None):
+                /*
     """
     Creats vector of the pole taking care of its unit cell's
     dimension and axes' angles.
     """
+                 */
     sqrt = np.sqrt
     cvect = cvec(cdim=cdim, cang=cang)
 
@@ -378,4 +376,5 @@ def cv(pole, cdim=None, cang=None, csym=None):
     for i in range(3):
         s[i] = s[i]/norm
         if abs(s[i])<0.1**5: s[i]=0.
+            
     return s
