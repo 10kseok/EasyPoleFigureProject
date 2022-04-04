@@ -262,116 +262,117 @@ func cubic() {
 
 // MARK: 여기까지 -------------------------------------------성원
             
-func cubic_centro():
-    h_old = cubic()
-    h_new = []
-    h_n = [[-1,0,0],[0,-1,0],[0,0,-1]]
-    for i in 0..<h_old.count):
-        h_new.append(np.dot(h_old[i],h_n))
-    return h_new
-
-
-func triclinic():
-    H = []
     H.append(np.identity(3))
-    return H
-
-//## hexagonal
-func hexag():
-    H = []
-    H.append(np.identity(3))
-
-    #mirror plane at 30 degree with respect to x1
-    nrot = 6
-    niter = len(H)
-    for i in range(niter):
-        h = __rot_nrot_x1__(h=H[i].copy(),nrot=nrot)
-        H.append(h)
-
-    #rotations of 2*pi/6 around axis <001> for hexagonals.
-    niter = len(H)
-    for i in range(niter):
-        h = __rot_nrot_001__(h=H[i],csym='hexag')
-        for ix in range(len(h)):
-            H.append(h[ix])
-
-    for i in range(len(H)):
-        H[i] = __trim0__(h=H[i])
-    return H
-
-//## orthorhombic
-func ortho():
-    H =[]
-    H.append(np.identity(3))
-    niter=len(H)
-
-    pi=np.pi
-    cp=cos(pi)
-    sp=sin(pi)
-    # 180 deg rotation around (001)
-    h=np.zeros(3,3)
-    h[0,0]=cp
-    h[1,1]=cp
-    h[2,2]=1.
-    h[0,1]=-sp
-    h[1,0]=sp
-    H.append(h)
-
-    # x-mirror & y-mirror
-    h=np.identity(3)
-    h[0,0]=-1
-    H.append(h)
-    h=np.identity(3)
-    h[1,1]=-1
-    H.append(h)
-
-
-
-//## trigonal
-func trigo():
-    H = []
-    H.append(np.identity(3))
-    #mirror plane 60 degree with respect to x1
-    nrot = 3
-    niter = len(H)
-    for i in range(niter):
-        h = __rot_nrot_x1__(h=H[i].copy(), nrot=3)
-        H.append(h)
-    #rotations of 2*pi/3 around axis <001> for trigonals
-    niter = len(H)
-    for i in range(niter):
-        h = __rot_nrot_001__(h=H[i], csym='trigo')
-        H.append(h)
-
-    for i in range(len(H)):
-        H[i] = __trim0__(h=H[i])
-    return H
-
-            
-func tetra():
-    H = []
-    H.append(np.identity(3))
-
-    #mirror plane at 45 degree with respect to x1
-    nrot = 4
-    niter = len(H)
-    for i in range(niter):
-        h = __rot_nrot_x1__(h=H[i].copy(), nrot=nrot)
-        H.append(h)
-
-    #rotations of 2*pi/4 around axis <001> for hexagonals.
-    niter = len(H)
-    for i in range(niter):
-        h = __rot_nrot_001__(h=H[i], csym='tetra')
-        for ix in range(len(h)):
-            H.append(h[ix])
-
-    for i in range(len(H)):
-        H[i] = __trim0__(h=H[i])
-    return H
-
-
-func cvec(cdim=None, cang=None):
+//func cubic_centro():
+//    h_old = cubic()
+//    h_new = []
+//    h_n = [[-1,0,0],[0,-1,0],[0,0,-1]]
+//    for i in 0..<h_old.count):
+//        h_new.append(np.dot(h_old[i],h_n))
+//    return h_new
+//
+//
+//func triclinic():
+//    H = []
+//    H.append(np.identity(3))
+//    return H
+//
+////## hexagonal
+//func hexag():
+//    H = []
+//    H.append(np.identity(3))
+//
+//    #mirror plane at 30 degree with respect to x1
+//    nrot = 6
+//    niter = len(H)
+//    for i in range(niter):
+//        h = __rot_nrot_x1__(h=H[i].copy(),nrot=nrot)
+//        H.append(h)
+//
+//    #rotations of 2*pi/6 around axis <001> for hexagonals.
+//    niter = len(H)
+//    for i in range(niter):
+//        h = __rot_nrot_001__(h=H[i],csym='hexag')
+//        for ix in range(len(h)):
+//            H.append(h[ix])
+//
+//    for i in range(len(H)):
+//        H[i] = __trim0__(h=H[i])
+//    return H
+//
+////## orthorhombic
+//func ortho():
+//    H =[]
+//    H.append(np.identity(3))
+//    niter=len(H)
+//
+//    pi=np.pi
+//    cp=cos(pi)
+//    sp=sin(pi)
+//    # 180 deg rotation around (001)
+//    h=np.zeros(3,3)
+//    h[0,0]=cp
+//    h[1,1]=cp
+//    h[2,2]=1.
+//    h[0,1]=-sp
+//    h[1,0]=sp
+//    H.append(h)
+//
+//    # x-mirror & y-mirror
+//    h=np.identity(3)
+//    h[0,0]=-1
+//    H.append(h)
+//    h=np.identity(3)
+//    h[1,1]=-1
+//    H.append(h)
+//
+//
+//
+////## trigonal
+//func trigo():
+//    H = []
+//    H.append(np.identity(3))
+//    #mirror plane 60 degree with respect to x1
+//    nrot = 3
+//    niter = len(H)
+//    for i in range(niter):
+//        h = __rot_nrot_x1__(h=H[i].copy(), nrot=3)
+//        H.append(h)
+////    #rotations of 2*pi/3 around axis <001> for trigonals
+//    niter = len(H)
+//    for i in range(niter):
+//        h = __rot_nrot_001__(h=H[i], csym='trigo')
+//        H.append(h)
+//
+//    for i in range(len(H)):
+//        H[i] = __trim0__(h=H[i])
+//    return H
+//
+//
+//func tetra():
+//    H = []
+//    H.append(np.identity(3))
+//
+////    #mirror plane at 45 degree with respect to x1
+//    nrot = 4
+//    niter = len(H)
+//    for i in range(niter):
+//        h = __rot_nrot_x1__(h=H[i].copy(), nrot=nrot)
+//        H.append(h)
+//
+//    #rotations of 2*pi/4 around axis <001> for hexagonals.
+//    niter = len(H)
+//    for i in range(niter):
+//        h = __rot_nrot_001__(h=H[i], csym='tetra')
+//        for ix in range(len(h)):
+//            H.append(h[ix])
+//
+//    for i in range(len(H)):
+//        H[i] = __trim0__(h=H[i])
+//    return H
+//
+//
+func cvec(cdim=None, cang=None) -> MfArray {
                 /*
     """
     Generates and returns 'cvec[i,n]' of the unit cell that
@@ -383,50 +384,61 @@ func cvec(cdim=None, cang=None):
       cang=[90.,90.,90.] : Should be in angle [90.,90.,90.] not radian
     """
                  */
-    cdim = np.array(cdim)
-    cang = np.array(cang)
+    cdim = MfArray(cdim)
+    cang = MfArray(cang)
 //    # angle to radian
-    cang = cang * np.pi/180.
+    cang = cang * Double.pi/180
 //    # cvec
-    cvec = np.zeros((3,3))
+    cvec = MfArray([[0, 0, 0],[0, 0, 0],[0, 0, 0]])
+    
+    cvec[0,0] = Matft.math.sin(cang[1])
+    cvec[1,0] = 0
+    cvec[2,0] = Matft.math.cos(cang[1])
 
-    cvec[0,0] = np.sin(cang[1])
-    cvec[1,0] = 0.
-    cvec[2,0] = np.cos(cang[1])
-
-    cvec[0,1] = (np.cos(cang[2])-np.cos(cang[0])\
-                     *np.cos(cang[1]))/np.sin(cang[1])
-    cvec[2,1] = np.cos(cang[0])
-    cvec[1,1] = np.sqrt(1.-cvec[0,1]**2-cvec[2,1]**2)
+    cvec[0,1] = (Matft.math.cos(cang[2])-Matft.math.cos(cang[0])\
+                     *Matft.math.cos(cang[1]))/Matft.math.sin(cang[1])
+    cvec[2,1] = Matft.math.cos(cang[0])
+    cvec[1,1] = Matft.math.sqrt(1.-cvec[0,1]**2-cvec[2,1]**2)
 
     cvec[0,2] = 0.
     cvec[1,2] = 0.
     cvec[2,2] = 1.
 
-    for i in range(3):
-        for j in range(3):
+    for i in 0..<3 {
+        for j in 0..<3 {
             cvec[i,j] = cdim[j] * cvec[i,j]
+        }
+    }
+    
     return cvec
+}
 
-
-func cv(pole, cdim=None, cang=None, csym=None):
+    func cv(pole, cdim=None, cang=None, csym=None) -> MfArray {
                 /*
     """
     Creats vector of the pole taking care of its unit cell's
     dimension and axes' angles.
     """
                  */
-    sqrt = np.sqrt
-    cvect = cvec(cdim=cdim, cang=cang)
+    let sqrt = Matft.math.sqrt
+    cvect = cvec(cdim, cang)
 
-    s = np.zeros((3,))
+//    s = np.zeros((3,))
+    var s = MfArray([0, 0, 0])
     s[2] = ( pole[2]                                     ) / cvect[2,2]
     s[0] = ( pole[0] - cvect[2,0]*s[2]                   ) / cvect[0,0]
     s[1] = ( pole[1] - cvect[0,1]*s[0] - cvect[2,1]*s[2] ) / cvect[1,1]
 
-    norm = sqrt(s[0]**2 + s[1]**2 + s[2]**2)
-    for i in range(3):
-        s[i] = s[i]/norm
-        if abs(s[i])<0.1**5: s[i]=0.
+    let norm = sqrt(s[0]**2 + s[1]**2 + s[2]**2)
+//    for i in range(3):
+//        s[i] = s[i]/norm
+//        if abs(s[i])<0.1**5: s[i]=0.
+    for i in 0..<3 {
+        s[i] = s[i] / norm
+        if abs(s[i]) < pow(0.1, 5.0) {
+            s[i] = 0
+        }
+    }
             
     return s
+}

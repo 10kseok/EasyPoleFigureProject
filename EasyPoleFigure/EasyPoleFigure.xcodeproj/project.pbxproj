@@ -18,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01D7213527FB5DB60057684C /* ChangeTestPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ChangeTestPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		303E9EF427F4217800D2F7EA /* EasyPoleFigure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyPoleFigure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		303E9EF727F4217800D2F7EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		303E9EF927F4217800D2F7EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +69,7 @@
 				303E9F0227F4217900D2F7EA /* LaunchScreen.storyboard */,
 				303E9F0527F4217900D2F7EA /* Info.plist */,
 				303E9F0E27F4220200D2F7EA /* SymmetryOperator.swift */,
+				01D7213527FB5DB60057684C /* ChangeTestPlayground.playground */,
 			);
 			path = EasyPoleFigure;
 			sourceTree = "<group>";
