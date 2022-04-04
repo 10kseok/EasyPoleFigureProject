@@ -17,6 +17,8 @@ def tetra()
 def triclinic()
 */
 
+// MARK: h 선언 필요할듯
+
 // symmetry operators
 func __60_120_rot111__(h) {
     /*
@@ -25,16 +27,20 @@ func __60_120_rot111__(h) {
     are performed and returned
     *cubic
     */
-    hx = h.copy()
-    h60 = np.zeros((3,3)); h120 = np.zeros((3,3))
-    h60[0,2] = 1.
+//    hx = h.copy()
+    let hx = h.copy()
+//    let h60 = np.zeros((3,3))
+    let h60 = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]]) // 값이 0인 3*3 행렬
+//    let h120 = np.zeros((3,3))
+    let h120 = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
+    h60[0,2] = 1.// 이부분 어떤 의미??
     h60[1,0] = 1.
     h60[2,1] = 1.
 
     h120[0,1] = 1.
     h120[1,2] = 1.
     h120[2,0] = 1.
-    return np.dot(h60,hx), np.dot(h120,hx)
+    return np.dot(h60,hx), np.dot(h120,hx) //MARK: #ISSUE1 dot product 어떻게 해결?
 }
 
 func __mirror_110__(h) {
@@ -42,8 +48,10 @@ func __mirror_110__(h) {
     Given the operation h, mirrored across the (110) plane returned
     *cubic
     */
-    hx = h.copy()
-    hm = np.zeros((3,3))
+//    hx = h.copy()
+    let hx = h.copy()
+//    hm = np.zeros((3,3))
+    let hm = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
     hm[0,1] = 1.
     hm[1,0] = 1.
     hm[2,2] = 1.
@@ -56,12 +64,19 @@ func __rot_90_180_270__(h) {
     the three rotated operations are returned
     *cubic
     */
-    cos = np.cos; sin = np.sin; pi = np.pi
-    hx = np.zeros((3,3,3))
-    h_ = h.copy(); htemp = []
+//    cos = np.cos; sin = np.sin; pi = np.pi
+    let cos = Matft.math.cos
+    let sin = Matft.math.sin
+    let pi = Double.pi
+//    hx = np.zeros((3,3,3))
+    let hx = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
+//    h_ = h.copy(); htemp = []
+    let h_ = h.copy()
+    let htemp = [Double]()
 
-    for m in range(3):
-        ang = pi/2. * float(m+1)
+    for m in 0...3 {
+//        ang = pi/2. * float(m+1)
+        let ang = pi/2. * float(m+1)
         hx[m,0,0] = cos(ang)
         hx[m,1,1] = cos(ang)
         hx[m,2,2] = 1.0
@@ -72,9 +87,11 @@ func __rot_90_180_270__(h) {
         hx[m,1,2] = 0.
         hx[m,2,1] = 0.
         pass
-    for m in range(3):
+    }
+    for m in 0...3 {
         htemp.append( np.dot(hx[m], h_) )
         pass
+    }
     return np.array(htemp)
 }
 
@@ -86,9 +103,14 @@ func __rot_nrot_x1__(h,nrot) {
     trig: nrot = 3
     tetr: nrot = 4
     */
-    cos = np.cos; sin = np.sin; pi=np.pi
-    hx = np.zeros((3,3))
-    ang = pi/float(nrot)
+//    cos = np.cos; sin = np.sin; pi=np.pi
+    let cos = Matft.math.cos
+    let sin = Matft.math.sin
+    let pi = Double.pi
+//    hx = np.zeros((3,3))
+    let hx = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
+//    ang = pi/float(nrot)
+    let ang = pi/float(nrot)
     hx[0,0] = cos(ang)**2 - sin(ang)**2
     hx[1,1] = -h[0,0]
     hx[2,2] = 1.0
@@ -106,14 +128,28 @@ func __rot_nrot_001__(h, csym=None) {
     h: symmetry operators
     csym: 'hexa'
     */
-    if   csym=='hexag': nrot=6
-    elif csym=='trigo': nrot=3
-    elif csym=='tetra': nrot=4
-    else: print('Unexpected Error'); raise IOError
+//    if   csym=='hexag': nrot=6
+//    elif csym=='trigo': nrot=3
+//    elif csym=='tetra': nrot=4
+//    else: print('Unexpected Error'); raise IOError
+    if csym == "hexag" {
+        let nrot = 6
+    } else if csym == "trigo" {
+        let nrot = 3
+    } else if csym == "tetra" {
+        let nrot = 4
+    } else {
+        print("Unexpected Error"); raise IOError
+    }
 
-    cos = np.cos; sin = np.sin; pi = np.pi
+//    cos = np.cos; sin = np.sin; pi = np.pi
+    let cos = Matft.math.cos
+    let sin = Matft.math.sin
+    let pi = Double.pi
     hx = np.zeros((nrot-1,3,3))
-    h_ = h.copy(); htemp = []
+//    h_ = h.copy(); htemp = []
+    let h_ = h.copy()
+    let htemp = [Double]()
 
     for nr in range(nrot-1):
         ang = (nr+1)*2.*pi/nrot
@@ -135,21 +171,35 @@ func __trim0__(h) {
     then returns zero. In that way, trimming is performed
     on the every component of given h matrix.
     */
-    hx = h.copy()
-    for i in range(len(hx)):
-        for j in range(len(hx[i])):
-            if abs(hx[i,j]) < 0.1**6:
+//    hx = h.copy()
+    let hx = h.copy()
+//    for i in range(len(hx)):
+//        for j in range(len(hx[i])):
+//            if abs(hx[i,j]) < 0.1**6:
+//                hx[i,j] = 0.
+//    return hx
+    for i in range(len(hx)) {
+        for j in range(len(hx[i])) {
+            if abs(hx[i,j]) < 0.1**6 {
                 hx[i,j] = 0.
+            }
+        }
+    }
     return hx
 }
 
 // -- mmm sample symmetry is found in COD_conv.py
 func __mmm__() {
-    m0 = [[ 1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    m1 = [[ 1, 0, 0], [0,-1, 0], [0, 0,-1]]
-    m2 = [[-1, 0, 0], [0, 1, 0], [0, 0,-1]]
-    m3 = [[-1, 0, 0], [0,-1, 0], [0, 0, 1]]
-    h = np.array([m0,m1,m2,m3])
+//    m0 = [[ 1, 0, 0], [0, 1, 0], [0, 0, 1]]
+//    m1 = [[ 1, 0, 0], [0,-1, 0], [0, 0,-1]]
+//    m2 = [[-1, 0, 0], [0, 1, 0], [0, 0,-1]]
+//    m3 = [[-1, 0, 0], [0,-1, 0], [0, 0, 1]]
+    let m0 = MfArray([[ 1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    let m1 = MfArray([[ 1, 0, 0], [0,-1, 0], [0, 0,-1]])
+    let m2 = MfArray([[-1, 0, 0], [0, 1, 0], [0, 0,-1]])
+    let m3 = MfArray([[-1, 0, 0], [0,-1, 0], [0, 0, 1]])
+//    h = np.array([m0,m1,m2,m3])
+    let h = MfArray([m0, m1, m2, m3])
     return h
 }
 
@@ -174,11 +224,13 @@ func __mmm__() {
 
 // cubic symmetry
 func cubic() {
-    H = []     # H is the master list containing all the numpy arrays of operations
-    H.append(np.identity(3))    # identity operation
+//    H = []
+    let H = [Double]() // H is the master list containing all the numpy arrays of operations
+    H.append(np.identity(3)) // identity operation
 
     // rotations of (pi/3) & (2*pi/3) around <111>
-    niter = len(H)
+//    niter = len(H)
+    var niter = len(H)
     for i in range(niter):
         h60, h120 = __60_120_rot111__(h=H[i].copy())
         h0 = h60.copy(); h1 = h120.copy()
@@ -200,7 +252,7 @@ func cubic() {
         H.append(h180)
         H.append(h270)
 
-    H = np.array(H) # Make the H as numpy array
+    H = np.array(H) // Make the H as numpy array
 
     // trim the values.
     for i in range(len(H)):
