@@ -372,7 +372,7 @@ func cubic() {
 //    return H
 //
 //
-func cvec(cdim=None, cang=None) -> MfArray {
+func cvec(cdim: [Double]? = nil, cang: [Double]? = nil) -> MfArray {
                 /*
     """
     Generates and returns 'cvec[i,n]' of the unit cell that
@@ -384,25 +384,25 @@ func cvec(cdim=None, cang=None) -> MfArray {
       cang=[90.,90.,90.] : Should be in angle [90.,90.,90.] not radian
     """
                  */
-    cdim = MfArray(cdim)
-    cang = MfArray(cang)
 //    # angle to radian
-    cang = cang * Double.pi/180
+    var cang = cang * Double.pi/180
 //    # cvec
-    cvec = MfArray([[0, 0, 0],[0, 0, 0],[0, 0, 0]])
-    
-    cvec[0,0] = Matft.math.sin(cang[1])
-    cvec[1,0] = 0
-    cvec[2,0] = Matft.math.cos(cang[1])
-
-    cvec[0,1] = (Matft.math.cos(cang[2])-Matft.math.cos(cang[0])\
-                     *Matft.math.cos(cang[1]))/Matft.math.sin(cang[1])
-    cvec[2,1] = Matft.math.cos(cang[0])
-    cvec[1,1] = Matft.math.sqrt(1.-cvec[0,1]**2-cvec[2,1]**2)
-
-    cvec[0,2] = 0.
-    cvec[1,2] = 0.
-    cvec[2,2] = 1.
+    var cvec = MfArray([[0, 0, 0],[0, 0, 0],[0, 0, 0]]) * 1.0
+    // 1열값 설정
+    cvec[0,0] = sin(cang[1])
+    cvec[1,0] = 0.0
+    cvec[2,0] = cos(cang[1])
+    // 2열값 설정
+    cvec[0,1] = (cos(cang[2]) - cos(cang[0]) * cos(cang[1])) / sin(cang[1])
+    cvec[2,1] = cos(cang[0])
+//    cvec[1,1] = Matft.math.sqrt(1.0 - pow(cvec[0,1] as! Double, 2.0) - pow(cvec[2,1] as! Double, 2.0))
+    if let cvec01 = cvec[0,1] as? Double, let cvec21 = cvec[2,1] as? Double {
+        cvec[1,1] = sqrt(1.0 - pow(cvec01, 2.0) - pow(cvec21, 2.0))
+    }
+    // 3열값 설정
+    cvec[0,2] = 0.0
+    cvec[1,2] = 0.0
+    cvec[2,2] = 1.0
 
     for i in 0..<3 {
         for j in 0..<3 {
@@ -413,7 +413,7 @@ func cvec(cdim=None, cang=None) -> MfArray {
     return cvec
 }
 
-    func cv(pole, cdim=None, cang=None, csym=None) -> MfArray {
+func cv(pole: [Double], cdim: [Double]? = nil, cang: [Double]? = nil) -> MfArray {
                 /*
     """
     Creats vector of the pole taking care of its unit cell's
@@ -424,12 +424,12 @@ func cvec(cdim=None, cang=None) -> MfArray {
     cvect = cvec(cdim, cang)
 
 //    s = np.zeros((3,))
-    var s = MfArray([0, 0, 0])
+    var s = MfArray([0.0, 0.0, 0.0])
     s[2] = ( pole[2]                                     ) / cvect[2,2]
     s[0] = ( pole[0] - cvect[2,0]*s[2]                   ) / cvect[0,0]
     s[1] = ( pole[1] - cvect[0,1]*s[0] - cvect[2,1]*s[2] ) / cvect[1,1]
 
-    let norm = sqrt(s[0]**2 + s[1]**2 + s[2]**2)
+    let norm = sqrt(pow(s[0], 2) +  pow(s[1], 2) + pow(s[2], 2))
 //    for i in range(3):
 //        s[i] = s[i]/norm
 //        if abs(s[i])<0.1**5: s[i]=0.
@@ -439,6 +439,10 @@ func cvec(cdim=None, cang=None) -> MfArray {
             s[i] = 0
         }
     }
-            
+                
     return s
+}
+
+func convertAny2Double(in: MfArray) -> [Double] {
+    return [Double]()
 }
