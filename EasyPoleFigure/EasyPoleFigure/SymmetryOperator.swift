@@ -30,17 +30,17 @@ func __60_120_rot111__(h) {
 //    hx = h.copy()
     let hx = h.copy()
 //    let h60 = np.zeros((3,3))
-    let h60 = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]]) // 값이 0인 3*3 행렬
+    let h60 = MfArray([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]) // 값이 0인 3*3 행렬
 //    let h120 = np.zeros((3,3))
-    let h120 = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
-    h60[0,2] = 1.0
-    h60[1,0] = 1.0
-    h60[2,1] = 1.0
+    let h120 = MfArray([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
+    h60[0.0, 2.0] = 1.0
+    h60[1.0, 0.0] = 1.0
+    h60[2.0, 1.0] = 1.0
 
-    h120[0,1] = 1.0
-    h120[1,2] = 1.0
-    h120[2,0] = 1.0
-    return np.dot(h60,hx), np.dot(h120,hx) //MARK: #ISSUE1 dot product 어떻게 해결?
+    h120[0.0, 1.0] = 1.0
+    h120[1.0, 2.0] = 1.0
+    h120[2.0, 0.0] = 1.0
+    return np.dot(h60, hx), np.dot(h120, hx) //MARK: #ISSUE1 dot product 어떻게 해결?
 }
 
 func __mirror_110__(h) {
@@ -51,10 +51,10 @@ func __mirror_110__(h) {
 //    hx = h.copy()
     let hx = h.copy()
 //    hm = np.zeros((3,3))
-    let hm = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
-    hm[0,1] = 1.0
-    hm[1,0] = 1.0
-    hm[2,2] = 1.0
+    let hm = MfArray([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
+    hm[0.0, 1.0] = 1.0
+    hm[1.0, 0.0] = 1.0
+    hm[2.0, 2.0] = 1.0
     return np.dot(hm, hx)
 }
 
@@ -69,7 +69,7 @@ func __rot_90_180_270__(h) {
     let sin = Matft.math.sin
     let pi = Double.pi
 //    hx = np.zeros((3,3,3))
-    let hx = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
+    let hx = MfArray([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
 //    h_ = h.copy(); htemp = []
     let h_ = h.copy()
     let htemp = [Double]()
@@ -77,15 +77,15 @@ func __rot_90_180_270__(h) {
     for m in 0...3 {
 //        ang = pi/2. * float(m+1)
         let ang = pi / 2.0 * Double(m+1)
-        hx[m,0,0] = cos(ang)
-        hx[m,1,1] = cos(ang)
-        hx[m,2,2] = 1.0
-        hx[m,0,1] = -sin(ang)
-        hx[m,1,0] = sin(ang)
-        hx[m,0,2] = 0.0
-        hx[m,2,0] = 0.0
-        hx[m,1,2] = 0.0
-        hx[m,2,1] = 0.0
+        hx[m, 0.0, 0.0] = cos(ang)
+        hx[m, 1.0, 1.0] = cos(ang)
+        hx[m, 2.0, 2.0] = 1.0
+        hx[m, 0.0, 1.0] = -sin(ang)
+        hx[m, 1.0, 0.0] = sin(ang)
+        hx[m, 0.0, 2.0] = 0.0
+        hx[m, 2.0, 0.0] = 0.0
+        hx[m, 1.0, 2.0] = 0.0
+        hx[m, 2.0, 1.0] = 0.0
         pass
     }
     for m in 0...3 {
@@ -109,18 +109,19 @@ func __rot_nrot_x1__(h,nrot) {
     let sin = Matft.math.sin
     let pi = Double.pi
 //    hx = np.zeros((3,3))
-    let hx = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
+    let hx = MfArray([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
 //    ang = pi/float(nrot)
-    let ang = pi/Double(nrot)
-    hx[0,0] = cos(ang)**2 - sin(ang)**2
-    hx[1,1] = -h[0,0]
-    hx[2,2] = 1.0
-    hx[0,1] = 2.0 * cos(ang) * sin(ang)
-    hx[1,0] = h[0,1]
-    return np.dot(hx,h)
+    let ang = pi / Double(nrot)
+    hx[0.0, 0.0] = cos(ang)**2 - sin(ang)**2
+    hx[1.0, 1.0] = -h[0,0]
+    hx[2.0, 2.0] = 1.0
+    hx[0.0, 1.0] = 2.0 * cos(ang) * sin(ang)
+    hx[1.0, 0.0] = h[0.0, 1.0]
+    return np.dot(hx, h)
 }
 
-func __rot_nrot_001__(h, csym=None) {
+//func __rot_nrot_001__(h, csym=None) {
+func __rot_nrot_001__(h, csym: String) {
     /*
     Rotations of 2*pi/nrot around axis <001>
     *hexagoanl, trigonal, tetragonal
