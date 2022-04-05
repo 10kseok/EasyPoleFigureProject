@@ -33,13 +33,13 @@ func __60_120_rot111__(h) {
     let h60 = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]]) // 값이 0인 3*3 행렬
 //    let h120 = np.zeros((3,3))
     let h120 = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
-    h60[0,2] = 1.// 이부분 어떤 의미??
-    h60[1,0] = 1.
-    h60[2,1] = 1.
+    h60[0,2] = 1.0
+    h60[1,0] = 1.0
+    h60[2,1] = 1.0
 
-    h120[0,1] = 1.
-    h120[1,2] = 1.
-    h120[2,0] = 1.
+    h120[0,1] = 1.0
+    h120[1,2] = 1.0
+    h120[2,0] = 1.0
     return np.dot(h60,hx), np.dot(h120,hx) //MARK: #ISSUE1 dot product 어떻게 해결?
 }
 
@@ -52,9 +52,9 @@ func __mirror_110__(h) {
     let hx = h.copy()
 //    hm = np.zeros((3,3))
     let hm = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
-    hm[0,1] = 1.
-    hm[1,0] = 1.
-    hm[2,2] = 1.
+    hm[0,1] = 1.0
+    hm[1,0] = 1.0
+    hm[2,2] = 1.0
     return np.dot(hm, hx)
 }
 
@@ -76,23 +76,24 @@ func __rot_90_180_270__(h) {
 
     for m in 0...3 {
 //        ang = pi/2. * float(m+1)
-        let ang = pi/2. * float(m+1)
+        let ang = pi / 2.0 * Double(m+1)
         hx[m,0,0] = cos(ang)
         hx[m,1,1] = cos(ang)
         hx[m,2,2] = 1.0
         hx[m,0,1] = -sin(ang)
         hx[m,1,0] = sin(ang)
-        hx[m,0,2] = 0.
-        hx[m,2,0] = 0.
-        hx[m,1,2] = 0.
-        hx[m,2,1] = 0.
+        hx[m,0,2] = 0.0
+        hx[m,2,0] = 0.0
+        hx[m,1,2] = 0.0
+        hx[m,2,1] = 0.0
         pass
     }
     for m in 0...3 {
         htemp.append( np.dot(hx[m], h_) )
         pass
     }
-    return np.array(htemp)
+//    return np.array(htemp)
+    return MfArray(htemp)
 }
 
 func __rot_nrot_x1__(h,nrot) {
@@ -110,11 +111,11 @@ func __rot_nrot_x1__(h,nrot) {
 //    hx = np.zeros((3,3))
     let hx = MfArray([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
 //    ang = pi/float(nrot)
-    let ang = pi/float(nrot)
+    let ang = pi/Double(nrot)
     hx[0,0] = cos(ang)**2 - sin(ang)**2
     hx[1,1] = -h[0,0]
     hx[2,2] = 1.0
-    hx[0,1] = 2.*cos(ang)*sin(ang)
+    hx[0,1] = 2.0 * cos(ang) * sin(ang)
     hx[1,0] = h[0,1]
     return np.dot(hx,h)
 }
@@ -152,17 +153,18 @@ func __rot_nrot_001__(h, csym=None) {
     let htemp = [Double]()
 
     for nr in range(nrot-1):
-        ang = (nr+1)*2.*pi/nrot
+        ang = (nr+1) * 2.0 * pi / nrot
         hx[nr,0,0] = cos(ang)
         hx[nr,1,1] = cos(ang)
         hx[nr,2,2] = 1.0
-        hx[nr,0,1] =-sin(ang)
+        hx[nr,0,1] = -sin(ang)
         hx[nr,1,0] = sin(ang)
 
     for nr in range(nrot-1):
         htemp.append(np.dot(hx[nr], h_))
 
-    return np.array(htemp)
+//    return np.array(htemp)
+    return MfArray(htemp)
 }
 
 func __trim0__(h) {
@@ -181,7 +183,7 @@ func __trim0__(h) {
     for i in range(len(hx)) {
         for j in range(len(hx[i])) {
             if abs(hx[i,j]) < 0.1**6 {
-                hx[i,j] = 0.
+                hx[i,j] = 0.0
             }
         }
     }
@@ -227,36 +229,44 @@ func cubic() {
 //    H = []
     let H = [Double]() // H is the master list containing all the numpy arrays of operations
     H.append(np.identity(3)) // identity operation
+    // What is '.identity()'????
 
     // rotations of (pi/3) & (2*pi/3) around <111>
 //    niter = len(H)
     var niter = len(H)
-    for i in range(niter):
-        h60, h120 = __60_120_rot111__(h=H[i].copy())
-        h0 = h60.copy(); h1 = h120.copy()
+    for i in range(niter) {
+        h60 = __60_120_rot111__(h = H[i].copy())
+        h120 = __60_120_rot111__(h = H[i].copy())
+        h0 = h60.copy()
+        h1 = h120.copy()
         H.append(h0)
         H.append(h1)
+    }
 
     // mirror across the plane (110)
     niter = len(H)
-    for i in range(niter):
+    for i in range(niter) {
         h = __mirror_110__(h=H[i].copy())
         H.append(h)
-
+    }
     // rotations of 90, 180, 270 around x3
     niter = len(H)
-    for i in range(niter):
-        h1, h2, h3 = __rot_90_180_270__(h=H[i].copy())
-        h90 = h1.copy(); h180 = h2.copy(); h270 = h3.copy()
+    for i in range(niter){
+        h1, h2, h3 = __rot_90_180_270__(h = H[i].copy())
+        h90 = h1.copy()
+        h180 = h2.copy()
+        h270 = h3.copy()
         H.append(h90)
         H.append(h180)
         H.append(h270)
-
-    H = np.array(H) // Make the H as numpy array
+    }
+//    H = np.array(H) // Make the H as numpy array
+    H = MfArray(H)
 
     // trim the values.
-    for i in range(len(H)):
+    for i in range(len(H)) {
         H[i] = __trim0__(h=H[i])
+    }
     return H
 }
 
