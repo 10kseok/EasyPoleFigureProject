@@ -116,12 +116,13 @@ def __rot_nrot_001__(h, csym=None):
 
     for nr in range(nrot-1):
         ang = (nr+1)*2.*pi/nrot
+        # ----
         hx[nr,0,0] = cos(ang)
         hx[nr,1,1] = cos(ang)
         hx[nr,2,2] = 1.0
         hx[nr,0,1] =-sin(ang)
         hx[nr,1,0] = sin(ang)
-
+        # ---- simd 라이브러리에서, makeRotationMatrix()
     for nr in range(nrot-1):
         htemp.append(np.dot(hx[nr], h_))
 

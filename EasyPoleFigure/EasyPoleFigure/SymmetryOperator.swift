@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Matft
+import simd
 ///*
 //General crystallographic symmetry operators
 //Cubic and hexagonal operators are available.
@@ -281,26 +281,28 @@ import Matft
 //
 //// MARK: 여기까지 -------------------------------------------성원
 //
-func cubic() -> MfArray {
-    return MfArray([[ 1,  0,  0,],
-                    [ 0,  1,  0,],
-                    [ 0,  0,  1]]) * 1.0
+// 임시 함수
+func cubic() -> [simd_double3x3] {
+    return [simd_double3x3()]
 }
+// ------
 
-func cubic_centro() -> MfArray {
-    let h_old: MfArray = cubic()
-    let h_new: MfArray = MfArray([])
-    let h_n: MfArray = MfArray([[-1,0,0],[0,-1,0],[0,0,-1]])
+func cubic_centro() -> [simd_double3x3] {
+    let h_old  = cubic()
+    var h_new: [simd_double3x3] = []
+    let h_n: simd_double3x3 = simd_double3x3(rows: [[-1,  0,  0],
+                                                    [ 0, -1,  0],
+                                                    [ 0,  0, -1]])
     
     for i in 0..<h_old.count {
-        _ = h_new.append(values: Matft.inner(h_old[i], h_n))
+        h_new.append(h_old[i] * h_n)
     }
     return h_new
 }
 
-func triclinic() -> MfArray {
-    let H = Matft.eye(dim: 3)
-    return H
+func triclinic() -> [simd_double3x3] {
+    let H = simd_double3x3(1)
+    return [H]
 }
 
 //////## hexagonal

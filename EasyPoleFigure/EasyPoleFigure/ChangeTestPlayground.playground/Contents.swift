@@ -4,14 +4,55 @@ import simd
 
 let normal = simd_normalize(simd_double3(x: 2.7, y: 2.1, z: 1.2))
 print(normal)
-//var str =  "1 0 0"
-//
-//
-//
-//var arr = str.components(separatedBy: " ")
-//
-//print(arr)
-//
+
+// MARK: 0으로 채워진 3x1행렬 만들기 = np.zeros((3,))
+let zero3x1Matrix = simd_double3()
+print("zero3x1Matrix = ",zero3x1Matrix)
+
+// MARK: 0으로 채워진 3x3행렬 만들기 = np.zeros((3,3))
+let zero3x3Matrix = simd_double3x3(5.0)
+print("zero3x3Matrix = ",zero3x3Matrix)
+
+// MARK: 0으로 채워진 3x3x3행렬 만들기 = np.zeros((3,3,3))
+let zero3x3x3Matrix: [simd_double3x3] = [simd_double3x3(), simd_double3x3(), simd_double3x3()]
+print("zero3x3x3Matrix = ",zero3x3x3Matrix)
+
+// MARK: 3x3 단위행렬 만들기 = np.identity(3)
+let one3X3Matrix = simd_double3x3(1)
+print("one3X3Matrix = ",one3X3Matrix)
+
+// MARK: 행렬 회전, 라디안값으로 넣어줘야함
+/* 아래 코드와 동일
+hx[0,0] = cos(ang)
+hx[1,1] = cos(ang)
+hx[2,2] = 1.0
+hx[0,1] = -sin(ang)
+hx[1,0] = sin(ang)
+hx[0,2] = 0.
+hx[2,0] = 0.
+hx[1,2] = 0.
+hx[2,1] = 0.
+ */
+func makeRotationMatrix(angle: Double) -> simd_double3x3 {
+    let rows = [
+        simd_double3(cos(angle), -sin(angle), 0),
+        simd_double3(sin(angle), cos(angle), 0),
+        simd_double3(0,          0,          1)
+    ]
+    
+    return double3x3(rows: rows)
+}
+
+
+
+let h_n: simd_double3x3 = simd_double3x3(rows: [[-1,1,7],[1,-1,-21],[2,1,-1]])
+let tempDot = simd_double3x3(rows: [[-1,3,2],[2,-1,4],[3,2,-1]])
+print(h_n * tempDot)
+
+
+//print(simd_dot(simd_double2([2,1]), simd_double2([3,7])))
+
+
 
 
 //func projection(_ pole: [Double]) -> [Double] {
