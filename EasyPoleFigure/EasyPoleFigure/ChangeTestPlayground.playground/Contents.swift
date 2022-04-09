@@ -2,6 +2,7 @@ import UIKit
 import Matft
 import simd
 
+// MARK: 정규화, 주어진 좌표를 길이가 1이 되게끔 맞춰줌
 let normal = simd_normalize(simd_double3(x: 2.7, y: 2.1, z: 1.2))
 print(normal)
 
