@@ -18,7 +18,7 @@ def __60_120_rot111__(h):
     For the given h operation,
     rotations of (pi/3) & (2*pi/3) around <111>
     are performed and returned
-
+    주어진 h operation를 회전시킨다. 60도랑 120도 돌린거.  
     *cubic
     """
     hx = h.copy()
@@ -35,7 +35,7 @@ def __60_120_rot111__(h):
 def __mirror_110__(h):
     """
     Given the operation h, mirrored across the (110) plane returned
-
+    주어진 h operation, (110)면을 기점으로 거울대칭 시킨다.
     *cubic
     """
     hx = h.copy()
@@ -47,9 +47,10 @@ def __mirror_110__(h):
 
 def __rot_90_180_270__(h):
     """
+    h = [x,y,z]
     Given the operation h,
     the three rotated operations are returned
-
+    주어진 h operation를 세번 회전시키고 반환
     *cubic
     """
     cos = np.cos; sin = np.sin; pi = np.pi
@@ -348,15 +349,6 @@ def cvec(cdim=None, cang=None):
         for j in range(3):
             cvec[i,j] = cdim[j] * cvec[i,j]
     return cvec
-
-
-
-def yesmem():
-    print("yesmem")
-    return "yesmem"
-    
-def __nomem__():
-    print("no mem")
     
 def cv(pole, cdim=None, cang=None, csym=None):
     """

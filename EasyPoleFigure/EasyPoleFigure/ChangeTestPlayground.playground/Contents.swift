@@ -1,14 +1,17 @@
 import UIKit
 import Matft
+import simd
 
-
-var str =  "1 0 0"
-
-
-
-var arr = str.components(separatedBy: " ")
-
-print(arr)
+let normal = simd_normalize(simd_double3(x: 2.7, y: 2.1, z: 1.2))
+print(normal)
+//var str =  "1 0 0"
+//
+//
+//
+//var arr = str.components(separatedBy: " ")
+//
+//print(arr)
+//
 
 
 //func projection(_ pole: [Double]) -> [Double] {
@@ -24,18 +27,8 @@ print(arr)
 //
 //}
 
-let circlePath = UIBezierPath(arcCenter: CGPoint(x: 100, y: 100), radius: CGFloat(20), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true) //CGPoint(x,y)의 위치가 원의 중심입니다.
-let shapeLayer = CAShapeLayer()
-shapeLayer.path = circlePath.cgPath //change the fill color
-shapeLayer.fillColor = UIColor.clear.cgColor //you can change the stroke color
-shapeLayer.strokeColor = UIColor.red.cgColor //you can change the line width
-shapeLayer.lineWidth = 3.0
-view.layer.addSublayer(shapeLayer)
-
-
-
 //print(pow(0.1, 5.0))
-
+/*
 let s = MfArray([[0.0, 0.1, 0.2],[1.0, 1.1, 1.2]])
 let cnvtS = s.data.map { $0 as! Double }
 print(cnvtS)
@@ -45,9 +38,10 @@ if let s01 = s[0,1] as? Double,
    let s11 = s[0,1] as? Double {
     print(sqrt(1.0 - pow(s01, 2.0) - pow(s01, 2.0)))
 }
+ */
 
 //print(Matft.math.sqrt(MfArray([1.0 - pow(s[0,1] as! Double, 2.0) - pow(s[1,1] as! Double, 2.0)]) ) )
-print(s)
+
 
 //print(s)
 //print(s[0,1])
@@ -71,3 +65,33 @@ print(s)
 //print(t1)
 //t2[2] = 8
 //print(t2)
+
+
+//let temp = MfArray([1,2,3,4])
+//let temp2 = temp.deepcopy()
+//
+//print(temp2)
+//
+func cubic() -> MfArray {
+    return MfArray([[ 1,  0,  0,],
+                    [ 0,  1,  0,],
+                    [ 0,  0,  1]]) * 1.0
+}
+
+func cubic_centro() -> MfArray {
+    let h_old: MfArray = cubic()
+    let h_new: MfArray = MfArray([])
+    let h_n: MfArray = MfArray([[ -1,  0,  0],
+                                [  0, -1,  0],
+                                [  0,  0, -1]]) * 1.0
+    
+    for i in 0..<h_old.count {
+        _ = h_new.append(values: Matft.inner(h_old[i], h_n))
+    }
+    return h_new
+}
+
+//let temp1 = MfArray([1,0,0])
+//let temp2 = MfArray([0,0,1])
+//
+//print(Matft.inner(temp1, temp2))

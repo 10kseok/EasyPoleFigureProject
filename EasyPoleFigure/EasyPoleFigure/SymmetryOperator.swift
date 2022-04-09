@@ -5,8 +5,8 @@
 //  Created by 천성원 on 2022/03/30.
 //
 
-//import Foundation
-//import Matft
+import Foundation
+import Matft
 ///*
 //General crystallographic symmetry operators
 //Cubic and hexagonal operators are available.
@@ -280,22 +280,29 @@
 //}
 //
 //// MARK: 여기까지 -------------------------------------------성원
-//            
-//    H.append(np.identity(3))
-////func cubic_centro():
-////    h_old = cubic()
-////    h_new = []
-////    h_n = [[-1,0,0],[0,-1,0],[0,0,-1]]
-////    for i in 0..<h_old.count):
-////        h_new.append(np.dot(h_old[i],h_n))
-////    return h_new
-////
-////
-////func triclinic():
-////    H = []
-////    H.append(np.identity(3))
-////    return H
-////
+//
+func cubic() -> MfArray {
+    return MfArray([[ 1,  0,  0,],
+                    [ 0,  1,  0,],
+                    [ 0,  0,  1]]) * 1.0
+}
+
+func cubic_centro() -> MfArray {
+    let h_old: MfArray = cubic()
+    let h_new: MfArray = MfArray([])
+    let h_n: MfArray = MfArray([[-1,0,0],[0,-1,0],[0,0,-1]])
+    
+    for i in 0..<h_old.count {
+        _ = h_new.append(values: Matft.inner(h_old[i], h_n))
+    }
+    return h_new
+}
+
+func triclinic() -> MfArray {
+    let H = Matft.eye(dim: 3)
+    return H
+}
+
 //////## hexagonal
 ////func hexag():
 ////    H = []
