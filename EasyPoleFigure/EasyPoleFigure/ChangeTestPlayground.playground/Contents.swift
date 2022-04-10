@@ -53,7 +53,7 @@ simd_double3x3()
 //    h120[2, 0] = 1.0
 //
 ////    return np.dot(h60, hx), np.dot(h120, hx)
-//    return simd_dot(h60, hx), simd_dot(h120, hx)
+//    return h60 * hx, h120 * hx
 //}
 
 //func __mirror_110__(h :[simd_double3x3]) -> [simd_double3x3] {
@@ -69,8 +69,7 @@ simd_double3x3()
 //    hm[1, 0] = 1.0
 //    hm[2, 2] = 1.0
 //
-//    let result = simd_dot(hm, hx)
-//    return result
+//    return hm * hx
 //}
 //func __rot_90_180_270__(h :[simd_double3x3]) -> [simd_double3x3] {
 //    /*
@@ -103,7 +102,7 @@ simd_double3x3()
 //    }
 //    for m in 0...3 {
 //        //htemp.append( np.dot(hx[m], h_) )
-//        htemp.append(simd_dot(hx[m], h))
+//        htemp.append(hx[m] * h)
 //        //pass
 //    }
 ////    return np.array(htemp)
