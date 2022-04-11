@@ -46,50 +46,79 @@ print("one3X3Matrix = ",one3X3Matrix)
 
 simd_double3x3()
 
-//// symmetry operators
-//// h는 넣어줄 행렬
-//func __60_120_rot111__(h :simd_double3x3) -> [simd_double3x3] {
+
+
+// MARK: 잘 모르겠구만
+////func __rot_nrot_001__(h, csym=None) {
+//func __rot_nrot_001__(h: double3x3, csym: String) -> [double3x3]{
 //    /*
-//    For the given h operation,
-//    rotations of (pi/3) & (2*pi/3) around <111>
-//    are performed and returned
-//    *cubic
+//    Rotations of 2*pi/nrot around axis <001>
+//    *hexagoanl, trigonal, tetragonal
+//    ---------
+//    Arguments
+//    h: symmetry operators
+//    csym: 'hexa'
+//    */
+////    if   csym=='hexag': nrot=6
+////    elif csym=='trigo': nrot=3
+////    elif csym=='tetra': nrot=4
+////    else: print('Unexpected Error'); raise IOError
+//    var nrot: Double
+//    if csym == "hexag" {
+//        nrot = 6.0
+//    } else if csym == "trigo" {
+//        nrot = 3.0
+//    } else if csym == "tetra" {
+//        nrot = 4.0
+//    } else {
+//        print("Unexpected Error"); raise IOError
+//    }
+//
+////    cos = np.cos; sin = np.sin; pi = np.pi
+//    let pi = Double.pi
+////    hx = np.zeros((nrot-1,3,3))
+//    var hx: [simd_double3x3] = [simd_double3x3(nrot-1.0), simd_double3x3(3.0), simd_double3x3(3.0)]
+////    h_ = h.copy(); htemp = []
+//    let h_ = h
+//    let htemp = [double3x3]()
+//
+//    for nr in Int(nrot-1) {
+//        ang = (nr + 1) * 2.0 * pi / nrot
+//        hx[nr,0,0] = cos(ang)
+//        hx[nr,1,1] = cos(ang)
+//        hx[nr,2,2] = 1.0
+//        hx[nr,0,1] = -sin(ang)
+//        hx[nr,1,0] = sin(ang)
+//    }
+//    for nr in nrot-1 {
+//        htemp.append(hx[nr] * h_)
+//    }
+//
+////    return np.array(htemp)
+//    return [htemp]
+//}
+//func __trim0__(h: simd_double3x3) -> simd_double3x3 {
+//    /*
+//    if a value in the matrix h is fairly close to +-0.
+//    then returns zero. In that way, trimming is performed
+//    on the every component of given h matrix.
 //    */
 ////    hx = h.copy()
 //    let hx = h
-////    let h60 = np.zeros((3,3)) // 값이 0인 3*3 행렬
-//    var h60 = simd_double3x3(0)
-////    let h120 = np.zeros((3,3))
-//    var h120 = simd_double3x3(0)
-//    h60[0, 2] = 1.0
-//    h60[1, 0] = 1.0
-//    h60[2, 1] = 1.0
-//
-//    h120[0, 1] = 1.0
-//    h120[1, 2] = 1.0
-//    h120[2, 0] = 1.0
-//
-////    return np.dot(h60, hx), np.dot(h120, hx)
-//    return [h60 * hx, h120 * hx]
+////    for i in range(len(hx)):
+////        for j in range(len(hx[i])):
+////            if abs(hx[i,j]) < 0.1**6:
+////                hx[i,j] = 0.
+////    return hx
+//    for i in hx {
+//        for j in hx[i] {
+//            if abs(hx[i,j]) < 0.1**6 {
+//                hx[i,j] = 0.0
+//            }
+//        }
+//    }
+//    return hx
 //}
-
-//func __mirror_110__(h :simd_double3x3) -> simd_double3x3 {
-//    /*
-//    Given the operation h, mirrored across the (110) plane returned
-//    *cubic
-//    */
-////    hx = h.copy()
-//    let hx = h
-////    hm = np.zeros((3,3))
-//    var hm = simd_double3x3(0)
-//    hm[0, 1] = 1.0
-//    hm[1, 0] = 1.0
-//    hm[2, 2] = 1.0
-//
-//    return hm * hx
-//}
-
-
 //func __rot_90_180_270__(h :[simd_double3x3]) -> [simd_double3x3] {
 //    /*
 //    Given the operation h,
