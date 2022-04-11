@@ -8,6 +8,21 @@ print(h[0])
 let normal = simd_normalize(simd_double3(x: 2.7, y: 2.1, z: 1.2))
 print(normal)
 
+let cubicMillerIdx = [[0.0,0.0,1.0], [1.0,0.0,0.0], [0.0,1.0,0.0], [1.0,0.0,1.0], [1.0,1.0,0.0], [0.0,1.0,1.0], [1.0,1.0,1.0], [1.0,-1.0,1.0], [-1.0,1.0,1.0]]
+print(cubicMillerIdx[3])
+print(cubicMillerIdx[3][0])
+print(cubicMillerIdx[3][1])
+print(cubicMillerIdx[3][2])
+
+print(simd_normalize(simd_double3(x: Double(cubicMillerIdx[3][0]), y: Double(cubicMillerIdx[3][1]), z: Double(cubicMillerIdx[3][2]))))
+var normalCubicMillerIdx = [simd_double3]()
+
+for i in cubicMillerIdx {
+    normalCubicMillerIdx.append(simd_normalize(simd_double3(x: i[0], y: i[1], z: i[2])))
+    }
+print(normal)
+print(normalCubicMillerIdx)
+
 // MARK: 0으로 채워진 3x1행렬 만들기 = np.zeros((3,))
 let zero3x1Matrix = simd_double3()
 print("zero3x1Matrix = ",zero3x1Matrix)
@@ -33,7 +48,7 @@ simd_double3x3()
 
 //// symmetry operators
 //// h는 넣어줄 행렬
-//func __60_120_rot111__(h :[simd_double3x3]) -> [simd_double3x3] {
+//func __60_120_rot111__(h :simd_double3x3) -> [simd_double3x3] {
 //    /*
 //    For the given h operation,
 //    rotations of (pi/3) & (2*pi/3) around <111>
@@ -55,10 +70,10 @@ simd_double3x3()
 //    h120[2, 0] = 1.0
 //
 ////    return np.dot(h60, hx), np.dot(h120, hx)
-//    return h60 * hx, h120 * hx
+//    return [h60 * hx, h120 * hx]
 //}
 
-//func __mirror_110__(h :[simd_double3x3]) -> [simd_double3x3] {
+//func __mirror_110__(h :simd_double3x3) -> simd_double3x3 {
 //    /*
 //    Given the operation h, mirrored across the (110) plane returned
 //    *cubic
@@ -73,6 +88,8 @@ simd_double3x3()
 //
 //    return hm * hx
 //}
+
+
 //func __rot_90_180_270__(h :[simd_double3x3]) -> [simd_double3x3] {
 //    /*
 //    Given the operation h,
@@ -80,7 +97,7 @@ simd_double3x3()
 //    *cubic
 //    */
 ////    cos = np.cos; sin = np.sin; pi = np.pi
-////    let cos = simd.cos(<#T##Double#>)
+////    let cos = simd.cos()
 ////    let sin = Matft.math.sin
 //    let pi = Double.pi
 ////    hx = np.zeros((3,3,3))
