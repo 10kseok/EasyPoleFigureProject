@@ -17,7 +17,6 @@ import simd
 //def triclinic()
 //*/
 //
-//// MARK: h 선언 필요할듯
 //
 //// 내적
 //func dot(avector, bvector) {
@@ -27,8 +26,9 @@ import simd
 //    }
 //}
 //
-//// symmetry operators
-//func __60_120_rot111__(h) {
+// symmetry operators
+// h는 넣어줄 행렬
+//func __60_120_rot111__(h :simd_double3x3) -> [simd_double3x3] {
 //    /*
 //    For the given h operation,
 //    rotations of (pi/3) & (2*pi/3) around <111>
@@ -36,11 +36,11 @@ import simd
 //    *cubic
 //    */
 ////    hx = h.copy()
-//    let hx = h.copy()
-////    let h60 = np.zeros((3,3))
-//    let h60 = MfArray([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]) // 값이 0인 3*3 행렬
+//    let hx = h
+////    let h60 = np.zeros((3,3)) // 값이 0인 3*3 행렬
+//    var h60 = simd_double3x3(0)
 ////    let h120 = np.zeros((3,3))
-//    let h120 = MfArray([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
+//    var h120 = simd_double3x3(0)
 //    h60[0, 2] = 1.0
 //    h60[1, 0] = 1.0
 //    h60[2, 1] = 1.0
@@ -48,22 +48,25 @@ import simd
 //    h120[0, 1] = 1.0
 //    h120[1, 2] = 1.0
 //    h120[2, 0] = 1.0
-//    return np.dot(h60, hx), np.dot(h120, hx)
+//
+////    return np.dot(h60, hx), np.dot(h120, hx)
+//    return [h60 * hx, h120 * hx]
 //}
 //
-//func __mirror_110__(h) {
+//func __mirror_110__(h :simd_double3x3) -> simd_double3x3 {
 //    /*
 //    Given the operation h, mirrored across the (110) plane returned
 //    *cubic
 //    */
 ////    hx = h.copy()
-//    let hx = h.copy()
+//    let hx = h
 ////    hm = np.zeros((3,3))
-//    let hm = MfArray([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
+//    var hm = simd_double3x3(0)
 //    hm[0, 1] = 1.0
 //    hm[1, 0] = 1.0
 //    hm[2, 2] = 1.0
-//    return np.dot(hm, hx)
+//
+//    return hm * hx
 //}
 //
 //func __rot_90_180_270__(h) {
@@ -104,7 +107,7 @@ import simd
 //    return MfArray(htemp)
 //}
 //
-//func __rot_nrot_x1__(h,nrot) {
+//func __rot_nrot_x1__(h: double3x3, nrot: Int) -> double3x3 {
 //    /*
 //    Mirror plane at 30 or 60 or 45 deg with respect to x1
 //    *hexagonal, trigonal, tetragonal
@@ -113,19 +116,19 @@ import simd
 //    tetr: nrot = 4
 //    */
 ////    cos = np.cos; sin = np.sin; pi=np.pi
-//    let cos = Matft.math.cos
-//    let sin = Matft.math.sin
 //    let pi = Double.pi
 ////    hx = np.zeros((3,3))
-//    let hx = MfArray([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
+//    var hx = simd_double3x3(0.0)
 ////    ang = pi/float(nrot)
 //    let ang = pi / Double(nrot)
-//    hx[0.0, 0] = cos(ang)**2 - sin(ang)**2
-//    hx[1, 1] = -h[0,0]
+////    hx[0.0, 0] = cos(ang)**2 - sin(ang)**2
+//    hx[0, 0] = pow(cos(ang), 2) - pow(sin(ang), 2)
+//    hx[1, 1] = -h[0, 0]
 //    hx[2, 2] = 1.0
 //    hx[0, 1] = 2.0 * cos(ang) * sin(ang)
-//    hx[1, 0] = h[0.0, 1.0]
-//    return np.dot(hx, h)
+////    hx[1, 0] = h[0.0, 1.0]
+//    hx[1, 0] = h[0, 1]
+//    return hx * h
 //}
 //
 ////func __rot_nrot_001__(h, csym=None) {
@@ -279,7 +282,7 @@ import simd
 //    return H
 //}
 //
-//// MARK: 여기까지 -------------------------------------------성원
+// MARK: 여기까지 -------------------------------------------성원
 //
 // 임시 함수
 func cubic() -> [simd_double3x3] {
