@@ -226,6 +226,7 @@ def hexag():
     #mirror plane at 30 degree with respect to x1
     nrot = 6
     niter = len(H)
+    print("len(H)", niter)
     for i in range(niter):
         h = __rot_nrot_x1__(h=H[i].copy(),nrot=nrot)
         H.append(h)

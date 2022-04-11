@@ -305,29 +305,37 @@ func triclinic() -> [simd_double3x3] {
     return [H]
 }
 
-//////## hexagonal
-////func hexag():
-////    H = []
-////    H.append(np.identity(3))
-////
-////    #mirror plane at 30 degree with respect to x1
-////    nrot = 6
-////    niter = len(H)
-////    for i in range(niter):
-////        h = __rot_nrot_x1__(h=H[i].copy(),nrot=nrot)
-////        H.append(h)
-////
-////    #rotations of 2*pi/6 around axis <001> for hexagonals.
-////    niter = len(H)
-////    for i in range(niter):
-////        h = __rot_nrot_001__(h=H[i],csym='hexag')
-////        for ix in range(len(h)):
-////            H.append(h[ix])
-////
-////    for i in range(len(H)):
-////        H[i] = __trim0__(h=H[i])
-////    return H
-////
+func __rot_nrot_x1__(_ h: simd_double3, nrot: Int) -> simd_double3 {
+    return simd_double3()
+}
+
+func __rot_nrot_001__(_ h: simd_double3, csym: String) -> simd_double3 {
+    return simd_double3()
+}
+// hexagonal
+func hexag() -> simd_double3x3 {
+    var H = [simd_double3x3]()
+    // mirror plane at 30 degree with respect to x1
+    let nrot = 6
+//    let niter = H.
+    for i in 0..<3 {
+        H.append(__rot_nrot_x1__(H[i], nrot: nrot))
+    }
+
+//    rotations of 2*pi/6 around axis <001> for hexagonals.
+    for i in 0..<3 {
+        let h = __rot_nrot_001__(H[i], csym: 'hexag')
+        for ix in 0..<3 {
+            H.append(h[ix])
+        }
+    }
+
+    for i in range(len(H)) {
+        H[i] = __trim0__(h=H[i])
+    }
+    return H
+        
+}
 //////## orthorhombic
 ////func ortho():
 ////    H =[]

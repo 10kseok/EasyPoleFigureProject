@@ -1,7 +1,9 @@
 import UIKit
-import Matft
 import simd
 
+// pole = dot(h, v)
+let h = simd_double3x3(2)
+print(h[0])
 // MARK: 정규화, 주어진 좌표를 길이가 1이 되게끔 맞춰줌
 let normal = simd_normalize(simd_double3(x: 2.7, y: 2.1, z: 1.2))
 print(normal)
