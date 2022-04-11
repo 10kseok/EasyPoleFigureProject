@@ -28,46 +28,46 @@ import simd
 //
 // symmetry operators
 // h는 넣어줄 행렬
-//func __60_120_rot111__(h :simd_double3x3) -> [simd_double3x3] {
-//    /*
-//    For the given h operation,
-//    rotations of (pi/3) & (2*pi/3) around <111>
-//    are performed and returned
-//    *cubic
-//    */
-////    hx = h.copy()
-//    let hx = h
-////    let h60 = np.zeros((3,3)) // 값이 0인 3*3 행렬
-//    var h60 = simd_double3x3(0)
-////    let h120 = np.zeros((3,3))
-//    var h120 = simd_double3x3(0)
-//    h60[0, 2] = 1.0
-//    h60[1, 0] = 1.0
-//    h60[2, 1] = 1.0
+func __60_120_rot111__(h :simd_double3x3) -> [simd_double3x3] {
+    /*
+    For the given h operation,
+    rotations of (pi/3) & (2*pi/3) around <111>
+    are performed and returned
+    *cubic
+    */
+//    hx = h.copy()
+    let hx = h
+//    let h60 = np.zeros((3,3)) // 값이 0인 3*3 행렬
+    var h60 = simd_double3x3(0)
+//    let h120 = np.zeros((3,3))
+    var h120 = simd_double3x3(0)
+    h60[0, 2] = 1.0
+    h60[1, 0] = 1.0
+    h60[2, 1] = 1.0
+
+    h120[0, 1] = 1.0
+    h120[1, 2] = 1.0
+    h120[2, 0] = 1.0
+
+//    return np.dot(h60, hx), np.dot(h120, hx)
+    return [h60 * hx, h120 * hx]
+}
 //
-//    h120[0, 1] = 1.0
-//    h120[1, 2] = 1.0
-//    h120[2, 0] = 1.0
-//
-////    return np.dot(h60, hx), np.dot(h120, hx)
-//    return [h60 * hx, h120 * hx]
-//}
-//
-//func __mirror_110__(h :simd_double3x3) -> simd_double3x3 {
-//    /*
-//    Given the operation h, mirrored across the (110) plane returned
-//    *cubic
-//    */
-////    hx = h.copy()
-//    let hx = h
-////    hm = np.zeros((3,3))
-//    var hm = simd_double3x3(0)
-//    hm[0, 1] = 1.0
-//    hm[1, 0] = 1.0
-//    hm[2, 2] = 1.0
-//
-//    return hm * hx
-//}
+func __mirror_110__(h :simd_double3x3) -> simd_double3x3 {
+    /*
+    Given the operation h, mirrored across the (110) plane returned
+    *cubic
+    */
+//    hx = h.copy()
+    let hx = h
+//    hm = np.zeros((3,3))
+    var hm = simd_double3x3(0)
+    hm[0, 1] = 1.0
+    hm[1, 0] = 1.0
+    hm[2, 2] = 1.0
+
+    return hm * hx
+}
 //
 //func __rot_90_180_270__(h) {
 //    /*
@@ -285,10 +285,51 @@ import simd
 // MARK: 여기까지 -------------------------------------------성원
 //
 // 임시 함수
-func cubic() -> [simd_double3x3] {
+func __trim0__(_ h: simd_double3x3) -> simd_double3x3 {
+    return simd_double3x3()
+}
+
+func __rot_90_180_270__(_ h: simd_double3x3) -> [simd_double3x3] {
     return [simd_double3x3()]
 }
+
+func __rot_nrot_x1__(_ h: simd_double3x3, nrot: Int) -> simd_double3x3 {
+    return simd_double3x3()
+}
+
+func __rot_nrot_001__(_ h: simd_double3x3, csym: String) -> simd_double3x3 {
+    return simd_double3x3()
+}
 // ------
+
+func cubic() -> [simd_double3x3] {
+    var H = [simd_double3x3(1)]
+    
+    for i in 0..<H.count {
+        let (h60, h120) = (__60_120_rot111__(h: H[i])[0], __60_120_rot111__(h: H[i])[1])
+        H.append(h60)
+        H.append(h120)
+    }
+    
+    for i in 0..<H.count {
+        let h = __mirror_110__(h: H[i])
+        H.append(h)
+    }
+    
+    for i in 0..<H.count {
+        let h = __rot_90_180_270__(H[i])
+        let (h90, h180, h270) = (h[0], h[1], h[2])
+        H.append(h90)
+        H.append(h180)
+        H.append(h270)
+    }
+    
+    for i in 0..<H.count {
+        H[i] = __trim0__(H[i])
+    }
+    
+    return H
+}
 
 func cubic_centro() -> [simd_double3x3] {
     let h_old  = cubic()
@@ -300,6 +341,7 @@ func cubic_centro() -> [simd_double3x3] {
     for i in 0..<h_old.count {
         h_new.append(h_old[i] * h_n)
     }
+    
     return h_new
 }
 
@@ -308,36 +350,27 @@ func triclinic() -> [simd_double3x3] {
     return [H]
 }
 
-func __rot_nrot_x1__(_ h: simd_double3, nrot: Int) -> simd_double3 {
-    return simd_double3()
-}
-
-func __rot_nrot_001__(_ h: simd_double3, csym: String) -> simd_double3 {
-    return simd_double3()
-}
 // hexagonal
-func hexag() -> simd_double3x3 {
+func hexag() -> [simd_double3x3] {
     var H = [simd_double3x3]()
     // mirror plane at 30 degree with respect to x1
     let nrot = 6
-//    let niter = H.
+
     for i in 0..<3 {
         H.append(__rot_nrot_x1__(H[i], nrot: nrot))
     }
 
 //    rotations of 2*pi/6 around axis <001> for hexagonals.
     for i in 0..<3 {
-        let h = __rot_nrot_001__(H[i], csym: 'hexag')
-        for ix in 0..<3 {
-            H.append(h[ix])
-        }
+        let h = __rot_nrot_001__(H[i], csym: "hexag")
+        H.append(h)
     }
 
-    for i in range(len(H)) {
-        H[i] = __trim0__(h=H[i])
+    for i in 0..<H.count {
+        H[i] = __trim0__(H[i])
     }
+    
     return H
-        
 }
 //////## orthorhombic
 ////func ortho():

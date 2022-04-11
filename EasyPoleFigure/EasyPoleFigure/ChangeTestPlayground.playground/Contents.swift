@@ -1,6 +1,7 @@
 import UIKit
 import simd
 
+
 // pole = dot(h, v)
 let h = simd_double3x3(2)
 print(h[0])
