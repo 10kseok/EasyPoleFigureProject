@@ -401,25 +401,28 @@ func makeRotationMatrix(angle: Double) -> simd_double3x3 {
     return double3x3(rows: rows)
 }
 
-//## trigonal
-//func trigo() -> [double3x3] {
-//    var H = [double3x3(1)]
-////    mirror plane 60 degree with respect to x1
-//    nrot = 3
-//    niter = len(H)
-//    for i in range(niter):
-//        h = __rot_nrot_x1__(h=H[i].copy(), nrot=3)
-//        H.append(h)
-////    #rotations of 2*pi/3 around axis <001> for trigonals
-//    niter = len(H)
-//    for i in range(niter):
-//        h = __rot_nrot_001__(h=H[i], csym='trigo')
-//        H.append(h)
-//
-//    for i in range(len(H)):
-//        H[i] = __trim0__(h=H[i])
-//    return H
-//}
+// trigonal
+func trigo() -> [double3x3] {
+    var H = [double3x3(1)]
+    
+//    mirror plane 60 degree with respect to x1
+    for i in 0..<H.count {
+        let h = __rot_nrot_x1__(H[i], nrot: 3)
+        H.append(h)
+    }
+    
+//    #rotations of 2*pi/3 around axis <001> for trigonals
+    for i in 0..<H.count {
+        let h = __rot_nrot_001__(h=H[i], csym: "trigo")
+        H.append(h)
+    }
+
+    for i in 0..<H.count {
+        H[i] = __trim0__(H[i])
+    }
+    
+    return H
+}
 
 
 ////func tetra():
