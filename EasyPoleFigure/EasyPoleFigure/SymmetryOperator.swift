@@ -203,19 +203,20 @@ func __rot_nrot_x1__(h: simd_double3x3, nrot: Int) -> simd_double3x3 {
 //}
 //
 // -- mmm sample symmetry is found in COD_conv.py
-func __mmm__() -> [[[Double]]] {
-    let m0 = [[ 1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
-    let m1 = [[ 1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0,-1.0]]
-    let m2 = [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0,-1.0]]
-    let m3 = [[-1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0, 1.0]]
-//    let m0 = MfArray([[ 1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
-//    let m1 = MfArray([[ 1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0,-1.0]])
-//    let m2 = MfArray([[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0,-1.0]])
-//    let m3 = MfArray([[-1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0, 1.0]])
-//    h = np.array([m0,m1,m2,m3])
-    let h = [m0, m1, m2, m3]
-    return h
-}
+//func __mmm__() -> [[[Double]]] {
+//    let rows = [
+//        simd_double3(cos(angle), -sin(angle), 0),
+//        simd_double3(sin(angle), cos(angle), 0),
+//        simd_double3(0,          0,          1)
+//    ]// 이거4개 만들기
+//    let m0 = [[ 1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+//    let m1 = [[ 1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0,-1.0]]
+//    let m2 = [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0,-1.0]]
+//    let m3 = [[-1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0, 1.0]]
+//
+//    let h = [m0, m1, m2, m3]
+//    return h
+//}
 
 //
 //////deprecated
@@ -237,52 +238,7 @@ func __mmm__() -> [[[Double]]] {
 ////}
 //
 //
-//// cubic symmetry
-//func cubic() {
-////    H = []
-//    let H = [Double]() // H is the master list containing all the numpy arrays of operations
-//    H.append(np.identity(3)) // identity operation
-//    // What is '.identity()'????
-//
-//    // rotations of (pi/3) & (2*pi/3) around <111>
-////    niter = len(H)
-//    var niter = len(H)
-//    for i in range(niter) {
-//        h60 = __60_120_rot111__(h = H[i].copy())
-//        h120 = __60_120_rot111__(h = H[i].copy())
-//        h0 = h60.copy()
-//        h1 = h120.copy()
-//        H.append(h0)
-//        H.append(h1)
-//    }
-//
-//    // mirror across the plane (110)
-//    niter = len(H)
-//    for i in range(niter) {
-//        h = __mirror_110__(h=H[i].copy())
-//        H.append(h)
-//    }
-//    // rotations of 90, 180, 270 around x3
-//    niter = len(H)
-//    for i in range(niter){
-//        h1, h2, h3 = __rot_90_180_270__(h = H[i].copy())
-//        h90 = h1.copy()
-//        h180 = h2.copy()
-//        h270 = h3.copy()
-//        H.append(h90)
-//        H.append(h180)
-//        H.append(h270)
-//    }
-////    H = np.array(H) // Make the H as numpy array
-//    H = MfArray(H)
-//
-//    // trim the values.
-//    for i in range(len(H)) {
-//        H[i] = __trim0__(h=H[i])
-//    }
-//    return H
-//}
-//
+
 // MARK: 여기까지 -------------------------------------------성원
 //
 // 임시 함수
@@ -302,7 +258,7 @@ func __rot_nrot_001__(_ h: simd_double3x3, csym: String) -> simd_double3x3 {
     return simd_double3x3()
 }
 // ------
-
+// cubic symmetry
 func cubic() -> [simd_double3x3] {
     var H = [simd_double3x3(1)]
     
