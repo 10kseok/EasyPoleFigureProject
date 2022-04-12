@@ -8,20 +8,20 @@ print(h[0])
 let normal = simd_normalize(simd_double3(x: 2.7, y: 2.1, z: 1.2))
 print(normal)
 
-let cubicMillerIdx = [[0.0,0.0,1.0], [1.0,0.0,0.0], [0.0,1.0,0.0], [1.0,0.0,1.0], [1.0,1.0,0.0], [0.0,1.0,1.0], [1.0,1.0,1.0], [1.0,-1.0,1.0], [-1.0,1.0,1.0]]
-print(cubicMillerIdx[3])
-print(cubicMillerIdx[3][0])
-print(cubicMillerIdx[3][1])
-print(cubicMillerIdx[3][2])
-
-print(simd_normalize(simd_double3(x: Double(cubicMillerIdx[3][0]), y: Double(cubicMillerIdx[3][1]), z: Double(cubicMillerIdx[3][2]))))
-var normalCubicMillerIdx = [simd_double3]()
-
-for i in cubicMillerIdx {
-    normalCubicMillerIdx.append(simd_normalize(simd_double3(x: i[0], y: i[1], z: i[2])))
-    }
-print(normal)
-print(normalCubicMillerIdx)
+//let cubicMillerIdx = [[0.0,0.0,1.0], [1.0,0.0,0.0], [0.0,1.0,0.0], [1.0,0.0,1.0], [1.0,1.0,0.0], [0.0,1.0,1.0], [1.0,1.0,1.0], [1.0,-1.0,1.0], [-1.0,1.0,1.0]]
+//print(cubicMillerIdx[3])
+//print(cubicMillerIdx[3][0])
+//print(cubicMillerIdx[3][1])
+//print(cubicMillerIdx[3][2])
+//
+//print(simd_normalize(simd_double3(x: Double(cubicMillerIdx[3][0]), y: Double(cubicMillerIdx[3][1]), z: Double(cubicMillerIdx[3][2]))))
+//var normalCubicMillerIdx = [simd_double3]()
+//
+//for i in cubicMillerIdx {
+//    normalCubicMillerIdx.append(simd_normalize(simd_double3(x: i[0], y: i[1], z: i[2])))
+//    }
+//print(normal)
+//print(normalCubicMillerIdx)
 
 // MARK: 0으로 채워진 3x1행렬 만들기 = np.zeros((3,))
 let zero3x1Matrix = simd_double3()
@@ -49,6 +49,24 @@ simd_double3x3()
 
 
 // MARK: 잘 모르겠구만
+
+// -- mmm sample symmetry is found in COD_conv.py
+func __mmm__() -> [[[Double]]] {
+    let m0 = [[ 1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+    let m1 = [[ 1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0,-1.0]]
+    let m2 = [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0,-1.0]]
+    let m3 = [[-1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0, 1.0]]
+//    let m0 = MfArray([[ 1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
+//    let m1 = MfArray([[ 1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0,-1.0]])
+//    let m2 = MfArray([[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0,-1.0]])
+//    let m3 = MfArray([[-1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0, 1.0]])
+//    h = np.array([m0,m1,m2,m3])
+    let h = [m0, m1, m2, m3]
+    return h
+}
+
+print("__mmm__ result ", __mmm__())
+
 ////func __rot_nrot_001__(h, csym=None) {
 //func __rot_nrot_001__(h: double3x3, csym: String) -> [double3x3]{
 //    /*

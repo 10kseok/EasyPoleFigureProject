@@ -107,29 +107,29 @@ func __mirror_110__(h :simd_double3x3) -> simd_double3x3 {
 //    return MfArray(htemp)
 //}
 //
-//func __rot_nrot_x1__(h: double3x3, nrot: Int) -> double3x3 {
-//    /*
-//    Mirror plane at 30 or 60 or 45 deg with respect to x1
-//    *hexagonal, trigonal, tetragonal
-//    hexa: nrot = 6
-//    trig: nrot = 3
-//    tetr: nrot = 4
-//    */
-////    cos = np.cos; sin = np.sin; pi=np.pi
-//    let pi = Double.pi
-////    hx = np.zeros((3,3))
-//    var hx = simd_double3x3(0.0)
-////    ang = pi/float(nrot)
-//    let ang = pi / Double(nrot)
-////    hx[0.0, 0] = cos(ang)**2 - sin(ang)**2
-//    hx[0, 0] = pow(cos(ang), 2) - pow(sin(ang), 2)
-//    hx[1, 1] = -h[0, 0]
-//    hx[2, 2] = 1.0
-//    hx[0, 1] = 2.0 * cos(ang) * sin(ang)
-////    hx[1, 0] = h[0.0, 1.0]
-//    hx[1, 0] = h[0, 1]
-//    return hx * h
-//}
+func __rot_nrot_x1__(h: simd_double3x3, nrot: Int) -> simd_double3x3 {
+    /*
+    Mirror plane at 30 or 60 or 45 deg with respect to x1
+    *hexagonal, trigonal, tetragonal
+    hexa: nrot = 6
+    trig: nrot = 3
+    tetr: nrot = 4
+    */
+//    cos = np.cos; sin = np.sin; pi=np.pi
+    let pi = Double.pi
+//    hx = np.zeros((3,3))
+    var hx = simd_double3x3(0.0)
+//    ang = pi/float(nrot)
+    let ang = pi / Double(nrot)
+//    hx[0.0, 0] = cos(ang)**2 - sin(ang)**2
+    hx[0, 0] = pow(cos(ang), 2) - pow(sin(ang), 2)
+    hx[1, 1] = -h[0, 0]
+    hx[2, 2] = 1.0
+    hx[0, 1] = 2.0 * cos(ang) * sin(ang)
+//    hx[1, 0] = h[0.0, 1.0]
+    hx[1, 0] = h[0, 1]
+    return hx * h
+}
 //
 ////func __rot_nrot_001__(h, csym=None) {
 //func __rot_nrot_001__(h, csym: String) {
@@ -202,20 +202,21 @@ func __mirror_110__(h :simd_double3x3) -> simd_double3x3 {
 //    return hx
 //}
 //
-//// -- mmm sample symmetry is found in COD_conv.py
-//func __mmm__() {
-////    m0 = [[ 1, 0, 0], [0, 1, 0], [0, 0, 1]]
-////    m1 = [[ 1, 0, 0], [0,-1, 0], [0, 0,-1]]
-////    m2 = [[-1, 0, 0], [0, 1, 0], [0, 0,-1]]
-////    m3 = [[-1, 0, 0], [0,-1, 0], [0, 0, 1]]
+// -- mmm sample symmetry is found in COD_conv.py
+func __mmm__() -> [[[Double]]] {
+    let m0 = [[ 1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+    let m1 = [[ 1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0,-1.0]]
+    let m2 = [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0,-1.0]]
+    let m3 = [[-1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0, 1.0]]
 //    let m0 = MfArray([[ 1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
 //    let m1 = MfArray([[ 1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0,-1.0]])
 //    let m2 = MfArray([[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0,-1.0]])
 //    let m3 = MfArray([[-1.0, 0.0, 0.0], [0.0,-1.0, 0.0], [0.0, 0.0, 1.0]])
-////    h = np.array([m0,m1,m2,m3])
-//    let h = MfArray([m0, m1, m2, m3])
-//    return h
-//}
+//    h = np.array([m0,m1,m2,m3])
+    let h = [m0, m1, m2, m3]
+    return h
+}
+
 //
 //////deprecated
 ////func __ortho__(v) {
@@ -293,9 +294,9 @@ func __rot_90_180_270__(_ h: simd_double3x3) -> [simd_double3x3] {
     return [simd_double3x3()]
 }
 
-func __rot_nrot_x1__(_ h: simd_double3x3, nrot: Int) -> simd_double3x3 {
-    return simd_double3x3()
-}
+//func __rot_nrot_x1__(_ h: simd_double3x3, nrot: Int) -> simd_double3x3 {
+//    return simd_double3x3()
+//}
 
 func __rot_nrot_001__(_ h: simd_double3x3, csym: String) -> simd_double3x3 {
     return simd_double3x3()
