@@ -413,7 +413,7 @@ func trigo() -> [double3x3] {
     
 //    #rotations of 2*pi/3 around axis <001> for trigonals
     for i in 0..<H.count {
-        let h = __rot_nrot_001__(h=H[i], csym: "trigo")
+        let h = __rot_nrot_001__(H[i], csym: "trigo")
         H.append(h)
     }
 
