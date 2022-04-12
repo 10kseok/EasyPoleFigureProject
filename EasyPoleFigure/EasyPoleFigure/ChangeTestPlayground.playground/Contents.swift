@@ -1,5 +1,46 @@
 import UIKit
 import simd
+func makeRotationMatrix(angle: Double) -> simd_double3x3 {
+    let rows = [
+        simd_double3(cos(angle), -sin(angle), 0),
+        simd_double3(sin(angle), cos(angle), 0),
+        simd_double3(0,          0,          1)
+    ]
+    print(rows)
+    
+    return double3x3(rows)
+}
+makeRotationMatrix(angle: Double.pi)
+
+func __rot_90_180_270__(h: simd_double3x3) -> [simd_double3x3] {
+    /*
+    Given the operation h,
+    the three rotated operations are returned
+    *cubic
+    */
+    var H: [simd_double3x3] = []
+    var hx = [simd_double3x3(), simd_double3x3(), simd_double3x3()]
+    
+    for m in 0..<3 {
+        let ang = Double.pi/2 * Double(m + 1)
+        hx[m] = makeRotationMatrix(angle: ang)
+    }
+    
+    for m in 0..<3 {
+        H.append(hx[m] * h)
+    }
+    
+    return H
+}
+let h2 = simd_double3x3(rows: [[-1,  0,  0],
+                              [ 0, -1,  0],
+                              [ 0,  0, -1]])
+let angs = [ Double.pi/2.0, Double.pi/2 * 2.0, Double.pi/2 * 3.0]
+print("angs[0]",makeRotationMatrix(angle: angs[0]))
+print("angs[1]",makeRotationMatrix(angle: angs[1]))
+print("angs[2]",makeRotationMatrix(angle: angs[2]))
+//print(__rot_90_180_270__(h: h2))
+
 
 // pole = dot(h, v)
 let h = simd_double3x3(2)
@@ -187,15 +228,7 @@ hx[2,0] = 0.
 hx[1,2] = 0.
 hx[2,1] = 0.
  */
-func makeRotationMatrix(angle: Double) -> simd_double3x3 {
-    let rows = [
-        simd_double3(cos(angle), -sin(angle), 0),
-        simd_double3(sin(angle), cos(angle), 0),
-        simd_double3(0,          0,          1)
-    ]
-    
-    return double3x3(rows: rows)
-}
+
 
 
 

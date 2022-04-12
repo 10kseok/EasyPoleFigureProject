@@ -173,7 +173,7 @@ def __mmm__():
 def cubic():
     H = []     # H is the master list containing all the numpy arrays of operations
     H.append(np.identity(3))    # identity operation
-
+    
     # rotations of (pi/3) & (2*pi/3) around <111>
     niter = len(H)
     for i in range(niter):
@@ -181,13 +181,13 @@ def cubic():
         h0 = h60.copy(); h1 = h120.copy()
         H.append(h0)
         H.append(h1)
-
+    
     # mirror across the plane (110)
     niter = len(H)
     for i in range(niter):
         h = __mirror_110__(h=H[i].copy())
         H.append(h)
-
+    
     # rotations of 90, 180, 270 around x3
     niter = len(H)
     for i in range(niter):
@@ -196,7 +196,7 @@ def cubic():
         H.append(h90)
         H.append(h180)
         H.append(h270)
-
+    
     H = np.array(H) # Make the H as numpy array
 
     # trim the values.
@@ -249,10 +249,10 @@ def ortho():
     niter=len(H)
 
     pi=np.pi
-    cp=cos(pi)
-    sp=sin(pi)
+    cp=np.cos(pi)
+    sp=np.sin(pi)
     # 180 deg rotation around (001)
-    h=np.zeros(3,3)
+    h=np.zeros((3,3))
     h[0,0]=cp
     h[1,1]=cp
     h[2,2]=1.
@@ -267,6 +267,7 @@ def ortho():
     h=np.identity(3)
     h[1,1]=-1
     H.append(h)
+    return H
 
 
 

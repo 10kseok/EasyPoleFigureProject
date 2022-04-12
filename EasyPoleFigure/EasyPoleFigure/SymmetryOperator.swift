@@ -358,7 +358,7 @@ func hexag() -> [simd_double3x3] {
     let nrot = 6
 
     for i in 0..<3 {
-        H.append(__rot_nrot_x1__(H[i], nrot: nrot))
+        H.append(__rot_nrot_x1__(h: H[i], nrot: nrot))
     }
 
 //    rotations of 2*pi/6 around axis <001> for hexagonals.
@@ -392,23 +392,13 @@ func ortho() -> [double3x3]{
     return H
 }
 
-func makeRotationMatrix(angle: Double) -> simd_double3x3 {
-    let rows = [
-        simd_double3(cos(angle), -sin(angle), 0),
-        simd_double3(sin(angle), cos(angle), 0),
-        simd_double3(0,          0,          1)
-    ]
-    
-    return double3x3(rows: rows)
-}
-
 // trigonal
 func trigo() -> [double3x3] {
     var H = [double3x3(1)]
     
 //    mirror plane 60 degree with respect to x1
     for i in 0..<H.count {
-        let h = __rot_nrot_x1__(H[i], nrot: 3)
+        let h = __rot_nrot_x1__(h: H[i], nrot: 3)
         H.append(h)
     }
     
@@ -520,6 +510,38 @@ func trigo() -> [double3x3] {
 //    return s
 //}
 //
-//func convertAny2Double(in: MfArray) -> [Double] {
-//    return [Double]()
-//}
+
+
+
+func __rot_90_180_270__(h: simd_double3x3) -> [simd_double3x3] {
+    /*
+    Given the operation h,
+    the three rotated operations are returned
+    *cubic
+    */
+    var H: [simd_double3x3] = []
+    var hx = [simd_double3x3(), simd_double3x3(), simd_double3x3()]
+    
+    for m in 0..<3 {
+        let ang = Double.pi/2 * Double(m+1)
+        hx[m] = makeRotationMatrix(angle: ang)
+    }
+    
+    for m in 0..<3 {
+        H.append(hx[m] * h)
+    }
+    
+    return H
+}
+
+func makeRotationMatrix(angle: Double) -> simd_double3x3 {
+    let rows = [
+        simd_double3(cos(angle), -sin(angle), 0),
+        simd_double3(sin(angle), cos(angle), 0),
+        simd_double3(0,          0,          1)
+    ]
+    print(rows)
+    
+    return double3x3(rows)
+}
+
