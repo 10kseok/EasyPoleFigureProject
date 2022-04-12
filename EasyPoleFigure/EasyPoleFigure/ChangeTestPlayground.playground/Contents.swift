@@ -1,9 +1,6 @@
 import UIKit
 import simd
 
-let tempfloat: Float
-tempfloat = 1
-print(tempfloat)
 // pole = dot(h, v)
 let h = simd_double3x3(2)
 print(h[0])

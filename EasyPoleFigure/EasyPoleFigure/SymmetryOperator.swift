@@ -372,55 +372,56 @@ func hexag() -> [simd_double3x3] {
     
     return H
 }
-//////## orthorhombic
-////func ortho():
-////    H =[]
-////    H.append(np.identity(3))
-////    niter=len(H)
-////
-////    pi=np.pi
-////    cp=cos(pi)
-////    sp=sin(pi)
-////    # 180 deg rotation around (001)
-////    h=np.zeros(3,3)
-////    h[0,0]=cp
-////    h[1,1]=cp
-////    h[2,2]=1.
-////    h[0,1]=-sp
-////    h[1,0]=sp
-////    H.append(h)
-////
-////    # x-mirror & y-mirror
-////    h=np.identity(3)
-////    h[0,0]=-1
-////    H.append(h)
-////    h=np.identity(3)
-////    h[1,1]=-1
-////    H.append(h)
-////
-////
-////
-//////## trigonal
-////func trigo():
-////    H = []
-////    H.append(np.identity(3))
-////    #mirror plane 60 degree with respect to x1
-////    nrot = 3
-////    niter = len(H)
-////    for i in range(niter):
-////        h = __rot_nrot_x1__(h=H[i].copy(), nrot=3)
-////        H.append(h)
-//////    #rotations of 2*pi/3 around axis <001> for trigonals
-////    niter = len(H)
-////    for i in range(niter):
-////        h = __rot_nrot_001__(h=H[i], csym='trigo')
-////        H.append(h)
-////
-////    for i in range(len(H)):
-////        H[i] = __trim0__(h=H[i])
-////    return H
-////
-////
+//## orthorhombic
+func ortho() -> [double3x3]{
+    var H = [double3x3(1)]
+
+    // 180 deg rotation around (001)
+    H.append(makeRotationMatrix(angle: Double.pi))
+
+    // x-mirror & y-mirror
+    var hXMirror = double3x3(1)
+    hXMirror[0,0] = -1
+    H.append(hXMirror)
+    
+    var hYMirror = double3x3(1)
+    hYMirror[1,1] = -1
+    H.append(hYMirror)
+    
+    return H
+}
+
+func makeRotationMatrix(angle: Double) -> simd_double3x3 {
+    let rows = [
+        simd_double3(cos(angle), -sin(angle), 0),
+        simd_double3(sin(angle), cos(angle), 0),
+        simd_double3(0,          0,          1)
+    ]
+    
+    return double3x3(rows: rows)
+}
+
+//## trigonal
+//func trigo() -> [double3x3] {
+//    var H = [double3x3(1)]
+////    mirror plane 60 degree with respect to x1
+//    nrot = 3
+//    niter = len(H)
+//    for i in range(niter):
+//        h = __rot_nrot_x1__(h=H[i].copy(), nrot=3)
+//        H.append(h)
+////    #rotations of 2*pi/3 around axis <001> for trigonals
+//    niter = len(H)
+//    for i in range(niter):
+//        h = __rot_nrot_001__(h=H[i], csym='trigo')
+//        H.append(h)
+//
+//    for i in range(len(H)):
+//        H[i] = __trim0__(h=H[i])
+//    return H
+//}
+
+
 ////func tetra():
 ////    H = []
 ////    H.append(np.identity(3))
