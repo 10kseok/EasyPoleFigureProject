@@ -17,16 +17,20 @@ func projection(_ pole: [Double]) -> [Double] {
 class ViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     
+    var x_0: CGFloat = 0
+    var y_0: CGFloat = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var userInput = textField.text!.components(separatedBy: " ")
+        x_0 = view.center.x
+        y_0 = view.center.y
         
-        let p_prime = projection([Double(userInput[0]), Double(userInput[1]), Double(userInput[2])])
-        
-        let x_0 = view.center.x
-        let y_0 = view.center.y
+        drawCircle()
+        // Do any additional setup after loading the view.
+    }
+
+    fileprivate func drawCircle() {
         
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: x_0, y: y_0), radius: CGFloat(100), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true) //CGPoint(x,y)의 위치가 원의 중심입니다.
         let shapeLayer1 = CAShapeLayer()
@@ -35,7 +39,9 @@ class ViewController: UIViewController {
         shapeLayer1.strokeColor = UIColor.red.cgColor //you can change the stroke color
         shapeLayer1.lineWidth = 1.0 //you can change the line width
         view.layer.addSublayer(shapeLayer1)
-        
+    }
+    
+    fileprivate func drawPoint(_ p_prime: [Double]) {
         let dotPath = UIBezierPath(arcCenter: CGPoint(x: x_0+100*p_prime[0], y: y_0+100*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
         let shapeLayer2 = CAShapeLayer()
         shapeLayer2.path = dotPath.cgPath
@@ -44,9 +50,20 @@ class ViewController: UIViewController {
         shapeLayer2.lineWidth = 2.0 //you can change the line width
         view.layer.addSublayer(shapeLayer2)
         
-        // Do any additional setup after loading the view.
     }
-
 
 }
 
+extension ViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let userInput = textField.text!.components(separatedBy: " ")
+        let p_prime = projection([Double(userInput[0]) ?? 0, Double(userInput[1]) ?? 0, Double(userInput[2]) ?? 0])
+        drawPoint(p_prime)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+}

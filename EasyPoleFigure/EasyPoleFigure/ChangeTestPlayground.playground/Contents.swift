@@ -1,7 +1,9 @@
 import UIKit
 import simd
 
-
+let tempfloat: Float
+tempfloat = 1
+print(tempfloat)
 // pole = dot(h, v)
 let h = simd_double3x3(2)
 print(h[0])
@@ -251,24 +253,6 @@ if let s01 = s[0,1] as? Double,
 //
 //print(temp2)
 //
-func cubic() -> MfArray {
-    return MfArray([[ 1,  0,  0,],
-                    [ 0,  1,  0,],
-                    [ 0,  0,  1]]) * 1.0
-}
-
-func cubic_centro() -> MfArray {
-    let h_old: MfArray = cubic()
-    let h_new: MfArray = MfArray([])
-    let h_n: MfArray = MfArray([[ -1,  0,  0],
-                                [  0, -1,  0],
-                                [  0,  0, -1]]) * 1.0
-    
-    for i in 0..<h_old.count {
-        _ = h_new.append(values: Matft.inner(h_old[i], h_n))
-    }
-    return h_new
-}
 
 //let temp1 = MfArray([1,0,0])
 //let temp2 = MfArray([0,0,1])
