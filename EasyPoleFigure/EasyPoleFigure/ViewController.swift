@@ -15,7 +15,14 @@ func projection(_ pole: [Double]) -> [Double] {
 }
 
 class ViewController: UIViewController {
-    @IBOutlet weak var textField: UITextField!
+    
+    @IBOutlet weak var millerX: UITextField!
+    
+    @IBOutlet weak var millerY: UITextField!
+    
+    @IBOutlet weak var millerZ: UITextField!
+    
+    @IBOutlet weak var makeButton: UIButton!
     
     var x_0: CGFloat = 0
     var y_0: CGFloat = 0
@@ -54,12 +61,17 @@ class ViewController: UIViewController {
 
 }
 
+
+
 extension ViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let userInput = textField.text!.components(separatedBy: " ")
-        let p_prime = projection([Double(userInput[0]) ?? 0, Double(userInput[1]) ?? 0, Double(userInput[2]) ?? 0])
+        let userInputX = millerX.text!
+        let userInputY = millerY.text!
+        let userInputZ = millerZ.text!
+        let p_prime = projection([Double(userInputX) ?? 0, Double(userInputY) ?? 0, Double(userInputZ) ?? 0])
         drawPoint(p_prime)
     }
+    // 이게 버튼을 눌렀을 때 실행되도록 바꿔야함
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
