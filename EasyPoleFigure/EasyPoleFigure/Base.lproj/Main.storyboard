@@ -49,9 +49,12 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0le-DK-A8l">
-                                        <rect key="frame" x="56.5" y="55" width="67" height="45"/>
+                                        <rect key="frame" x="65.5" y="55" width="49" height="45"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Edit"/>
+                                        <connections>
+                                            <action selector="editButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fa6-02-Ku5"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -68,7 +71,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="makeButton" destination="0le-DK-A8l" id="Qbx-Vx-NP1"/>
+                        <outlet property="editButton" destination="0le-DK-A8l" id="T88-9Q-Ms0"/>
                         <outlet property="millerX" destination="o1y-57-pWk" id="X3d-I4-UdK"/>
                         <outlet property="millerY" destination="1ma-G1-Kwb" id="4Ak-VI-tF9"/>
                         <outlet property="millerZ" destination="NbK-a3-d1d" id="SYt-Sp-JoD"/>

@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var millerZ: UITextField!
     
-    @IBOutlet weak var makeButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
     
     var x_0: CGFloat = 0
     var y_0: CGFloat = 0
@@ -58,24 +58,30 @@ class ViewController: UIViewController {
         view.layer.addSublayer(shapeLayer2)
         
     }
-
-}
-
-
-
-extension ViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    @IBAction func editButtonClicked(_ sender: UIButton) {
         let userInputX = millerX.text!
         let userInputY = millerY.text!
         let userInputZ = millerZ.text!
         let p_prime = projection([Double(userInputX) ?? 0, Double(userInputY) ?? 0, Double(userInputZ) ?? 0])
         drawPoint(p_prime)
     }
-    // 이게 버튼을 눌렀을 때 실행되도록 바꿔야함
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-
 }
+
+
+//extension ViewController: UITextFieldDelegate {
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        let userInputX = millerX.text!
+//        let userInputY = millerY.text!
+//        let userInputZ = millerZ.text!
+//        let p_prime = projection([Double(userInputX) ?? 0, Double(userInputY) ?? 0, Double(userInputZ) ?? 0])
+//        drawPoint(p_prime)
+//    }
+//    // 이게 버튼을 눌렀을 때 실행되도록 바꿔야함
+//
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
+//
+//}
