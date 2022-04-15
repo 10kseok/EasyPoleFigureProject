@@ -15,6 +15,7 @@
 		303E9F0427F4217900D2F7EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 303E9F0227F4217900D2F7EA /* LaunchScreen.storyboard */; };
 		303E9F0D27F421CD00D2F7EA /* Matft in Frameworks */ = {isa = PBXBuildFile; productRef = 303E9F0C27F421CD00D2F7EA /* Matft */; };
 		303E9F0F27F4220200D2F7EA /* SymmetryOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303E9F0E27F4220200D2F7EA /* SymmetryOperator.swift */; };
+		30EC792028096988002E5D6B /* Cubic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EC791F28096988002E5D6B /* Cubic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		303E9F0327F4217900D2F7EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		303E9F0527F4217900D2F7EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		303E9F0E27F4220200D2F7EA /* SymmetryOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymmetryOperator.swift; sourceTree = "<group>"; };
+		30EC791F28096988002E5D6B /* Cubic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cubic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				303E9EF727F4217800D2F7EA /* AppDelegate.swift */,
 				303E9EF927F4217800D2F7EA /* SceneDelegate.swift */,
 				303E9EFB27F4217800D2F7EA /* ViewController.swift */,
+				30EC791F28096988002E5D6B /* Cubic.swift */,
 				303E9EFD27F4217800D2F7EA /* Main.storyboard */,
 				303E9F0027F4217900D2F7EA /* Assets.xcassets */,
 				303E9F0227F4217900D2F7EA /* LaunchScreen.storyboard */,
@@ -154,6 +157,7 @@
 				303E9EFC27F4217800D2F7EA /* ViewController.swift in Sources */,
 				303E9EF827F4217800D2F7EA /* AppDelegate.swift in Sources */,
 				303E9EFA27F4217800D2F7EA /* SceneDelegate.swift in Sources */,
+				30EC792028096988002E5D6B /* Cubic.swift in Sources */,
 				303E9F0F27F4220200D2F7EA /* SymmetryOperator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
