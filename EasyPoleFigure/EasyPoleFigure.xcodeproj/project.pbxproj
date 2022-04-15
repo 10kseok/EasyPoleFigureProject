@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01D87EA52809AA73005B360E /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D87EA42809AA73005B360E /* Calculator.swift */; };
 		303E9EF827F4217800D2F7EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303E9EF727F4217800D2F7EA /* AppDelegate.swift */; };
 		303E9EFA27F4217800D2F7EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303E9EF927F4217800D2F7EA /* SceneDelegate.swift */; };
 		303E9EFC27F4217800D2F7EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303E9EFB27F4217800D2F7EA /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		01D7213527FB5DB60057684C /* ChangeTestPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ChangeTestPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		01D87EA42809AA73005B360E /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 		303E9EF427F4217800D2F7EA /* EasyPoleFigure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyPoleFigure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		303E9EF727F4217800D2F7EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		303E9EF927F4217800D2F7EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				303E9EF927F4217800D2F7EA /* SceneDelegate.swift */,
 				303E9EFB27F4217800D2F7EA /* ViewController.swift */,
 				30EC791F28096988002E5D6B /* Cubic.swift */,
+				01D87EA42809AA73005B360E /* Calculator.swift */,
 				303E9EFD27F4217800D2F7EA /* Main.storyboard */,
 				303E9F0027F4217900D2F7EA /* Assets.xcassets */,
 				303E9F0227F4217900D2F7EA /* LaunchScreen.storyboard */,
@@ -159,6 +162,7 @@
 				303E9EFA27F4217800D2F7EA /* SceneDelegate.swift in Sources */,
 				30EC792028096988002E5D6B /* Cubic.swift in Sources */,
 				303E9F0F27F4220200D2F7EA /* SymmetryOperator.swift in Sources */,
+				01D87EA52809AA73005B360E /* Calculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

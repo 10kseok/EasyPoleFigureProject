@@ -7,13 +7,6 @@
 
 import UIKit
 
-func projection(_ pole: [Double]) -> [Double] {
-    let p_prime = [pole[0]/(1-pole[2]), pole[1]/(1-pole[2])]
-    
-    return p_prime
-    
-}
-
 class ViewController: UIViewController {
     
     @IBOutlet weak var millerX: UITextField!
@@ -51,7 +44,7 @@ class ViewController: UIViewController {
         resultView.layer.addSublayer(shapeLayerMainCircle)
     }
     
-    fileprivate func drawPoleFigure(_ p_prime: [Double]) {
+    fileprivate func drawPoleFigure(_ p_prime: SIMD2<Double>) {
         let poleFigure = UIBezierPath(arcCenter: CGPoint(x: x_0+100*p_prime[0], y: y_0+100*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
         let shapeLayerPoleFigure = CAShapeLayer()
         
