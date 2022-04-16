@@ -10,7 +10,6 @@ import simd
 
 // 전체 Cubic Operator
 let cubicData = onesideCubicOperator + othersideCubicOperator
-
 // 한 방향으로의 Operator
 let onesideCubicOperator: [double3x3] = [
     [[ 1,  0,  0],
@@ -112,8 +111,3 @@ let onesideCubicOperator: [double3x3] = [
 
 // 반대방향의 Operator
 let othersideCubicOperator = onesideCubicOperator.map { $0 * -1 }
-
-
-
-
-

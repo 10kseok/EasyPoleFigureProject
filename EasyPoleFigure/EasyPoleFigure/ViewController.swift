@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import simd
+
 
 class ViewController: UIViewController {
     
@@ -29,7 +31,6 @@ class ViewController: UIViewController {
 //        y_0 = resultView.center.y
         
         drawMainCircle()
-        // Do any additional setup after loading the view.
     }
 
     fileprivate func drawMainCircle() {
@@ -60,7 +61,18 @@ class ViewController: UIViewController {
         let userInputX = millerX.text!
         let userInputY = millerY.text!
         let userInputZ = millerZ.text!
-        let p_prime = projection([Double(userInputX) ?? 0, Double(userInputY) ?? 0, Double(userInputZ) ?? 0])
-        drawPoleFigure(p_prime)
+        let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(userInputX) ?? 0, y: Double(userInputY) ?? 0, z: Double(userInputZ) ?? 0)))
+        var pDotH: [SIMD3<Double>] = []
+        var p_prime: [SIMD2<Double>] = []
+        
+        for i in cubicData.indices {
+            pDotH.append(dotP(cubicData[i], p))
+        }
+        for i in pDotH.indices {
+            p_prime.append(projection(pDotH[i]))
+        }
+        for i in p_prime.indices {
+            drawPoleFigure(p_prime[i])
+        }
     }
 }
