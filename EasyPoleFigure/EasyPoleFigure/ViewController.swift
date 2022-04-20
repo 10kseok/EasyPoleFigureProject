@@ -25,11 +25,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        x_0 = resultView.bounds.size.width / 2
+//        y_0 = resultView.bounds.size.height / 2
         x_0 = resultView.bounds.midX
         y_0 = resultView.bounds.midY // 좀 더 서브뷰에서 중앙에 가까운듯
 //        x_0 = resultView.center.x
 //        y_0 = resultView.center.y
-        
         drawMainCircle()
     }
 
@@ -43,21 +45,23 @@ class ViewController: UIViewController {
         shapeLayerMainCircle.strokeColor = UIColor.red.cgColor //you can change the stroke color
         shapeLayerMainCircle.lineWidth = 1.0 //you can change the line width
         resultView.layer.addSublayer(shapeLayerMainCircle)
+        
     }
     
     fileprivate func drawPoleFigure(_ p_prime: SIMD2<Double>) {
         let poleFigure = UIBezierPath(arcCenter: CGPoint(x: x_0+100*p_prime[0], y: y_0+100*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
         let shapeLayerPoleFigure = CAShapeLayer()
-        
+        shapeLayerPoleFigure.name = "point"
         shapeLayerPoleFigure.path = poleFigure.cgPath
         shapeLayerPoleFigure.fillColor = UIColor.clear.cgColor //change the fill color
         shapeLayerPoleFigure.strokeColor = UIColor.blue.cgColor //you can change the stroke color
         shapeLayerPoleFigure.lineWidth = 2.0 //you can change the line width
         resultView.layer.addSublayer(shapeLayerPoleFigure)
-        
     }
-    
+     
     @IBAction func editButtonClicked(_ sender: UIButton) {
+        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() }
+        
         let userInputX = millerX.text!
         let userInputY = millerY.text!
         let userInputZ = millerZ.text!
