@@ -20,12 +20,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let userInputX = millerX
-        let userInputY = millerY
-        let userInputZ = millerZ
-    }
-
-     
+//        let userInputX = millerX
+//        let userInputY = millerY
+//        let userInputZ = millerZ
+    }    
+    
+    
 //    @IBAction func editButtonClicked(_ sender: UIButton)// -> [SIMD2<Double>] {
 //        {
 ////        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() }// 전에것 지우는코드
