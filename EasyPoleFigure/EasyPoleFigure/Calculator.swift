@@ -9,6 +9,8 @@ import Foundation
 import simd
 
 
+let pi = Double.pi
+
 func dotP(_ symmetryOperator: double3x3,_ milerIdx: SIMD3<Double>) -> SIMD3<Double> {
     let x = dot(symmetryOperator[0], milerIdx)
     let y = dot(symmetryOperator[1], milerIdx)
@@ -23,16 +25,30 @@ func projection(_ pole: SIMD3<Double>) -> SIMD2<Double> {
     return p_prime
 }
 
-//
-//func calcEulerAngle(_ angleX: Double, _ angleY: Double, _ angleZ: Double, _ standardPole: [SIMD3<Double>]) -> [SIMD3<Double>] {
-//    let c1 = cos(angleX)
-//    let c2 = cos(angleY)
-//    let c3 = cos(angleZ)
-//    let s1 = sin(angleX)
-//    let s2 = sin(angleY)
-//    let s3 = sin(angleZ)
-//    
-//    let XYZ: simd_double3x3 = [[], [], []
-//    ]
-//
-//}
+
+func calcEulerAngle(_ angleX: Double, _ angleY: Double, _ angleZ: Double, _ standardPole: [SIMD3<Double>]) -> [SIMD3<Double>] {
+    let radian = pi / 180.0
+    let c1 = cos(angleX * radian)
+    let c2 = cos(angleY * radian)
+    let c3 = cos(angleZ * radian)
+    let s1 = sin(angleX * radian)
+    let s2 = sin(angleY * radian)
+    let s3 = sin(angleZ * radian)
+    
+    let _0_0 = c2*c3
+    let _0_1 = -c2*s3
+    let _0_2 = s2
+    let _1_0 = c1*s3+c3*s1*s2
+    let _1_1 = c1*c3-s1*s2*s3
+    let _1_2 = -c2*s1
+    let _2_0 = s1*s3-c1*c3*s2
+    let _2_1 = c3*s1+c1*s2*s3
+    let _2_2 = c1*c2
+    
+    let raw1: SIMD3 = [_0_0, _0_1, _0_2]
+    let raw2: SIMD3 = [_1_0, _1_1, _1_2]
+    let raw3: SIMD3 = [_2_0, _2_1, _2_2]
+    let XYZ: [SIMD3<Double>] = [raw1, raw2, raw3]
+    
+    return XYZ
+}
