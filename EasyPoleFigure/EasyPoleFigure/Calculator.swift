@@ -11,19 +11,19 @@ import simd
 
 let pi = Double.pi
 
-func dotP(_ symmetryOperator: double3x3,_ milerIdx: SIMD3<Double>) -> SIMD3<Double> {
-    let x = dot(symmetryOperator[0], milerIdx)
-    let y = dot(symmetryOperator[1], milerIdx)
-    let z = dot(symmetryOperator[2], milerIdx)
-    return SIMD3<Double>(x: x, y: y, z: z)
-}
-
-//func rotatingDotP(_ a: SIMD3<Double>,_ milerIdx: SIMD3<Double>) -> SIMD3<Double> {
+//func dotP(_ symmetryOperator: double3x3,_ milerIdx: SIMD3<Double>) -> SIMD3<Double> {
 //    let x = dot(symmetryOperator[0], milerIdx)
 //    let y = dot(symmetryOperator[1], milerIdx)
 //    let z = dot(symmetryOperator[2], milerIdx)
 //    return SIMD3<Double>(x: x, y: y, z: z)
 //}
+
+func dotP(_ a: [SIMD3<Double>],_ milerIdx: SIMD3<Double>) -> SIMD3<Double> {
+    let x = dot(a[0], milerIdx)
+    let y = dot(a[1], milerIdx)
+    let z = dot(a[2], milerIdx)
+    return SIMD3<Double>(x: x, y: y, z: z)
+}
 
 
 func projection(_ pole: SIMD3<Double>) -> SIMD2<Double> {
@@ -53,10 +53,18 @@ func calcEulerAngle(_ angleX: Double, _ angleY: Double, _ angleZ: Double) -> [SI
     let _2_1 = c3*s1+c1*s2*s3
     let _2_2 = c1*c2
     
-    let raw1: SIMD3 = [_0_0, _0_1, _0_2]
-    let raw2: SIMD3 = [_1_0, _1_1, _1_2]
-    let raw3: SIMD3 = [_2_0, _2_1, _2_2]
+//    let raw1: SIMD3 = [_0_0, _0_1, _0_2]
+//    let raw2: SIMD3 = [_1_0, _1_1, _1_2]
+//    let raw3: SIMD3 = [_2_0, _2_1, _2_2]
+//    let XYZ: [SIMD3<Double>] = [raw1, raw2, raw3]
+    let raw1: SIMD3<Double> = [_0_0, _0_1, _0_2]
+    let raw2: SIMD3<Double> = [_1_0, _1_1, _1_2]
+    let raw3: SIMD3<Double> = [_2_0, _2_1, _2_2]
     let XYZ: [SIMD3<Double>] = [raw1, raw2, raw3]
     
+    //let rotatedP = dotP(XYZ, <#T##milerIdx: SIMD3<Double>##SIMD3<Double>#>)
+    // 여기에서 XYZ, standardPole 내적시켜야할듯
+    // XYZ: 3x3, standardPole(pDotH): [1x3]
+    // 
     return XYZ
 }

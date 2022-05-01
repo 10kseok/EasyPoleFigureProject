@@ -108,14 +108,17 @@ class ViewController: UIViewController {
         var pDotH: [SIMD3<Double>] = []
         var p_prime: [SIMD2<Double>] = []
         
+        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
+        
+        
+        let rotateP = dotP(calcEulerAngle(radianX, radianY, radianZ), p)
+        
         for i in cubicData.indices {
-            pDotH.append(dotP(cubicData[i], p))
-        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]
+            pDotH.append(dotP(cubicData[i], rotateP))
+        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]\
         
-        let rotatingPDotH = calcEulerAngle(radianX ?? 0, radianY ?? 0, radianZ ?? 0, pDotH) // 회전을 시켰을 때 Euler Angle 이용하여 [XYZ] dot [(x', y', z')] = [(x'', y'', z'')]
-        
-        for i in rotatingPDotH.indices {
-            let projection = projection(rotatingPDotH[i])
+        for i in pDotH.indices {
+            let projection = projection(pDotH[i])
             if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
                 p_prime.append(projection)
             }
@@ -138,14 +141,17 @@ class ViewController: UIViewController {
         var pDotH: [SIMD3<Double>] = []
         var p_prime: [SIMD2<Double>] = []
         
+        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
+        
+        
+        let rotateP = dotP(calcEulerAngle(radianX, radianY, radianZ), p)
+        
         for i in cubicData.indices {
-            pDotH.append(dotP(cubicData[i], p))
-        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]
+            pDotH.append(dotP(cubicData[i], rotateP))
+        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]\
         
-        let rotatingPDotH = calcEulerAngle(radianX ?? 0, radianY ?? 0, radianZ ?? 0, pDotH) // 회전을 시켰을 때 Euler Angle 이용하여 [XYZ] dot [(x', y', z')] = [(x'', y'', z'')]
-        
-        for i in rotatingPDotH.indices {
-            let projection = projection(rotatingPDotH[i])
+        for i in pDotH.indices {
+            let projection = projection(pDotH[i])
             if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
                 p_prime.append(projection)
             }
@@ -168,14 +174,17 @@ class ViewController: UIViewController {
         var pDotH: [SIMD3<Double>] = []
         var p_prime: [SIMD2<Double>] = []
         
+        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
+        
+        
+        let rotateP = dotP(calcEulerAngle(radianX, radianY, radianZ), p)
+        
         for i in cubicData.indices {
-            pDotH.append(dotP(cubicData[i], p))
-        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]
+            pDotH.append(dotP(cubicData[i], rotateP))
+        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]\
         
-        let rotatingPDotH = calcEulerAngle(radianX ?? 0, radianY ?? 0, radianZ ?? 0, pDotH) // 회전을 시켰을 때 Euler Angle 이용하여 [XYZ] dot [(x', y', z')] = [(x'', y'', z'')]
-        
-        for i in rotatingPDotH.indices {
-            let projection = projection(rotatingPDotH[i])
+        for i in pDotH.indices {
+            let projection = projection(pDotH[i])
             if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
                 p_prime.append(projection)
             }
