@@ -14,6 +14,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var millerX: UITextField!
     @IBOutlet weak var millerY: UITextField!
     @IBOutlet weak var millerZ: UITextField!
+    @IBOutlet weak var rotateX: UISlider!
+    @IBOutlet weak var rotateY: UISlider!
+    @IBOutlet weak var rotateZ: UISlider!
     
     @IBOutlet weak var editButton: UIButton!
     
@@ -41,7 +44,7 @@ class ViewController: UIViewController {
 
     fileprivate func drawMainCircle() {
         
-        let mainCirclePath = UIBezierPath(arcCenter: CGPoint(x: x_0, y: y_0), radius: CGFloat(100), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true) //CGPoint(x,y)의 위치가 원의 중심입니다.
+        let mainCirclePath = UIBezierPath(arcCenter: CGPoint(x: x_0, y: y_0), radius: CGFloat(150), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true) //CGPoint(x,y)의 위치가 원의 중심입니다.
         let shapeLayerMainCircle = CAShapeLayer()
         
         shapeLayerMainCircle.path = mainCirclePath.cgPath
@@ -53,7 +56,7 @@ class ViewController: UIViewController {
     }
     
     fileprivate func drawPoleFigure(_ p_prime: SIMD2<Double>) {
-        let poleFigure = UIBezierPath(arcCenter: CGPoint(x: x_0+100*p_prime[0], y: y_0+100*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
+        let poleFigure = UIBezierPath(arcCenter: CGPoint(x: x_0+150*p_prime[0], y: y_0+150*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
         let shapeLayerPoleFigure = CAShapeLayer()
         shapeLayerPoleFigure.name = "point"
         shapeLayerPoleFigure.path = poleFigure.cgPath
@@ -77,13 +80,21 @@ class ViewController: UIViewController {
             pDotH.append(dotP(cubicData[i], p))
         } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]
         
-        // 회전을 시켰을 때 Euler Angle 이용하여 [XZX] dot [(x', y', z')] = [(x'', y'', z'')]
+//        for i in pDotH.indices {
+//            p_prime.append(projection(pDotH[i]))
+//        } // 내적된 값을 projection하여 저장 [(X, Y)]
         
         for i in pDotH.indices {
-            p_prime.append(projection(pDotH[i]))
-        } // 내적된 값을 projection하여 저장 [(X, Y)]
+            let projection = projection(pDotH[i])
+            if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
+                p_prime.append(projection)
+            }
+        } // 내적된 값을 projection하여 저장 [(X, Y)], 원 내부에 있는것만 저장
+        
         for i in p_prime.indices {
             drawPoleFigure(p_prime[i])
         } // [(X, Y)] 값들을 좌표계에 그림
     }
+    
+    // 회전을 시켰을 때 Euler Angle 이용하여 [XZX] dot [(x', y', z')] = [(x'', y'', z'')]
 }

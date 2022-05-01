@@ -23,16 +23,16 @@ func projection(_ pole: SIMD3<Double>) -> SIMD2<Double> {
     return p_prime
 }
 
-
-func calcEulerAngle(_ angleX: Double, _ angleY: Double, _ angleZ: Double, _ standardPole: [SIMD3<Double>]) -> [SIMD3<Double>] {
-    let c1 = cos(angleX)
-    let c2 = cos(angleY)
-    let c3 = cos(angleZ)
-    let s1 = sin(angleX)
-    let s2 = sin(angleY)
-    let s3 = sin(angleZ)
-    
-    let XYZ: simd_double3x3 = [[], [], []
-    ]
-
-}
+//
+//func calcEulerAngle(_ angleX: Double, _ angleY: Double, _ angleZ: Double, _ standardPole: [SIMD3<Double>]) -> [SIMD3<Double>] {
+//    let c1 = cos(angleX)
+//    let c2 = cos(angleY)
+//    let c3 = cos(angleZ)
+//    let s1 = sin(angleX)
+//    let s2 = sin(angleY)
+//    let s3 = sin(angleZ)
+//    
+//    let XYZ: simd_double3x3 = [[], [], []
+//    ]
+//
+//}
