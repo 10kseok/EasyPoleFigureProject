@@ -110,12 +110,12 @@ class ViewController: UIViewController {
         
         resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
         
-        
+        // XYZ dot p, p를 회전
         let rotateP = dotP(calcEulerAngle(radianX, radianY, radianZ), p)
         
         for i in cubicData.indices {
             pDotH.append(dotP(cubicData[i], rotateP))
-        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]\
+        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]
         
         for i in pDotH.indices {
             let projection = projection(pDotH[i])
@@ -148,7 +148,7 @@ class ViewController: UIViewController {
         
         for i in cubicData.indices {
             pDotH.append(dotP(cubicData[i], rotateP))
-        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]\
+        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]
         
         for i in pDotH.indices {
             let projection = projection(pDotH[i])
@@ -181,7 +181,7 @@ class ViewController: UIViewController {
         
         for i in cubicData.indices {
             pDotH.append(dotP(cubicData[i], rotateP))
-        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]\
+        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]
         
         for i in pDotH.indices {
             let projection = projection(pDotH[i])

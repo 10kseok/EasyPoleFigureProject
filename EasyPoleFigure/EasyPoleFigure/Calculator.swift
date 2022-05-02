@@ -53,10 +53,7 @@ func calcEulerAngle(_ angleX: Double, _ angleY: Double, _ angleZ: Double) -> [SI
     let _2_1 = c3*s1+c1*s2*s3
     let _2_2 = c1*c2
     
-//    let raw1: SIMD3 = [_0_0, _0_1, _0_2]
-//    let raw2: SIMD3 = [_1_0, _1_1, _1_2]
-//    let raw3: SIMD3 = [_2_0, _2_1, _2_2]
-//    let XYZ: [SIMD3<Double>] = [raw1, raw2, raw3]
+
     let raw1: SIMD3<Double> = [_0_0, _0_1, _0_2]
     let raw2: SIMD3<Double> = [_1_0, _1_1, _1_2]
     let raw3: SIMD3<Double> = [_2_0, _2_1, _2_2]
