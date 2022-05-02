@@ -11,17 +11,17 @@ import simd
 
 let pi = Double.pi
 
-//func dotP(_ symmetryOperator: double3x3,_ milerIdx: SIMD3<Double>) -> SIMD3<Double> {
-//    let x = dot(symmetryOperator[0], milerIdx)
-//    let y = dot(symmetryOperator[1], milerIdx)
-//    let z = dot(symmetryOperator[2], milerIdx)
-//    return SIMD3<Double>(x: x, y: y, z: z)
-//}
+func dotP(_ symmetryOperator: double3x3,_ milerIdx: SIMD3<Double>) -> SIMD3<Double> {
+    let x = dot(symmetryOperator[0], milerIdx)
+    let y = dot(symmetryOperator[1], milerIdx)
+    let z = dot(symmetryOperator[2], milerIdx)
+    return SIMD3<Double>(x: x, y: y, z: z)
+}
 
-func dotP(_ a: [SIMD3<Double>],_ milerIdx: SIMD3<Double>) -> SIMD3<Double> {
-    let x = dot(a[0], milerIdx)
-    let y = dot(a[1], milerIdx)
-    let z = dot(a[2], milerIdx)
+func dotP2(_ XYZ: [SIMD3<Double>],_ milerIdx: SIMD3<Double>) -> SIMD3<Double> {
+    let x = dot(XYZ[0], milerIdx)
+    let y = dot(XYZ[1], milerIdx)
+    let z = dot(XYZ[2], milerIdx)
     return SIMD3<Double>(x: x, y: y, z: z)
 }
 

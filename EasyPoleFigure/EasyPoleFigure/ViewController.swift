@@ -104,6 +104,7 @@ class ViewController: UIViewController {
         let radianY = Double(rotateY.value) * radian
         let radianZ = Double(rotateZ.value) * radian
 
+
         let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
         var pDotH: [SIMD3<Double>] = []
         var p_prime: [SIMD2<Double>] = []
@@ -111,7 +112,7 @@ class ViewController: UIViewController {
         resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
         
         // XYZ dot p, p를 회전
-        let rotateP = dotP(calcEulerAngle(radianX, radianY, radianZ), p)
+        let rotateP = dotP2(calcEulerAngle(radianX, radianY, radianZ), p)
         
         for i in cubicData.indices {
             pDotH.append(dotP(cubicData[i], rotateP))
@@ -136,7 +137,7 @@ class ViewController: UIViewController {
         let radianX = Double(rotateX.value) * radian
         let radianY = Double(rotateY.value) * radian
         let radianZ = Double(rotateZ.value) * radian
-
+        
         let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
         var pDotH: [SIMD3<Double>] = []
         var p_prime: [SIMD2<Double>] = []
@@ -144,7 +145,7 @@ class ViewController: UIViewController {
         resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
         
         
-        let rotateP = dotP(calcEulerAngle(radianX, radianY, radianZ), p)
+        let rotateP = dotP2(calcEulerAngle(radianX, radianY, radianZ), p)
         
         for i in cubicData.indices {
             pDotH.append(dotP(cubicData[i], rotateP))
@@ -177,7 +178,7 @@ class ViewController: UIViewController {
         resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
         
         
-        let rotateP = dotP(calcEulerAngle(radianX, radianY, radianZ), p)
+        let rotateP = dotP2(calcEulerAngle(radianX, radianY, radianZ), p)
         
         for i in cubicData.indices {
             pDotH.append(dotP(cubicData[i], rotateP))
