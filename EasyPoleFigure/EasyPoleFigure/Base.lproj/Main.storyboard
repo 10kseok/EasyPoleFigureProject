@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="EasyPoleFigure" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fa8-FK-JZY">
+                                <rect key="frame" x="10" y="44" width="394" height="394"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fa8-FK-JZY" secondAttribute="height" multiplier="1:1" id="OFP-zt-gZQ"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="47" translatesAutoresizingMaskIntoConstraints="NO" id="qUY-Np-NOU">
+                                <rect key="frame" x="122" y="478" width="170" height="303.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="g4r-F3-SVn">
+                                        <rect key="frame" x="0.0" y="0.0" width="170" height="106.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="VuX-9R-SgJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="170" height="45.5"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="x" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o1y-57-pWk">
+                                                        <rect key="frame" x="0.0" y="0.0" width="45.5" height="45.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="o1y-57-pWk" secondAttribute="height" multiplier="1:1" id="nWG-PY-Ubk"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="R2a-VU-a9H"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="y" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1ma-G1-Kwb">
+                                                        <rect key="frame" x="62.5" y="0.0" width="45" height="45.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="1ma-G1-Kwb" secondAttribute="height" multiplier="1:1" id="zVJ-kV-1La"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="Dtz-YP-Rvm"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="z" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NbK-a3-d1d">
+                                                        <rect key="frame" x="124.5" y="0.0" width="45.5" height="45.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="NbK-a3-d1d" secondAttribute="height" multiplier="1:1" id="XAj-cY-mqo"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="75g-su-yYD"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0le-DK-A8l">
+                                                <rect key="frame" x="45" y="66.5" width="80" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="D66-hj-zB0"/>
+                                                    <constraint firstAttribute="height" constant="40" id="h0C-sa-q7P"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Edit"/>
+                                                <connections>
+                                                    <action selector="editButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fa6-02-Ku5"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="g4r-F3-SVn" secondAttribute="height" multiplier="8:5" id="JMa-dw-brZ"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="CFZ-Di-IVx">
+                                        <rect key="frame" x="0.0" y="153.5" width="170" height="150"/>
+                                        <subviews>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="ojq-wa-kea">
+                                                <rect key="frame" x="-2" y="0.0" width="174" height="31"/>
+                                                <connections>
+                                                    <action selector="rotatingXAngle:" destination="BYZ-38-t0r" eventType="valueChanged" id="leu-u9-gCy"/>
+                                                </connections>
+                                            </slider>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="jyz-Cy-sSn">
+                                                <rect key="frame" x="-2" y="60" width="174" height="31"/>
+                                                <connections>
+                                                    <action selector="rotatingYAngle:" destination="BYZ-38-t0r" eventType="valueChanged" id="0gH-iq-LOb"/>
+                                                </connections>
+                                            </slider>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="tJh-ld-oIE">
+                                                <rect key="frame" x="-2" y="120" width="174" height="31"/>
+                                                <connections>
+                                                    <action selector="rotatingZAngle:" destination="BYZ-38-t0r" eventType="valueChanged" id="N7G-Vi-iNQ"/>
+                                                </connections>
+                                            </slider>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fa8-FK-JZY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7G3-hg-pAM"/>
+                            <constraint firstItem="fa8-FK-JZY" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="JdJ-WF-vY5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fa8-FK-JZY" secondAttribute="trailing" constant="10" id="eIM-oD-geL"/>
+                            <constraint firstItem="fa8-FK-JZY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="fT4-n0-ggL"/>
+                            <constraint firstItem="qUY-Np-NOU" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="naK-2l-Vak"/>
+                            <constraint firstItem="qUY-Np-NOU" firstAttribute="top" secondItem="fa8-FK-JZY" secondAttribute="bottom" constant="40" id="pKC-rJ-HaK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="editButton" destination="0le-DK-A8l" id="T88-9Q-Ms0"/>
+                        <outlet property="millerX" destination="o1y-57-pWk" id="X3d-I4-UdK"/>
+                        <outlet property="millerY" destination="1ma-G1-Kwb" id="4Ak-VI-tF9"/>
+                        <outlet property="millerZ" destination="NbK-a3-d1d" id="SYt-Sp-JoD"/>
+                        <outlet property="resultView" destination="fa8-FK-JZY" id="l5B-YQ-RL1"/>
+                        <outlet property="rotateX" destination="ojq-wa-kea" id="SUx-EL-tJc"/>
+                        <outlet property="rotateY" destination="jyz-Cy-sSn" id="Ghj-iz-5cO"/>
+                        <outlet property="rotateZ" destination="tJh-ld-oIE" id="pkF-cY-QZM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="118.84057971014494" y="63.616071428571423"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
