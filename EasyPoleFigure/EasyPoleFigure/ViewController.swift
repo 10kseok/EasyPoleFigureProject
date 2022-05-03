@@ -9,7 +9,7 @@ import UIKit
 import simd
 import SceneKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SCNSceneRendererDelegate {
     
     @IBOutlet weak var millerX: UITextField!
     @IBOutlet weak var millerY: UITextField!
@@ -26,6 +26,8 @@ class ViewController: UIViewController {
     var x_0: CGFloat = 0
     var y_0: CGFloat = 0
     
+    lazy var sliders = [self.rotateX, self.rotateY, self.rotateZ]
+    var boxEulerAngels: SCNVector3 = SCNVector3()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,13 +46,52 @@ class ViewController: UIViewController {
         xyzAxisSceneView.autoenablesDefaultLighting = true
         xyzAxisSceneView.allowsCameraControl = true
         
-        let box = SCNBox(width: 2, height: 2, length: 2, chamferRadius: 0.3)
-        
+        let box = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0)
         let boxNode = SCNNode(geometry: box)
+        // 카메라로부터 거리조절
+        boxNode.position = SCNVector3(0, 0, -2)
+        boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray
+        
+        // 카메라위치 설정
+        let cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: 0.5)
+
         scene.rootNode.addChildNode(boxNode)
+        scene.rootNode.addChildNode(cameraNode)
         
         xyzAxisSceneView.scene = scene
+        
     }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didRenderScene scene: SCNScene, atTime time: TimeInterval) {
+//        print("eulerAngel \(scene.rootNode.eulerAngles)") // x
+//        print(scene.rootNode.orientation) // x
+//        print(" eulerAngles : \(renderer.pointOfView?.eulerAngles)") // O
+        guard let eulerAngels = renderer.pointOfView?.eulerAngles else { return }
+        updateSlider(to: eulerAngels)
+        
+    }
+    
+    func updateSlider(to eulerAngles: SCNVector3) {
+        let (boxEulerAnglesX, boxEulerAnglesY, boxEulerAnglesZ) = (eulerAngles.x, eulerAngles.y, eulerAngles.z)
+        
+        let XDegree = convertRadianToDegree(radian: boxEulerAnglesX)
+        let YDegree = convertRadianToDegree(radian: boxEulerAnglesY)
+        let ZDegree = convertRadianToDegree(radian: boxEulerAnglesZ)
+        
+        DispatchQueue.main.async {
+            self.rotateX.value = XDegree
+            self.rotateY.value = YDegree
+            self.rotateZ.value = ZDegree
+        }
+    }
+    
+    func convertRadianToDegree(radian: Float) -> Float {
+        return radian * 180 / Float.pi
+    }
+    
+    
 
  // MARK: 기준원 그리기
     fileprivate func drawMainCircle() {
