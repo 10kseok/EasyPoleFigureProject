@@ -69,6 +69,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
 //        print(scene.rootNode.orientation) // x
 //        print(" eulerAngles : \(renderer.pointOfView?.eulerAngles)") // O
         guard let eulerAngels = renderer.pointOfView?.eulerAngles else { return }
+        print("eulerAngels in renderer",eulerAngels)
         updateSlider(to: eulerAngels)
         
     }
@@ -87,12 +88,11 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         }
     }
     
-    func convertRadianToDegree(radian: Float) -> Float {
-        return radian * 180 / Float.pi
+    func updateBoxNode() {
+        // [] When Slider Changed, BoxNode's pointOfView has to change!
+        
     }
     
-    
-
  // MARK: 기준원 그리기
     fileprivate func drawMainCircle() {
         
@@ -182,6 +182,10 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         for i in p_prime.indices {
             drawPoleFigure(p_prime[i])
         } // [(X, Y)] 값들을 좌표계에 그림
+        
+//        print(radianX, radianY, radianZ)
+//        xyzAxisSceneView.scene?.rootNode.eulerAngles = SCNVector3(radianX, radianY, radianZ)
+       
     }
     
     
