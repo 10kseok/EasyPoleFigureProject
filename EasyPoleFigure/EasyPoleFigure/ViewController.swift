@@ -7,7 +7,7 @@
 
 import UIKit
 import simd
-
+import SceneKit
 
 class ViewController: UIViewController {
     
@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var editButton: UIButton!
     
     @IBOutlet weak var resultView: UIView!
+    @IBOutlet weak var xyzAxisSceneView: SCNView!
     
     var x_0: CGFloat = 0
     var y_0: CGFloat = 0
@@ -37,6 +38,18 @@ class ViewController: UIViewController {
 //        y_0 = resultView.center.y
         
         drawMainCircle()
+        
+        let scene = SCNScene()
+        
+        xyzAxisSceneView.autoenablesDefaultLighting = true
+        xyzAxisSceneView.allowsCameraControl = true
+        
+        let box = SCNBox(width: 2, height: 2, length: 2, chamferRadius: 0.3)
+        
+        let boxNode = SCNNode(geometry: box)
+        scene.rootNode.addChildNode(boxNode)
+        
+        xyzAxisSceneView.scene = scene
     }
 
  // MARK: 기준원 그리기

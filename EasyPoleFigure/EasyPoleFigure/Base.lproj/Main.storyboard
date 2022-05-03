@@ -23,91 +23,97 @@
                                     <constraint firstAttribute="width" secondItem="fa8-FK-JZY" secondAttribute="height" multiplier="1:1" id="OFP-zt-gZQ"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="47" translatesAutoresizingMaskIntoConstraints="NO" id="qUY-Np-NOU">
-                                <rect key="frame" x="122" y="478" width="170" height="303.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="g4r-F3-SVn">
+                                <rect key="frame" x="130" y="478" width="154" height="96.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="g4r-F3-SVn">
-                                        <rect key="frame" x="0.0" y="0.0" width="170" height="106.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="VuX-9R-SgJ">
+                                        <rect key="frame" x="7" y="0.0" width="140.5" height="35.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="VuX-9R-SgJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="170" height="45.5"/>
-                                                <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="x" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o1y-57-pWk">
-                                                        <rect key="frame" x="0.0" y="0.0" width="45.5" height="45.5"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="o1y-57-pWk" secondAttribute="height" multiplier="1:1" id="nWG-PY-Ubk"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="R2a-VU-a9H"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="y" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1ma-G1-Kwb">
-                                                        <rect key="frame" x="62.5" y="0.0" width="45" height="45.5"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="1ma-G1-Kwb" secondAttribute="height" multiplier="1:1" id="zVJ-kV-1La"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="Dtz-YP-Rvm"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="z" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NbK-a3-d1d">
-                                                        <rect key="frame" x="124.5" y="0.0" width="45.5" height="45.5"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="NbK-a3-d1d" secondAttribute="height" multiplier="1:1" id="XAj-cY-mqo"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="75g-su-yYD"/>
-                                                        </connections>
-                                                    </textField>
-                                                </subviews>
-                                            </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0le-DK-A8l">
-                                                <rect key="frame" x="45" y="66.5" width="80" height="40"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="x" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o1y-57-pWk">
+                                                <rect key="frame" x="0.0" y="0.0" width="35.5" height="35.5"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="80" id="D66-hj-zB0"/>
-                                                    <constraint firstAttribute="height" constant="40" id="h0C-sa-q7P"/>
+                                                    <constraint firstAttribute="width" secondItem="o1y-57-pWk" secondAttribute="height" multiplier="1:1" id="nWG-PY-Ubk"/>
                                                 </constraints>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Edit"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 <connections>
-                                                    <action selector="editButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fa6-02-Ku5"/>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="R2a-VU-a9H"/>
                                                 </connections>
-                                            </button>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="y" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1ma-G1-Kwb">
+                                                <rect key="frame" x="52.5" y="0.0" width="35.5" height="35.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="1ma-G1-Kwb" secondAttribute="height" multiplier="1:1" id="zVJ-kV-1La"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Dtz-YP-Rvm"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="z" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NbK-a3-d1d">
+                                                <rect key="frame" x="105" y="0.0" width="35.5" height="35.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="NbK-a3-d1d" secondAttribute="height" multiplier="1:1" id="XAj-cY-mqo"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="75g-su-yYD"/>
+                                                </connections>
+                                            </textField>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="g4r-F3-SVn" secondAttribute="height" multiplier="8:5" id="JMa-dw-brZ"/>
-                                        </constraints>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0le-DK-A8l">
+                                        <rect key="frame" x="37" y="56.5" width="80" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="D66-hj-zB0"/>
+                                            <constraint firstAttribute="height" constant="40" id="h0C-sa-q7P"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Edit"/>
+                                        <connections>
+                                            <action selector="editButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fa6-02-Ku5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="g4r-F3-SVn" secondAttribute="height" multiplier="8:5" id="JMa-dw-brZ"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="v9M-0L-bId">
+                                <rect key="frame" x="10" y="631.5" width="394" height="150"/>
+                                <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="CFZ-Di-IVx">
-                                        <rect key="frame" x="0.0" y="153.5" width="170" height="150"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="194.5" height="150"/>
                                         <subviews>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="ojq-wa-kea">
-                                                <rect key="frame" x="-2" y="0.0" width="174" height="31"/>
+                                                <rect key="frame" x="-2" y="0.0" width="198.5" height="31"/>
                                                 <connections>
                                                     <action selector="rotatingXAngle:" destination="BYZ-38-t0r" eventType="valueChanged" id="leu-u9-gCy"/>
                                                 </connections>
                                             </slider>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="jyz-Cy-sSn">
-                                                <rect key="frame" x="-2" y="60" width="174" height="31"/>
+                                                <rect key="frame" x="-2" y="60" width="198.5" height="31"/>
                                                 <connections>
                                                     <action selector="rotatingYAngle:" destination="BYZ-38-t0r" eventType="valueChanged" id="0gH-iq-LOb"/>
                                                 </connections>
                                             </slider>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="tJh-ld-oIE">
-                                                <rect key="frame" x="-2" y="120" width="174" height="31"/>
+                                                <rect key="frame" x="-2" y="120" width="198.5" height="31"/>
                                                 <connections>
                                                     <action selector="rotatingZAngle:" destination="BYZ-38-t0r" eventType="valueChanged" id="N7G-Vi-iNQ"/>
                                                 </connections>
                                             </slider>
                                         </subviews>
                                     </stackView>
+                                    <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aLh-K1-fDz">
+                                        <rect key="frame" x="199.5" y="0.0" width="194.5" height="150"/>
+                                    </sceneKitView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="CFZ-Di-IVx" firstAttribute="width" secondItem="aLh-K1-fDz" secondAttribute="width" id="hhU-TI-is9"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -115,10 +121,14 @@
                         <constraints>
                             <constraint firstItem="fa8-FK-JZY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7G3-hg-pAM"/>
                             <constraint firstItem="fa8-FK-JZY" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="JdJ-WF-vY5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="v9M-0L-bId" secondAttribute="trailing" constant="10" id="XqK-OG-ecu"/>
+                            <constraint firstItem="g4r-F3-SVn" firstAttribute="top" secondItem="fa8-FK-JZY" secondAttribute="bottom" constant="40" id="ZSh-et-O0c"/>
+                            <constraint firstItem="v9M-0L-bId" firstAttribute="top" secondItem="g4r-F3-SVn" secondAttribute="bottom" constant="57" id="cTe-L0-on3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fa8-FK-JZY" secondAttribute="trailing" constant="10" id="eIM-oD-geL"/>
                             <constraint firstItem="fa8-FK-JZY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="fT4-n0-ggL"/>
-                            <constraint firstItem="qUY-Np-NOU" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="naK-2l-Vak"/>
-                            <constraint firstItem="qUY-Np-NOU" firstAttribute="top" secondItem="fa8-FK-JZY" secondAttribute="bottom" constant="40" id="pKC-rJ-HaK"/>
+                            <constraint firstItem="g4r-F3-SVn" firstAttribute="centerX" secondItem="fa8-FK-JZY" secondAttribute="centerX" id="i8d-20-2z2"/>
+                            <constraint firstItem="v9M-0L-bId" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="kXS-7c-x5g"/>
+                            <constraint firstItem="v9M-0L-bId" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="zUM-J6-Pu5"/>
                         </constraints>
                     </view>
                     <connections>
@@ -130,6 +140,7 @@
                         <outlet property="rotateX" destination="ojq-wa-kea" id="SUx-EL-tJc"/>
                         <outlet property="rotateY" destination="jyz-Cy-sSn" id="Ghj-iz-5cO"/>
                         <outlet property="rotateZ" destination="tJh-ld-oIE" id="pkF-cY-QZM"/>
+                        <outlet property="xyzAxisSceneView" destination="aLh-K1-fDz" id="Hlo-Up-yrL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
