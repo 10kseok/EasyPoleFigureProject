@@ -157,20 +157,28 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         let radianX = Double(rotateX.value) * radian
         let radianY = Double(rotateY.value) * radian
         let radianZ = Double(rotateZ.value) * radian
-
+        //let XYZ = calcEulerAngle(radianX, radianY, radianZ)
 
         let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
         var pDotH: [SIMD3<Double>] = []
+        //var rotatedPdotH: [SIMD3<Double>] = []
         var p_prime: [SIMD2<Double>] = []
+        
         
         resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
         
-        // XYZ dot p, p를 회전
+        // XYZ dot p, p를 회전(X)
         let rotateP = dotP2(calcEulerAngle(radianX, radianY, radianZ), p)
         
         for i in cubicData.indices {
             pDotH.append(dotP(cubicData[i], rotateP))
-        } // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]
+        } // 정규화된 값(=p)과 cubic symmetry(=cubicData)와 내적 pDotH(=[(x', y', z')])
+        // 이 값을 XYZ 와 내적해서 저장
+//        for i in cubicData.indices {
+//            pDotH.append(dotP(cubicData[i], p))
+//        } // 정규화된 값(=p)과 cubic symmetry(=cubicData)와 내적 pDotH(=[(x', y', z')])
+//        // 이 값을 XYZ 와 내적해서 저장
+        
         
         for i in pDotH.indices {
             let projection = projection(pDotH[i])
