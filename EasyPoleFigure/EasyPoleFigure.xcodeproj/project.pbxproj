@@ -15,7 +15,6 @@
 		303E9EFF27F4217800D2F7EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 303E9EFD27F4217800D2F7EA /* Main.storyboard */; };
 		303E9F0127F4217900D2F7EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 303E9F0027F4217900D2F7EA /* Assets.xcassets */; };
 		303E9F0427F4217900D2F7EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 303E9F0227F4217900D2F7EA /* LaunchScreen.storyboard */; };
-		303E9F0D27F421CD00D2F7EA /* Matft in Frameworks */ = {isa = PBXBuildFile; productRef = 303E9F0C27F421CD00D2F7EA /* Matft */; };
 		303E9F0F27F4220200D2F7EA /* SymmetryOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303E9F0E27F4220200D2F7EA /* SymmetryOperator.swift */; };
 		30EC792028096988002E5D6B /* Cubic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EC791F28096988002E5D6B /* Cubic.swift */; };
 /* End PBXBuildFile section */
@@ -41,7 +40,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				303E9F0D27F421CD00D2F7EA /* Matft in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +98,6 @@
 			);
 			name = EasyPoleFigure;
 			packageProductDependencies = (
-				303E9F0C27F421CD00D2F7EA /* Matft */,
 			);
 			productName = EasyPoleFigure;
 			productReference = 303E9EF427F4217800D2F7EA /* EasyPoleFigure.app */;
@@ -131,7 +128,6 @@
 			);
 			mainGroup = 303E9EEB27F4217800D2F7EA;
 			packageReferences = (
-				303E9F0B27F421CD00D2F7EA /* XCRemoteSwiftPackageReference "Matft" */,
 			);
 			productRefGroup = 303E9EF527F4217800D2F7EA /* Products */;
 			projectDirPath = "";
@@ -384,25 +380,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		303E9F0B27F421CD00D2F7EA /* XCRemoteSwiftPackageReference "Matft" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jjjkkkjjj/Matft.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.9;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		303E9F0C27F421CD00D2F7EA /* Matft */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 303E9F0B27F421CD00D2F7EA /* XCRemoteSwiftPackageReference "Matft" */;
-			productName = Matft;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 303E9EEC27F4217800D2F7EA /* Project object */;
 }
