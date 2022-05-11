@@ -150,7 +150,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     }
     
 // MARK: 회전관련 함수
-    @IBAction func rotatingXAngle(_ sender: Any) {
+    @IBAction func rotatingAngle(_ sender: Any) {
         let radian = pi/180.0
         // 입력값
         let radianX = Double(rotateX.value) * radian
