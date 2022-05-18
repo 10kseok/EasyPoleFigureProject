@@ -1,4 +1,3 @@
-//
 //  ViewController.swift
 //  EasyPoleFigure
 //
@@ -17,6 +16,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     @IBOutlet weak var rotateX: UISlider!
     @IBOutlet weak var rotateY: UISlider!
     @IBOutlet weak var rotateZ: UISlider!
+    @IBOutlet weak var xAngle: UILabel!
+    @IBOutlet weak var yAngle: UILabel!
+    @IBOutlet weak var zAngle: UILabel!
     
     @IBOutlet weak var editButton: UIButton!
     
@@ -29,11 +31,13 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     lazy var sliders = [self.rotateX, self.rotateY, self.rotateZ]
     var boxEulerAngels: SCNVector3 = SCNVector3()
     
+//
     var pole = SIMD3<Double>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setCenterOfResultView()
+        changeAngleValue()
         drawMainCircle()
         configureSceneView()
     }
@@ -41,10 +45,15 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     fileprivate func setCenterOfResultView() {
         x_0 = resultView.bounds.size.width / 2
         y_0 = resultView.bounds.size.height / 2
+        //        x_0 = resultView.bounds.midX
+//        y_0 = resultView.bounds.midY // 좀 더 서브뷰에서 중앙에 가까운듯
+//        x_0 = resultView.center.x
+//        y_0 = resultView.center.y
     }
     
     fileprivate func configureSceneView() {
         let scene = configureScene()
+        let scene = SCNScene()
         
         xyzAxisSceneView.autoenablesDefaultLighting = true
         xyzAxisSceneView.allowsCameraControl = true
@@ -174,18 +183,26 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     }
     
 // MARK: 회전관련 함수
-    @IBAction func rotatingAngle(_ sender: Any) {
+    let step: Float = 1
+    
+    @IBAction func rotatingAngle(_ sender: UISlider) {
+        let rXAng = round(rotateX.value)
+        let rYAng = round(rotateY.value)
+        let rZAng = round(rotateZ.value)
+        
         let radian = pi/180.0
         // 입력값
-        let radianX = Double(rotateX.value) * radian
-        let radianY = Double(rotateY.value) * radian
-        let radianZ = Double(rotateZ.value) * radian
+        let radianX = Double(rXAng) * radian
+        let radianY = Double(rYAng) * radian
+        let radianZ = Double(rZAng) * radian
         let XYZ = calcEulerAngle(radianX, radianY, radianZ) // 회전된 값
         let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
         
         var pDotH: [SIMD3<Double>] = []
         var rotatedPdotH: [SIMD3<Double>] = []
         var p_prime: [SIMD2<Double>] = []
+        
+        changeAngleValue()
         
         resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
         
@@ -211,5 +228,12 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         for i in p_prime.indices {
             drawPoleFigure(p_prime[i])
         }
+    }
+
+    
+    func changeAngleValue() {
+        self.xAngle.text = "X axis : \(Int(round(rotateX.value)))"
+        self.yAngle.text = "Y axis : \(Int(round(rotateY.value)))"
+        self.zAngle.text = "Z axis : \(Int(round(rotateZ.value)))"
     }
 }
