@@ -53,7 +53,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
     fileprivate func configureSceneView() {
         let scene = configureScene()
-        let scene = SCNScene()
         
         xyzAxisSceneView.autoenablesDefaultLighting = true
         xyzAxisSceneView.allowsCameraControl = true
