@@ -45,7 +45,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     fileprivate func setCenterOfResultView() {
         x_0 = resultView.bounds.size.width / 2
         y_0 = resultView.bounds.size.height / 2
-        //        x_0 = resultView.bounds.midX
+//        x_0 = resultView.bounds.midX
 //        y_0 = resultView.bounds.midY // 좀 더 서브뷰에서 중앙에 가까운듯
 //        x_0 = resultView.center.x
 //        y_0 = resultView.center.y
@@ -53,7 +53,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
     fileprivate func configureSceneView() {
         let scene = configureScene()
-        let scene = SCNScene()
         
         xyzAxisSceneView.autoenablesDefaultLighting = true
         xyzAxisSceneView.allowsCameraControl = true
