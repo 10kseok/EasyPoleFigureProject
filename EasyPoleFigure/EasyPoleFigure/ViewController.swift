@@ -17,6 +17,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     @IBOutlet weak var rotateX: UISlider!
     @IBOutlet weak var rotateY: UISlider!
     @IBOutlet weak var rotateZ: UISlider!
+    @IBOutlet weak var xAngle: UILabel!
+    @IBOutlet weak var yAngle: UILabel!
+    @IBOutlet weak var zAngle: UILabel!
     
     @IBOutlet weak var editButton: UIButton!
     
@@ -38,7 +41,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
 //        y_0 = resultView.bounds.midY // 좀 더 서브뷰에서 중앙에 가까운듯
 //        x_0 = resultView.center.x
 //        y_0 = resultView.center.y
-        
+        self.xAngle.text = "X axis : 0"
+        self.yAngle.text = "Y axis : 0"
+        self.zAngle.text = "Z axis : 0"
         drawMainCircle()
         
         let scene = SCNScene()
@@ -150,18 +155,26 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     }
     
 // MARK: 회전관련 함수
-    @IBAction func rotatingAngle(_ sender: Any) {
+    let step: Float = 1
+    
+    @IBAction func rotatingAngle(_ sender: UISlider) {
+        let rXAng = round(rotateX.value)
+        let rYAng = round(rotateY.value)
+        let rZAng = round(rotateZ.value)
+        
         let radian = pi/180.0
         // 입력값
-        let radianX = Double(rotateX.value) * radian
-        let radianY = Double(rotateY.value) * radian
-        let radianZ = Double(rotateZ.value) * radian
+        let radianX = Double(rXAng) * radian
+        let radianY = Double(rYAng) * radian
+        let radianZ = Double(rZAng) * radian
         let XYZ = calcEulerAngle(radianX, radianY, radianZ) // 회전된 값
         let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
         
         var pDotH: [SIMD3<Double>] = []
         var rotatedPdotH: [SIMD3<Double>] = []
         var p_prime: [SIMD2<Double>] = []
+        
+        changeAngleValue()
         
         resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
         
@@ -188,84 +201,11 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
             drawPoleFigure(p_prime[i])
         }
     }
+
     
-    
-    @IBAction func rotatingYAngle(_ sender: Any) {
-        let radian = pi/180.0
-        // 입력값
-        let radianX = Double(rotateX.value) * radian
-        let radianY = Double(rotateY.value) * radian
-        let radianZ = Double(rotateZ.value) * radian
-        let XYZ = calcEulerAngle(radianX, radianY, radianZ) // 회전된 값
-        let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
-        
-        var pDotH: [SIMD3<Double>] = []
-        var rotatedPdotH: [SIMD3<Double>] = []
-        var p_prime: [SIMD2<Double>] = []
-        
-        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
-        
-        // p와 H를 내적하여 저장 [x', ]
-        for i in cubicData.indices {
-            pDotH.append(dotP(cubicData[i], p))
-        }
-        
-        // pDotH를 회전시켜 저장 [rotatedPdotH]
-        for i in pDotH.indices {
-            rotatedPdotH.append(dotP(XYZ, pDotH[i]))
-        }
-        
-        // 내적된 값을 projection하여 저장 [(X, Y)], 원 내부에 있는것만 저장
-        for i in rotatedPdotH.indices {
-            let projection = projection(rotatedPdotH[i])
-            if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
-                p_prime.append(projection)
-            }
-        }
-        
-        // [(X, Y)] 값들을 좌표계에 그림
-        for i in p_prime.indices {
-            drawPoleFigure(p_prime[i])
-        }
-    }
-    
-    
-    @IBAction func rotatingZAngle(_ sender: Any) {
-        let radian = pi/180.0
-        // 입력값
-        let radianX = Double(rotateX.value) * radian
-        let radianY = Double(rotateY.value) * radian
-        let radianZ = Double(rotateZ.value) * radian
-        let XYZ = calcEulerAngle(radianX, radianY, radianZ) // 회전된 값
-        let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
-        
-        var pDotH: [SIMD3<Double>] = []
-        var rotatedPdotH: [SIMD3<Double>] = []
-        var p_prime: [SIMD2<Double>] = []
-        
-        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
-        
-        // p와 H를 내적하여 저장 [x', ]
-        for i in cubicData.indices {
-            pDotH.append(dotP(cubicData[i], p))
-        }
-        
-        // pDotH를 회전시켜 저장 [rotatedPdotH]
-        for i in pDotH.indices {
-            rotatedPdotH.append(dotP(XYZ, pDotH[i]))
-        }
-        
-        // 내적된 값을 projection하여 저장 [(X, Y)], 원 내부에 있는것만 저장
-        for i in rotatedPdotH.indices {
-            let projection = projection(rotatedPdotH[i])
-            if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
-                p_prime.append(projection)
-            }
-        }
-        
-        // [(X, Y)] 값들을 좌표계에 그림
-        for i in p_prime.indices {
-            drawPoleFigure(p_prime[i])
-        }
+    func changeAngleValue() {
+        self.xAngle.text = "X axis : \(Int(round(rotateX.value)))"
+        self.yAngle.text = "Y axis : \(Int(round(rotateY.value)))"
+        self.zAngle.text = "Z axis : \(Int(round(rotateZ.value)))"
     }
 }
