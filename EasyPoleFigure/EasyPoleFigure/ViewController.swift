@@ -29,49 +29,61 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     lazy var sliders = [self.rotateX, self.rotateY, self.rotateZ]
     var boxEulerAngels: SCNVector3 = SCNVector3()
     
+    var pole = SIMD3<Double>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setCenterOfResultView()
+        drawMainCircle()
+        configureSceneView()
+    }
+    
+    fileprivate func setCenterOfResultView() {
         x_0 = resultView.bounds.size.width / 2
         y_0 = resultView.bounds.size.height / 2
-//        x_0 = resultView.bounds.midX
-//        y_0 = resultView.bounds.midY // 좀 더 서브뷰에서 중앙에 가까운듯
-//        x_0 = resultView.center.x
-//        y_0 = resultView.center.y
-        
-        drawMainCircle()
-        
-        let scene = SCNScene()
+    }
+    
+    fileprivate func configureSceneView() {
+        let scene = configureScene()
         
         xyzAxisSceneView.autoenablesDefaultLighting = true
         xyzAxisSceneView.allowsCameraControl = true
+        xyzAxisSceneView.scene = scene
+    }
+    
+    func configureScene() -> SCNScene {
+        let scene = SCNScene()
+        let boxNode = makeBoxNode()
+        let cameraNode = makeCameraNode()
         
+        scene.rootNode.addChildNode(boxNode)
+        scene.rootNode.addChildNode(cameraNode)
+        
+        return scene
+    }
+    
+    func makeBoxNode() -> SCNNode {
         let box = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0)
         let boxNode = SCNNode(geometry: box)
         // 카메라로부터 거리조절
         boxNode.position = SCNVector3(0, 0, -2)
         boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray
         
-        // 카메라위치 설정
+        return boxNode
+    }
+    
+    func makeCameraNode() -> SCNNode {
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0.5)
-
-        scene.rootNode.addChildNode(boxNode)
-        scene.rootNode.addChildNode(cameraNode)
         
-        xyzAxisSceneView.scene = scene
-        
+        return cameraNode
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didRenderScene scene: SCNScene, atTime time: TimeInterval) {
-//        print("eulerAngel \(scene.rootNode.eulerAngles)") // x
-//        print(scene.rootNode.orientation) // x
-//        print(" eulerAngles : \(renderer.pointOfView?.eulerAngles)") // O
         guard let eulerAngels = renderer.pointOfView?.eulerAngles else { return }
-        print("eulerAngels in renderer",eulerAngels)
-        updateSlider(to: eulerAngels)
         
+        updateSlider(to: eulerAngels)
     }
     
     func updateSlider(to eulerAngles: SCNVector3) {
@@ -88,6 +100,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         }
     }
     
+    fileprivate func removePreviousPoint() {
+        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() }
+    }
     func updateBoxNode() {
         // [] When Slider Changed, BoxNode's pointOfView has to change!
         
@@ -95,7 +110,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
  // MARK: 기준원 그리기
     fileprivate func drawMainCircle() {
-        
         let mainCirclePath = UIBezierPath(arcCenter: CGPoint(x: x_0, y: y_0), radius: CGFloat(150), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true) //CGPoint(x,y)의 위치가 원의 중심입니다.
         let shapeLayerMainCircle = CAShapeLayer()
         
@@ -104,7 +118,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         shapeLayerMainCircle.strokeColor = UIColor.red.cgColor //you can change the stroke color
         shapeLayerMainCircle.lineWidth = 1.0 //you can change the line width
         resultView.layer.addSublayer(shapeLayerMainCircle)
-        
     }
     
 // MARK: 극점 찍기
@@ -116,34 +129,45 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         shapeLayerPoleFigure.fillColor = UIColor.clear.cgColor //change the fill color
         shapeLayerPoleFigure.strokeColor = UIColor.blue.cgColor //you can change the stroke color
         shapeLayerPoleFigure.lineWidth = 2.0 //you can change the line width
+        
         resultView.layer.addSublayer(shapeLayerPoleFigure)
     }
     
 // MARK: 버튼 클릭시 극점 생성(기본)
-    @IBAction func editButtonClicked(_ sender: UIButton) {
-        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
-        
-        let userInputX = millerX.text!
-        let userInputY = millerY.text!
-        let userInputZ = millerZ.text!
-        let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(userInputX) ?? 0, y: Double(userInputY) ?? 0, z: Double(userInputZ) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
-        var pDotH: [SIMD3<Double>] = []
-        var p_prime: [SIMD2<Double>] = []
-        
+    fileprivate func getSymmetry(_ p: SIMD3<Double>) -> [SIMD3<Double>]{
         // 정규화된 값과 cubic symmetry와 내적 [(x', y', z')]
+        var pDotH: [SIMD3<Double>] = []
         for i in cubicData.indices {
             pDotH.append(dotP(cubicData[i], p))
         }
-
+        
+        return pDotH
+    }
+    
+    fileprivate func getProjectedPole(_ symmetric_poles: [SIMD3<Double>]) -> [SIMD2<Double>] {
         // 내적된 값을 projection하여 저장 [(X, Y)], 원 내부에 있는것만 저장
-        for i in pDotH.indices {
-            let projection = projection(pDotH[i])
+        var p_prime = [SIMD2<Double>]()
+        for i in symmetric_poles.indices {
+            let projection = projection(symmetric_poles[i])
             if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
                 p_prime.append(projection)
             }
         }
         
-        // [(X, Y)] 값들을 좌표계에 그림
+        return p_prime
+    }
+    
+    
+    @IBAction func editButtonClicked(_ sender: UIButton) {
+        removePreviousPoint() // 이전에 있던것 지우기
+        
+        let userInput = [millerX.text!, millerY.text!, millerZ.text!].map { Double($0) ?? 0 }
+        let normalizedUserInput = simd_normalize(simd_double3(userInput)) // 사용자 입력값을 정규화하여 저장(x, y, z)
+        pole = normalizedUserInput // 정규화한 값 = 극점
+        let symmetric_poles = getSymmetry(pole) // 극점들의 대칭들을 구함
+        let p_prime = getProjectedPole(symmetric_poles) // Polefigure을 나타내기위해 평면에 투영시킨 점들을 구함
+        
+        // 평면에 투영시킨 값들을 좌표계에 그림
         for i in p_prime.indices {
             drawPoleFigure(p_prime[i])
         }
@@ -151,86 +175,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
 // MARK: 회전관련 함수
     @IBAction func rotatingAngle(_ sender: Any) {
-        let radian = pi/180.0
-        // 입력값
-        let radianX = Double(rotateX.value) * radian
-        let radianY = Double(rotateY.value) * radian
-        let radianZ = Double(rotateZ.value) * radian
-        let XYZ = calcEulerAngle(radianX, radianY, radianZ) // 회전된 값
-        let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
-        
-        var pDotH: [SIMD3<Double>] = []
-        var rotatedPdotH: [SIMD3<Double>] = []
-        var p_prime: [SIMD2<Double>] = []
-        
-        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
-        
-        // p와 H를 내적하여 저장 [x', ]
-        for i in cubicData.indices {
-            pDotH.append(dotP(cubicData[i], p))
-        }
-        
-        // pDotH를 회전시켜 저장 [rotatedPdotH]
-        for i in pDotH.indices {
-            rotatedPdotH.append(dotP(XYZ, pDotH[i]))
-        }
-        
-        // 내적된 값을 projection하여 저장 [(X, Y)], 원 내부에 있는것만 저장
-        for i in rotatedPdotH.indices {
-            let projection = projection(rotatedPdotH[i])
-            if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
-                p_prime.append(projection)
-            }
-        }
-        
-        // [(X, Y)] 값들을 좌표계에 그림
-        for i in p_prime.indices {
-            drawPoleFigure(p_prime[i])
-        }
-    }
-    
-    
-    @IBAction func rotatingYAngle(_ sender: Any) {
-        let radian = pi/180.0
-        // 입력값
-        let radianX = Double(rotateX.value) * radian
-        let radianY = Double(rotateY.value) * radian
-        let radianZ = Double(rotateZ.value) * radian
-        let XYZ = calcEulerAngle(radianX, radianY, radianZ) // 회전된 값
-        let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
-        
-        var pDotH: [SIMD3<Double>] = []
-        var rotatedPdotH: [SIMD3<Double>] = []
-        var p_prime: [SIMD2<Double>] = []
-        
-        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
-        
-        // p와 H를 내적하여 저장 [x', ]
-        for i in cubicData.indices {
-            pDotH.append(dotP(cubicData[i], p))
-        }
-        
-        // pDotH를 회전시켜 저장 [rotatedPdotH]
-        for i in pDotH.indices {
-            rotatedPdotH.append(dotP(XYZ, pDotH[i]))
-        }
-        
-        // 내적된 값을 projection하여 저장 [(X, Y)], 원 내부에 있는것만 저장
-        for i in rotatedPdotH.indices {
-            let projection = projection(rotatedPdotH[i])
-            if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
-                p_prime.append(projection)
-            }
-        }
-        
-        // [(X, Y)] 값들을 좌표계에 그림
-        for i in p_prime.indices {
-            drawPoleFigure(p_prime[i])
-        }
-    }
-    
-    
-    @IBAction func rotatingZAngle(_ sender: Any) {
         let radian = pi/180.0
         // 입력값
         let radianX = Double(rotateX.value) * radian
