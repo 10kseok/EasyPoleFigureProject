@@ -31,7 +31,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     lazy var sliders = [self.rotateX, self.rotateY, self.rotateZ]
     var boxEulerAngels: SCNVector3 = SCNVector3()
     
-//
     var pole = SIMD3<Double>()
     
     override func viewDidLoad() {
@@ -91,15 +90,15 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didRenderScene scene: SCNScene, atTime time: TimeInterval) {
         guard let eulerAngels = renderer.pointOfView?.eulerAngles else { return }
         
-        updateSlider(to: eulerAngels)
+//        updateSlider(to: eulerAngels)
     }
     
     func updateSlider(to eulerAngles: SCNVector3) {
         let (boxEulerAnglesX, boxEulerAnglesY, boxEulerAnglesZ) = (eulerAngles.x, eulerAngles.y, eulerAngles.z)
         
-        let XDegree = convertRadianToDegree(radian: boxEulerAnglesX)
-        let YDegree = convertRadianToDegree(radian: boxEulerAnglesY)
-        let ZDegree = convertRadianToDegree(radian: boxEulerAnglesZ)
+        let XDegree = convertRadianToDegree(boxEulerAnglesX)
+        let YDegree = convertRadianToDegree(boxEulerAnglesY)
+        let ZDegree = convertRadianToDegree(boxEulerAnglesZ)
         
         DispatchQueue.main.async {
             self.rotateX.value = XDegree
@@ -196,7 +195,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         let radianZ = Double(rZAng) * radian
         let XYZ = calcEulerAngle(radianX, radianY, radianZ) // 회전된 값
         let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
-        
+    
         var pDotH: [SIMD3<Double>] = []
         var rotatedPdotH: [SIMD3<Double>] = []
         var p_prime: [SIMD2<Double>] = []
@@ -226,6 +225,37 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         // [(X, Y)] 값들을 좌표계에 그림
         for i in p_prime.indices {
             drawPoleFigure(p_prime[i])
+        }
+        
+        
+        
+        if let boxNode = xyzAxisSceneView.scene?.rootNode.childNodes[0] {
+//            let tempQuaternion = SCNQuaternion()
+//            let originVector = SCNVector3(0, 0, 0)
+//            boxNode.rotate(by: tempQuaternion, aroundTarget: originVector)
+//            boxNode.localRotate(by: tempQuaternion)
+//            boxNode.look(at: SCNVector3(radianX, radianY, radianZ))
+            let originVector = simd_float3(x: 0, y: 0, z: 1)
+
+            // 쿼터니언 = angle : 회전할 각도, axis : 회전시킨뒤 벡터
+            
+            // x축만 돌릴꺼야
+            let quaternion = simd_quatf(angle: Float(radianX),
+                                        axis: simd_float3(x: 1,
+                                                          y: 0,
+                                                          z: 0))
+            
+//            let quaternionY = simd_quatf(angle: Float(radianY),
+//                                         axis: simd_float3(x: 0,
+//                                                           y: 1,
+//                                                           z: 0))
+//
+//            let quaternionZ = simd_quatf(angle: Float(radianZ),
+//                                         axis: simd_float3(x: 0,
+//                                                           y: 0,
+//                                                           z: 1))
+            
+            boxNode.simdLocalRotate(by: quaternion)
         }
     }
 
