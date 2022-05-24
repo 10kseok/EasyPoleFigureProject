@@ -27,6 +27,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
     var x_0: CGFloat = 0
     var y_0: CGFloat = 0
+    var preRXAng: Float = 0.0
+    var preRYAng: Float = 0.0
+    var preRZAng: Float = 0.0
     
     lazy var sliders = [self.rotateX, self.rotateY, self.rotateZ]
     var boxEulerAngels: SCNVector3 = SCNVector3()
@@ -85,12 +88,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0.5)
         
         return cameraNode
-    }
-    
-    func renderer(_ renderer: SCNSceneRenderer, didRenderScene scene: SCNScene, atTime time: TimeInterval) {
-        guard let eulerAngels = renderer.pointOfView?.eulerAngles else { return }
-        
-//        updateSlider(to: eulerAngels)
     }
     
     func updateSlider(to eulerAngles: SCNVector3) {
@@ -226,36 +223,60 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         for i in p_prime.indices {
             drawPoleFigure(p_prime[i])
         }
-        
-        
+    
         
         if let boxNode = xyzAxisSceneView.scene?.rootNode.childNodes[0] {
-//            let tempQuaternion = SCNQuaternion()
-//            let originVector = SCNVector3(0, 0, 0)
-//            boxNode.rotate(by: tempQuaternion, aroundTarget: originVector)
-//            boxNode.localRotate(by: tempQuaternion)
-//            boxNode.look(at: SCNVector3(radianX, radianY, radianZ))
-            let originVector = simd_float3(x: 0, y: 0, z: 1)
-
-            // 쿼터니언 = angle : 회전할 각도, axis : 회전시킨뒤 벡터
-            
-            // x축만 돌릴꺼야
-            let quaternion = simd_quatf(angle: Float(radianX),
-                                        axis: simd_float3(x: 1,
-                                                          y: 0,
-                                                          z: 0))
-            
-//            let quaternionY = simd_quatf(angle: Float(radianY),
-//                                         axis: simd_float3(x: 0,
-//                                                           y: 1,
-//                                                           z: 0))
-//
-//            let quaternionZ = simd_quatf(angle: Float(radianZ),
-//                                         axis: simd_float3(x: 0,
-//                                                           y: 0,
-//                                                           z: 1))
-            
-            boxNode.simdLocalRotate(by: quaternion)
+            // 쿼터니언 = angle : 회전할 각도, axis : 회전시킬 기준벡터
+            switch sender {
+            case rotateX:
+                // x축 회전
+                if preRXAng != rXAng {
+                    
+                    let rotateXAngle = Int(rXAng-preRXAng)
+                    let rotateXQuaternion = simd_quatf(angle: convertDegreeToRadian(Float(rotateXAngle)),
+                                                       axis: simd_float3(x: 1,
+                                                                         y: 0,
+                                                                         z: 0))
+                    
+                    boxNode.simdLocalRotate(by: rotateXQuaternion)
+                    
+                    preRXAng = rXAng
+                }
+                
+            case rotateY:
+                // y축 회전
+                if preRYAng != rYAng {
+                    
+                    let rotateYAngle = Int(rYAng-preRYAng)
+                    let rotateYQuaternion = simd_quatf(angle: convertDegreeToRadian(Float(rotateYAngle)),
+                                                       axis: simd_float3(x: 0,
+                                                                         y: 1,
+                                                                         z: 0))
+                    
+                    boxNode.simdLocalRotate(by: rotateYQuaternion)
+                    
+                    preRYAng = rYAng
+                }
+                
+            case rotateZ:
+                // x축 회전
+                if preRZAng != rZAng {
+                    
+                    let rotateZAngle = Int(rZAng-preRZAng)
+                    let rotateZQuaternion = simd_quatf(angle: convertDegreeToRadian(Float(rotateZAngle)),
+                                                       axis: simd_float3(x: 0,
+                                                                         y: 0,
+                                                                         z: 1))
+                    
+                    boxNode.simdLocalRotate(by: rotateZQuaternion)
+                    
+                    preRZAng = rZAng
+                }
+                print("rotateZ")
+                
+            default:
+                print("Something wrong,,,")
+            }
         }
     }
 
