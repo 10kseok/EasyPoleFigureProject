@@ -38,10 +38,18 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         setCenterOfResultView()
         changeAngleValue()
         drawMainCircle()
         configureSceneView()
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func handleTap() {
+        millerX.resignFirstResponder()
+        millerY.resignFirstResponder()
+        millerZ.resignFirstResponder()
     }
     
     fileprivate func setCenterOfResultView() {
@@ -164,7 +172,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
     @IBAction func editButtonClicked(_ sender: UIButton) {
         removePreviousPoint() // 이전에 있던것 지우기
-        
         let userInput = [millerX.text!, millerY.text!, millerZ.text!].map { Double($0) ?? 0 }
         let normalizedUserInput = simd_normalize(simd_double3(userInput)) // 사용자 입력값을 정규화하여 저장(x, y, z)
         pole = normalizedUserInput // 정규화한 값 = 극점
@@ -175,6 +182,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         for i in p_prime.indices {
             drawPoleFigure(p_prime[i])
         }
+        handleTap()
     }
     
 // MARK: 회전관련 함수
