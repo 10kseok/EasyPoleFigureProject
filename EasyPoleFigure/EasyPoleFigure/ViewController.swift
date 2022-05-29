@@ -73,21 +73,47 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         let scene = SCNScene()
         let boxNode = makeBoxNode()
         let cameraNode = makeCameraNode()
+        let axisNode = makeAxisVector()
         
         scene.rootNode.addChildNode(boxNode)
         scene.rootNode.addChildNode(cameraNode)
+        
+        axisNode.map { scene.rootNode.addChildNode($0) }
         
         return scene
     }
     
     func makeBoxNode() -> SCNNode {
-        let box = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0)
+        let box = SCNBox(width: 0.5, height: 0.5, length: 0.5, chamferRadius: 0)
         let boxNode = SCNNode(geometry: box)
         // 카메라로부터 거리조절
         boxNode.position = SCNVector3(0, 0, -2)
         boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray
         
         return boxNode
+    }
+    
+    func makeAxisVector() -> [SCNNode] {
+        
+        let xAxis = SCNBox(width: 1, height: 0.05, length: 0.05, chamferRadius: 0)
+        let yAxis = SCNBox(width: 0.05, height: 1, length: 0.05, chamferRadius: 0)
+        let zAxis = SCNBox(width: 0.05, height: 0.05, length: 1, chamferRadius: 0)
+        
+//        let xAxis = SCNPlane(width: 0.7, height: 0.1)
+        let xAxisNode = SCNNode(geometry: xAxis)
+        let yAxisNode = SCNNode(geometry: yAxis)
+        let zAxisNode = SCNNode(geometry: zAxis)
+        
+    
+        xAxisNode.position = SCNVector3(0, -0.25, -2.25)
+        yAxisNode.position = SCNVector3(-0.25, 0, -2.25)
+        zAxisNode.position = SCNVector3(-0.25, -0.25, -2)
+        
+        xAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemRed
+        yAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGreen
+        zAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemBlue
+        
+        return [xAxisNode, yAxisNode, zAxisNode]
     }
     
     func makeCameraNode() -> SCNNode {
@@ -232,9 +258,10 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
             drawPoleFigure(p_prime[i])
         }
     
-        
+        // MARK: Box 회전
         if let boxNode = xyzAxisSceneView.scene?.rootNode.childNodes[0] {
             // 쿼터니언 = angle : 회전할 각도, axis : 회전시킬 기준벡터
+            // 슬라이더 값을 정수값으로 받고 중복된 값
             switch sender {
             case rotateX:
                 // x축 회전
