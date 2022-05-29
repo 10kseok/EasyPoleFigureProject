@@ -27,19 +27,29 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
     var x_0: CGFloat = 0
     var y_0: CGFloat = 0
+    var preRXAng: Float = 0.0
+    var preRYAng: Float = 0.0
+    var preRZAng: Float = 0.0
     
     lazy var sliders = [self.rotateX, self.rotateY, self.rotateZ]
     var boxEulerAngels: SCNVector3 = SCNVector3()
     
-//
     var pole = SIMD3<Double>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         setCenterOfResultView()
         changeAngleValue()
         drawMainCircle()
         configureSceneView()
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func handleTap() {
+        millerX.resignFirstResponder()
+        millerY.resignFirstResponder()
+        millerZ.resignFirstResponder()
     }
     
     fileprivate func setCenterOfResultView() {
@@ -88,18 +98,12 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         return cameraNode
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, didRenderScene scene: SCNScene, atTime time: TimeInterval) {
-        guard let eulerAngels = renderer.pointOfView?.eulerAngles else { return }
-        
-        updateSlider(to: eulerAngels)
-    }
-    
     func updateSlider(to eulerAngles: SCNVector3) {
         let (boxEulerAnglesX, boxEulerAnglesY, boxEulerAnglesZ) = (eulerAngles.x, eulerAngles.y, eulerAngles.z)
         
-        let XDegree = convertRadianToDegree(radian: boxEulerAnglesX)
-        let YDegree = convertRadianToDegree(radian: boxEulerAnglesY)
-        let ZDegree = convertRadianToDegree(radian: boxEulerAnglesZ)
+        let XDegree = convertRadianToDegree(boxEulerAnglesX)
+        let YDegree = convertRadianToDegree(boxEulerAnglesY)
+        let ZDegree = convertRadianToDegree(boxEulerAnglesZ)
         
         DispatchQueue.main.async {
             self.rotateX.value = XDegree
@@ -168,7 +172,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
     @IBAction func editButtonClicked(_ sender: UIButton) {
         removePreviousPoint() // 이전에 있던것 지우기
-        
         let userInput = [millerX.text!, millerY.text!, millerZ.text!].map { Double($0) ?? 0 }
         let normalizedUserInput = simd_normalize(simd_double3(userInput)) // 사용자 입력값을 정규화하여 저장(x, y, z)
         pole = normalizedUserInput // 정규화한 값 = 극점
@@ -179,6 +182,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         for i in p_prime.indices {
             drawPoleFigure(p_prime[i])
         }
+        handleTap()
     }
     
 // MARK: 회전관련 함수
@@ -196,7 +200,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         let radianZ = Double(rZAng) * radian
         let XYZ = calcEulerAngle(radianX, radianY, radianZ) // 회전된 값
         let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
-        
+    
         var pDotH: [SIMD3<Double>] = []
         var rotatedPdotH: [SIMD3<Double>] = []
         var p_prime: [SIMD2<Double>] = []
@@ -226,6 +230,61 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         // [(X, Y)] 값들을 좌표계에 그림
         for i in p_prime.indices {
             drawPoleFigure(p_prime[i])
+        }
+    
+        
+        if let boxNode = xyzAxisSceneView.scene?.rootNode.childNodes[0] {
+            // 쿼터니언 = angle : 회전할 각도, axis : 회전시킬 기준벡터
+            switch sender {
+            case rotateX:
+                // x축 회전
+                if preRXAng != rXAng {
+                    
+                    let rotateXAngle = Int(rXAng-preRXAng)
+                    let rotateXQuaternion = simd_quatf(angle: convertDegreeToRadian(Float(rotateXAngle)),
+                                                       axis: simd_float3(x: 1,
+                                                                         y: 0,
+                                                                         z: 0))
+                    
+                    boxNode.simdLocalRotate(by: rotateXQuaternion)
+                    
+                    preRXAng = rXAng
+                }
+                
+            case rotateY:
+                // y축 회전
+                if preRYAng != rYAng {
+                    
+                    let rotateYAngle = Int(rYAng-preRYAng)
+                    let rotateYQuaternion = simd_quatf(angle: convertDegreeToRadian(Float(rotateYAngle)),
+                                                       axis: simd_float3(x: 0,
+                                                                         y: 1,
+                                                                         z: 0))
+                    
+                    boxNode.simdLocalRotate(by: rotateYQuaternion)
+                    
+                    preRYAng = rYAng
+                }
+                
+            case rotateZ:
+                // x축 회전
+                if preRZAng != rZAng {
+                    
+                    let rotateZAngle = Int(rZAng-preRZAng)
+                    let rotateZQuaternion = simd_quatf(angle: convertDegreeToRadian(Float(rotateZAngle)),
+                                                       axis: simd_float3(x: 0,
+                                                                         y: 0,
+                                                                         z: 1))
+                    
+                    boxNode.simdLocalRotate(by: rotateZQuaternion)
+                    
+                    preRZAng = rZAng
+                }
+                print("rotateZ")
+                
+            default:
+                print("Something wrong,,,")
+            }
         }
     }
 

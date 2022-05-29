@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,11 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fa8-FK-JZY">
-                                <rect key="frame" x="10" y="44" width="394" height="394"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="394"/>
                                 <subviews>
-                                    <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aLh-K1-fDz">
-                                        <rect key="frame" x="199" y="276" width="186.5" height="150"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="aLh-K1-fDz">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="394"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <color key="tintColor" systemColor="systemBlueColor"/>
                                         <connections>
@@ -29,9 +28,12 @@
                                         </connections>
                                     </sceneKitView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="fa8-FK-JZY" secondAttribute="height" multiplier="1:1" id="OFP-zt-gZQ"/>
+                                    <constraint firstItem="aLh-K1-fDz" firstAttribute="centerY" secondItem="fa8-FK-JZY" secondAttribute="centerY" id="X1b-63-hQq"/>
+                                    <constraint firstItem="aLh-K1-fDz" firstAttribute="centerX" secondItem="fa8-FK-JZY" secondAttribute="centerX" id="axk-rd-EJm"/>
+                                    <constraint firstItem="aLh-K1-fDz" firstAttribute="width" secondItem="fa8-FK-JZY" secondAttribute="width" id="maO-na-Qzh"/>
+                                    <constraint firstItem="aLh-K1-fDz" firstAttribute="height" secondItem="fa8-FK-JZY" secondAttribute="height" id="zUK-P6-CsU"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="g4r-F3-SVn">
@@ -144,12 +146,15 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="fa8-FK-JZY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7G3-hg-pAM"/>
+                            <constraint firstItem="fa8-FK-JZY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Bk8-oO-rvw"/>
                             <constraint firstItem="fa8-FK-JZY" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="JdJ-WF-vY5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="v9M-0L-bId" secondAttribute="bottom" constant="26.5" id="U2O-zI-LYn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fa8-FK-JZY" secondAttribute="trailing" id="Wpz-xQ-qHc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="v9M-0L-bId" secondAttribute="trailing" constant="10" id="XqK-OG-ecu"/>
                             <constraint firstItem="g4r-F3-SVn" firstAttribute="top" secondItem="fa8-FK-JZY" secondAttribute="bottom" constant="40" id="ZSh-et-O0c"/>
                             <constraint firstItem="v9M-0L-bId" firstAttribute="top" secondItem="g4r-F3-SVn" secondAttribute="bottom" constant="57" id="cTe-L0-on3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fa8-FK-JZY" secondAttribute="trailing" constant="10" id="eIM-oD-geL"/>
-                            <constraint firstItem="fa8-FK-JZY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="fT4-n0-ggL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fa8-FK-JZY" secondAttribute="trailing" id="eIM-oD-geL"/>
+                            <constraint firstItem="fa8-FK-JZY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fT4-n0-ggL"/>
                             <constraint firstItem="g4r-F3-SVn" firstAttribute="centerX" secondItem="fa8-FK-JZY" secondAttribute="centerX" id="i8d-20-2z2"/>
                             <constraint firstItem="v9M-0L-bId" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="kXS-7c-x5g"/>
                             <constraint firstItem="v9M-0L-bId" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="zUM-J6-Pu5"/>
@@ -176,9 +181,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

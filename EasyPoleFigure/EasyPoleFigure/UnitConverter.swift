@@ -8,20 +8,28 @@
 import Foundation
 
 
-func convertRadianToDegree(radian: Float) -> Float {
+func convertRadianToDegree(_ radian: Float) -> Float {
     return radian * 180 / Float.pi
 }
 
-func convertRadianToDegree(radian: Double) -> Double {
+func convertRadianToDegree(_ radian: Double) -> Double {
     return radian * 180 / Double.pi
 }
 
-func convertDegreeToRadian(degree: Float) -> Float {
+func convertRadianToDegree(_ radian: Int) -> Int {
+    return radian * 180 / Int(Float.pi)
+}
+
+func convertDegreeToRadian(_ degree: Float) -> Float {
     return degree * Float.pi / 180
 }
 
-func convertDegreeToRadian(degree: Double) -> Double {
+func convertDegreeToRadian(_ degree: Double) -> Double {
     return degree * Double.pi / 180
+}
+
+func convertDegreeToRadian(_ degree: Int) -> Int {
+    return degree * Int(Double.pi) / 180
 }
 
 
