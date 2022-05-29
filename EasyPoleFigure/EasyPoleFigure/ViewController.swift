@@ -87,9 +87,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
     func makeAxisVector() -> [SCNNode] {
         
-        let xAxis = SCNBox(width: 1, height: 0.1, length: 0.1, chamferRadius: 0)
-        let yAxis = SCNBox(width: 0.1, height: 1, length: 0.1, chamferRadius: 0)
-        let zAxis = SCNBox(width: 0.1, height: 0.1, length: 1, chamferRadius: 0)
+        let xAxis = SCNBox(width: 1, height: 0.05, length: 0.05, chamferRadius: 0)
+        let yAxis = SCNBox(width: 0.05, height: 1, length: 0.05, chamferRadius: 0)
+        let zAxis = SCNBox(width: 0.05, height: 0.05, length: 1, chamferRadius: 0)
         
 //        let xAxis = SCNPlane(width: 0.7, height: 0.1)
         let xAxisNode = SCNNode(geometry: xAxis)
@@ -97,9 +97,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         let zAxisNode = SCNNode(geometry: zAxis)
         
     
-        xAxisNode.position = SCNVector3(0, 0, -2)
-        yAxisNode.position = SCNVector3(0, 0, -2)
-        zAxisNode.position = SCNVector3(0, 0, -2)
+        xAxisNode.position = SCNVector3(0, -0.25, -2.25)
+        yAxisNode.position = SCNVector3(-0.25, 0, -2.25)
+        zAxisNode.position = SCNVector3(-0.25, -0.25, -2)
         
         xAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemRed
         yAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGreen
