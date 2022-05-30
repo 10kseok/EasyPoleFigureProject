@@ -53,12 +53,13 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     }
     
     fileprivate func setCenterOfResultView() {
-        x_0 = resultView.bounds.size.width / 2
-        y_0 = resultView.bounds.size.height / 2
+//        x_0 = resultView.bounds.size.width / 2
+//        y_0 = resultView.bounds.size.height / 2
 //        x_0 = resultView.bounds.midX
 //        y_0 = resultView.bounds.midY // 좀 더 서브뷰에서 중앙에 가까운듯
-//        x_0 = resultView.center.x
-//        y_0 = resultView.center.y
+        x_0 = view.bounds.size.width / 2 - 21
+        y_0 = x_0
+        
     }
     
     fileprivate func configureSceneView() {
@@ -148,7 +149,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
  // MARK: 기준원 그리기
     fileprivate func drawMainCircle() {
-        let mainCirclePath = UIBezierPath(arcCenter: CGPoint(x: x_0, y: y_0), radius: CGFloat(150), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true) //CGPoint(x,y)의 위치가 원의 중심입니다.
+        let mainCirclePath = UIBezierPath(arcCenter: CGPoint(x: x_0, y: y_0), radius: CGFloat(110), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true) //CGPoint(x,y)의 위치가 원의 중심입니다.
         let shapeLayerMainCircle = CAShapeLayer()
         
         shapeLayerMainCircle.path = mainCirclePath.cgPath
