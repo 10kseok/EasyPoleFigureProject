@@ -44,6 +44,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         drawMainCircle()
         configureSceneView()
         view.addGestureRecognizer(tap)
+        xyzAxisSceneView.isUserInteractionEnabled = false
     }
     
     @objc func handleTap() {
