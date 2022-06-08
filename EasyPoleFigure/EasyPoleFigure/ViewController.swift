@@ -89,7 +89,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         let boxNode = SCNNode(geometry: box)
         // 카메라로부터 거리조절
         boxNode.position = SCNVector3(0, 0, -2)
-        boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray6
+        boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray2
         
         return boxNode
     }
@@ -160,7 +160,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
 // MARK: 극점 찍기
     fileprivate func drawPoleFigure(_ p_prime: SIMD2<Double>) {
-        let poleFigure = UIBezierPath(arcCenter: CGPoint(x: x_0+150*p_prime[0], y: y_0+150*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
+        let poleFigure = UIBezierPath(arcCenter: CGPoint(x: x_0+110*p_prime[0], y: y_0+110*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
         let shapeLayerPoleFigure = CAShapeLayer()
         shapeLayerPoleFigure.name = "point"
         shapeLayerPoleFigure.path = poleFigure.cgPath
