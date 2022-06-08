@@ -106,9 +106,12 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         let zAxisNode = SCNNode(geometry: zAxis)
         
     
-        xAxisNode.position = SCNVector3(0, -0.25, -2.25)
-        yAxisNode.position = SCNVector3(-0.25, 0, -2.25)
-        zAxisNode.position = SCNVector3(-0.25, -0.25, -2)
+//        xAxisNode.position = SCNVector3(0, -0.25, -2.25)
+//        yAxisNode.position = SCNVector3(-0.25, 0, -2.25)
+//        zAxisNode.position = SCNVector3(-0.25, -0.25, -2)
+        xAxisNode.position = SCNVector3(0, 0, -2)
+        yAxisNode.position = SCNVector3(0, 0, -2)
+        zAxisNode.position = SCNVector3(0, 0, -2)
         
         xAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemRed
         yAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGreen
@@ -161,7 +164,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
 // MARK: 극점 찍기
     fileprivate func drawPoleFigure(_ p_prime: SIMD2<Double>) {
-        let poleFigure = UIBezierPath(arcCenter: CGPoint(x: x_0+150*p_prime[0], y: y_0+150*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
+        let poleFigure = UIBezierPath(arcCenter: CGPoint(x: x_0+110*p_prime[0], y: y_0+110*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
         let shapeLayerPoleFigure = CAShapeLayer()
         shapeLayerPoleFigure.name = "point"
         shapeLayerPoleFigure.path = poleFigure.cgPath
