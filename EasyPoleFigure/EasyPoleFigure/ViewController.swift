@@ -79,7 +79,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         scene.rootNode.addChildNode(boxNode)
         scene.rootNode.addChildNode(cameraNode)
         
-        axisNode.map { scene.rootNode.addChildNode($0) }
+        _ = axisNode.map { boxNode.addChildNode($0) }
         
         return scene
     }
@@ -89,13 +89,12 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         let boxNode = SCNNode(geometry: box)
         // 카메라로부터 거리조절
         boxNode.position = SCNVector3(0, 0, -2)
-        boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray
+        boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray6
         
         return boxNode
     }
     
     func makeAxisVector() -> [SCNNode] {
-        
         let xAxis = SCNBox(width: 1, height: 0.05, length: 0.05, chamferRadius: 0)
         let yAxis = SCNBox(width: 0.05, height: 1, length: 0.05, chamferRadius: 0)
         let zAxis = SCNBox(width: 0.05, height: 0.05, length: 1, chamferRadius: 0)
@@ -105,13 +104,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         let yAxisNode = SCNNode(geometry: yAxis)
         let zAxisNode = SCNNode(geometry: zAxis)
         
-    
-//        xAxisNode.position = SCNVector3(0, -0.25, -2.25)
-//        yAxisNode.position = SCNVector3(-0.25, 0, -2.25)
-//        zAxisNode.position = SCNVector3(-0.25, -0.25, -2)
-        xAxisNode.position = SCNVector3(0, 0, -2)
-        yAxisNode.position = SCNVector3(0, 0, -2)
-        zAxisNode.position = SCNVector3(0, 0, -2)
+        xAxisNode.position = SCNVector3(0, 0, 0)
+        yAxisNode.position = SCNVector3(0, 0, 0)
+        zAxisNode.position = SCNVector3(0, 0, 0)
         
         xAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemRed
         yAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGreen
@@ -145,6 +140,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     fileprivate func removePreviousPoint() {
         resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() }
     }
+    
     func updateBoxNode() {
         // [] When Slider Changed, BoxNode's pointOfView has to change!
         
@@ -164,7 +160,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
 // MARK: 극점 찍기
     fileprivate func drawPoleFigure(_ p_prime: SIMD2<Double>) {
-        let poleFigure = UIBezierPath(arcCenter: CGPoint(x: x_0+110*p_prime[0], y: y_0+110*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
+        let poleFigure = UIBezierPath(arcCenter: CGPoint(x: x_0+150*p_prime[0], y: y_0+150*p_prime[1]), radius: CGFloat(1), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
         let shapeLayerPoleFigure = CAShapeLayer()
         shapeLayerPoleFigure.name = "point"
         shapeLayerPoleFigure.path = poleFigure.cgPath
@@ -308,7 +304,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
                                                                          z: 1))
                     
                     boxNode.simdLocalRotate(by: rotateZQuaternion)
-                    
+
                     preRZAng = rZAng
                 }
                 print("rotateZ")
