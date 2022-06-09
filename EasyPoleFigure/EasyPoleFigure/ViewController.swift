@@ -27,9 +27,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     
     var x_0: CGFloat = 0
     var y_0: CGFloat = 0
-    var preRXAng: Float = 0.0
-    var preRYAng: Float = 0.0
-    var preRZAng: Float = 0.0
+    var preRXAng: Double = 0.0
+    var preRYAng: Double = 0.0
+    var preRZAng: Double = 0.0
     
     lazy var sliders = [self.rotateX, self.rotateY, self.rotateZ]
     var boxEulerAngels: SCNVector3 = SCNVector3()
@@ -212,18 +212,22 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     }
     
 // MARK: 회전관련 함수
-    let step: Float = 1
-    
     @IBAction func rotatingAngle(_ sender: UISlider) {
-        let rXAng = round(rotateX.value)
-        let rYAng = round(rotateY.value)
-        let rZAng = round(rotateZ.value)
+        let rXAng = Double(round(rotateX.value))
+        let rYAng = Double(round(rotateY.value))
+        let rZAng = Double(round(rotateZ.value))
         
-        let radian = pi/180.0
+        // MARK: 회전한 축을 기준으로 돌리지 않고 처음 찍힌 점에서 회전을 시킴
+        // 1. 회전시킨 점을 변화된 각으로 회전시킨다.
+        // 2. 점을 원내부만 저장시키지말고 전부다 저장시켜서 조건에 맞는것만 보여주는 식으로
+        //      2.1 원내부만 저장시키면 회전 시켰을때 점의 갯수가 달라질 수 있다.
+        //      2.2 따라서 회전시킨 점들을 다 저장하고 그리는 것만 조건에 맞는 것으로 그린다.
+        
         // 입력값
-        let radianX = Double(rXAng) * radian
-        let radianY = Double(rYAng) * radian
-        let radianZ = Double(rZAng) * radian
+        let radianX = convertDegreeToRadian(rXAng)
+        let radianY = convertDegreeToRadian(rYAng)
+        let radianZ = convertDegreeToRadian(rZAng)
+        print(radianX, radianY, radianZ)
         let XYZ = calcEulerAngle(radianX, radianY, radianZ) // 회전된 값
         let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
     
