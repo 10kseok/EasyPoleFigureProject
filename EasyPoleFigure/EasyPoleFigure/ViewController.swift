@@ -21,6 +21,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     @IBOutlet weak var zAngle: UILabel!
     
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var resetButton: UIButton!
     
     @IBOutlet weak var resultView: UIView!
     @IBOutlet weak var xyzAxisSceneView: SCNView!
@@ -138,7 +139,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     }
     
     fileprivate func removePreviousPoint() {
-        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() }
+        resultView.layer.sublayers?.filter{ $0.name == "point" }.forEach{ $0.removeFromSuperlayer() }
     }
     
     func updateBoxNode() {
@@ -209,6 +210,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
             drawPoleFigure(p_prime[i])
         }
         handleTap()
+    }
+    @IBAction func resetButtonClicked(_ sender: UIButton) {
+        removePreviousPoint()
     }
     
 // MARK: 회전관련 함수
@@ -319,7 +323,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         }
     }
 
-    
+    // 슬라이더에 의해 변한 각도 표기
     func changeAngleValue() {
         self.xAngle.text = "X axis : \(Int(round(rotateX.value)))"
         self.yAngle.text = "Y axis : \(Int(round(rotateY.value)))"

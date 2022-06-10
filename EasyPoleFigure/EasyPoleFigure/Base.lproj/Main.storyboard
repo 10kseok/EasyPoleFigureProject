@@ -3,6 +3,7 @@
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -27,6 +28,19 @@
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="skg-00-yb9"/>
                                         </connections>
                                     </sceneKitView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IIe-Ak-Qxd">
+                                        <rect key="frame" x="369" y="369" width="45" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <imageReference key="image" image="arrow.uturn.left.circle" catalog="system" symbolScale="large"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="27" scale="large"/>
+                                            <color key="baseForegroundColor" systemColor="systemGray2Color"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="resetButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qbY-em-2vH"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -146,6 +160,7 @@
                         <outlet property="millerX" destination="o1y-57-pWk" id="X3d-I4-UdK"/>
                         <outlet property="millerY" destination="1ma-G1-Kwb" id="4Ak-VI-tF9"/>
                         <outlet property="millerZ" destination="NbK-a3-d1d" id="SYt-Sp-JoD"/>
+                        <outlet property="resetButton" destination="IIe-Ak-Qxd" id="F5T-5L-mvR"/>
                         <outlet property="resultView" destination="fa8-FK-JZY" id="l5B-YQ-RL1"/>
                         <outlet property="rotateX" destination="ojq-wa-kea" id="SUx-EL-tJc"/>
                         <outlet property="rotateY" destination="jyz-Cy-sSn" id="Ghj-iz-5cO"/>
@@ -162,11 +177,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.uturn.left.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
