@@ -18,10 +18,15 @@ func dotP(_ symmetryOperator: double3x3,_ milerIdx: SIMD3<Double>) -> SIMD3<Doub
     return SIMD3<Double>(x: x, y: y, z: z)
 }
 
-
+// 여기서부터 잘못된건가?
+//func projection(_ pole: SIMD3<Double>) -> SIMD2<Double> {
+//    let p_prime = SIMD2([pole[0]/(0.5-pole[2]), pole[1]/(0.5-pole[2])])
+//
+//    return p_prime
+//}
 func projection(_ pole: SIMD3<Double>) -> SIMD2<Double> {
     let p_prime = SIMD2([pole[0]/(1-pole[2]), pole[1]/(1-pole[2])])
-    
+
     return p_prime
 }
 
@@ -35,6 +40,7 @@ func calcEulerAngle(_ angleX: Double, _ angleY: Double, _ angleZ: Double) -> dou
     let s2 = sin(angleY)
     let s3 = sin(angleZ)
     
+    // XYZ
     let _0_0 = c2*c3
     let _0_1 = -c2*s3
     let _0_2 = s2
@@ -44,6 +50,17 @@ func calcEulerAngle(_ angleX: Double, _ angleY: Double, _ angleZ: Double) -> dou
     let _2_0 = s1*s3-c1*c3*s2
     let _2_1 = c3*s1+c1*s2*s3
     let _2_2 = c1*c2
+    
+    // ZXZ
+//    let _0_0 = c1*c3-c2*s1*s3
+//    let _0_1 = -c1*s3-c2*c3*s1
+//    let _0_2 = s1*s2
+//    let _1_0 = c3*s1+c1*c2*s3
+//    let _1_1 = c1*c2*c3-s1*s3
+//    let _1_2 = -c1*s2
+//    let _2_0 = s2*s3
+//    let _2_1 = c3*s2
+//    let _2_2 = c2
     
     let raw1: SIMD3<Double> = [_0_0, _0_1, _0_2]
     let raw2: SIMD3<Double> = [_1_0, _1_1, _1_2]

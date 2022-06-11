@@ -96,9 +96,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
     }
     
     func makeAxisVector() -> [SCNNode] {
-        let xAxis = SCNBox(width: 1, height: 0.05, length: 0.05, chamferRadius: 0)
-        let yAxis = SCNBox(width: 0.05, height: 1, length: 0.05, chamferRadius: 0)
-        let zAxis = SCNBox(width: 0.05, height: 0.05, length: 1, chamferRadius: 0)
+        let xAxis = SCNBox(width: 1.5, height: 0.02, length: 0.02, chamferRadius: 0)
+        let yAxis = SCNBox(width: 0.02, height: 1.5, length: 0.02, chamferRadius: 0)
+        let zAxis = SCNBox(width: 0.02, height: 0.02, length: 1.5, chamferRadius: 0)
         
 //        let xAxis = SCNPlane(width: 0.7, height: 0.1)
         let xAxisNode = SCNNode(geometry: xAxis)
@@ -109,9 +109,9 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         yAxisNode.position = SCNVector3(0, 0, 0)
         zAxisNode.position = SCNVector3(0, 0, 0)
         
-        xAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemRed
-        yAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGreen
-        zAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemBlue
+        xAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor(displayP3Red: 255/255, green: 0/255, blue: 0/255, alpha: 0.7)
+        yAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor(displayP3Red: 0/255, green: 255/255, blue: 0/255, alpha: 0.7)
+        zAxisNode.geometry?.firstMaterial?.diffuse.contents = UIColor(displayP3Red: 0/255, green: 0/255, blue: 255/255, alpha: 0.7)
         
         return [xAxisNode, yAxisNode, zAxisNode]
     }
@@ -167,7 +167,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         shapeLayerPoleFigure.path = poleFigure.cgPath
         shapeLayerPoleFigure.fillColor = UIColor.clear.cgColor //change the fill color
         shapeLayerPoleFigure.strokeColor = UIColor.blue.cgColor //you can change the stroke color
-        shapeLayerPoleFigure.lineWidth = 2.0 //you can change the line width
+        shapeLayerPoleFigure.lineWidth = 3.0 //you can change the line width
         
         resultView.layer.addSublayer(shapeLayerPoleFigure)
     }
@@ -191,6 +191,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
             if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
                 p_prime.append(projection)
             }
+//            p_prime.append(projection)
         }
         
         return p_prime
@@ -211,6 +212,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         }
         handleTap()
     }
+    
     @IBAction func resetButtonClicked(_ sender: UIButton) {
         removePreviousPoint()
     }
@@ -227,6 +229,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         //      2.1 원내부만 저장시키면 회전 시켰을때 점의 갯수가 달라질 수 있다.
         //      2.2 따라서 회전시킨 점들을 다 저장하고 그리는 것만 조건에 맞는 것으로 그린다.
         
+        print("각도\(rXAng), \(rYAng), \(rZAng)")
         // 입력값
         let radianX = convertDegreeToRadian(rXAng)
         let radianY = convertDegreeToRadian(rYAng)
@@ -259,6 +262,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
             if sqrt(pow(projection[0], 2) + pow(projection[1], 2)) <= 1 {
                 p_prime.append(projection)
             }
+//            p_prime.append(projection)
         }
         
         // [(X, Y)] 값들을 좌표계에 그림
