@@ -244,7 +244,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         let radianY = convertDegreeToRadian(rYAng)
         let radianZ = convertDegreeToRadian(rZAng)
         print(radianX, radianY, radianZ)
-        let XYZ = calcEulerAngle(radianX, radianY, radianZ) // 회전된 값
+        let XYZ = calcEulerAngle(radianX, -radianY, radianZ) // 회전된 값
         let p = SIMD3<Double>(simd_normalize(simd_double3(x: Double(millerX.text!) ?? 0, y: Double(millerY.text!) ?? 0, z: Double(millerZ.text!) ?? 0))) // 사용자 입력값을 정규화하여 저장(x, y, z)
     
         var pDotH: [SIMD3<Double>] = []
