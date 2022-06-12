@@ -213,8 +213,17 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         handleTap()
     }
     
+// MARK: 초기화버튼
     @IBAction func resetButtonClicked(_ sender: UIButton) {
         removePreviousPoint()
+        viewDidLoad()
+        millerX.text = ""
+        millerY.text = ""
+        millerZ.text = ""
+        rotateX.value = 0
+        rotateY.value = 0
+        rotateZ.value = 0
+        changeAngleValue()
     }
     
 // MARK: 회전관련 함수
