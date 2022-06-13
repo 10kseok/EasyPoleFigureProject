@@ -252,8 +252,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate {
         var p_prime: [SIMD2<Double>] = []
         
         changeAngleValue()
-        
-        resultView.layer.sublayers?.filter{ $0.name == "point"}.forEach{ $0.removeFromSuperlayer() } // 이전에 있던것 지우기
+        removePreviousPoint() // 이전에 있던것 지우기
         
         // p와 H를 내적하여 저장 [x', ]
         for i in cubicData.indices {
